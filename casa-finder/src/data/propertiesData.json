@@ -30,5 +30,165 @@
         "https://img10.naventcdn.com/avisos/resize/111/01/44/26/96/23/1200x1200/1479215311.jpg",
         "https://img10.naventcdn.com/avisos/resize/111/01/44/26/96/23/1200x1200/1479215312.jpg"
       ]
-    }
-  ]  
+    },
+    {
+        "id": 2,
+        "title": "Ferreiros Casa",
+        "price": 35500,
+        "floors": 1,
+        "type": "Casa de condominio",
+        "parking": 1,
+        "rooms": 6,
+        "bathrooms": 8,
+        "description": "Excelente oportunidad de vivienda con acabados de estreno...",
+        "features": [
+          "Cerca al colegio Ingenieros",
+          "Cerca al centro comercial Real Plaza",
+          "Cerca a parques",
+          "Mucha vegetación"
+        ],
+        "included": [
+          "Reja protectora",
+          "Guardias vigilantes 24 horas",
+          "Áreas verdes",
+          "Pet friendly"
+        ],
+        "contact": {
+          "name": "RAUL PEDRO SANTILLAN ILO",
+          "email": "raulpedro@example.com"
+        },
+        "images": [
+          "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696750.jpg?isFirstImage=true",
+          "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696743.jpg",
+          "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696746.jpg"
+        ]
+      },
+      {
+        "id": 1,
+        "title": "Condominio Pradera",
+        "price": 25500,
+        "floors": 1,
+        "type": "Casa de condominio",
+        "parking": 1,
+        "rooms": 6,
+        "bathrooms": 8,
+        "description": "Excelente oportunidad de vivienda con acabados de estreno...",
+        "features": [
+          "Cerca al colegio Ingenieros",
+          "Cerca al centro comercial Real Plaza",
+          "Cerca a parques",
+          "Mucha vegetación"
+        ],
+        "included": [
+          "Reja protectora",
+          "Guardias vigilantes 24 horas",
+          "Áreas verdes",
+          "Pet friendly"
+        ],
+        "contact": {
+          "name": "RAUL PEDRO SANTILLAN ILO",
+          "email": "raulpedro@example.com"
+        },
+        "images": [
+          "https://img10.naventcdn.com/avisos/resize/111/01/44/26/96/23/1200x1200/1479215320.jpg?isFirstImage=true",
+          "https://img10.naventcdn.com/avisos/resize/111/01/44/26/96/23/1200x1200/1479215311.jpg",
+          "https://img10.naventcdn.com/avisos/resize/111/01/44/26/96/23/1200x1200/1479215312.jpg"
+        ]
+      },
+      {
+          "id": 1,
+          "title": "Ferreiros Casa",
+          "price": 35500,
+          "floors": 1,
+          "type": "Casa de condominio",
+          "parking": 1,
+          "rooms": 6,
+          "bathrooms": 8,
+          "description": "Excelente oportunidad de vivienda con acabados de estreno...",
+          "features": [
+            "Cerca al colegio Ingenieros",
+            "Cerca al centro comercial Real Plaza",
+            "Cerca a parques",
+            "Mucha vegetación"
+          ],
+          "included": [
+            "Reja protectora",
+            "Guardias vigilantes 24 horas",
+            "Áreas verdes",
+            "Pet friendly"
+          ],
+          "contact": {
+            "name": "RAUL PEDRO SANTILLAN ILO",
+            "email": "raulpedro@example.com"
+          },
+          "images": [
+            "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696750.jpg?isFirstImage=true",
+            "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696743.jpg",
+            "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696746.jpg"
+          ]
+        },
+        {
+            "id": 2,
+            "title": "Condominio Pradera",
+            "price": 25500,
+            "floors": 1,
+            "type": "Casa de condominio",
+            "parking": 1,
+            "rooms": 6,
+            "bathrooms": 8,
+            "description": "Excelente oportunidad de vivienda con acabados de estreno...",
+            "features": [
+              "Cerca al colegio Ingenieros",
+              "Cerca al centro comercial Real Plaza",
+              "Cerca a parques",
+              "Mucha vegetación"
+            ],
+            "included": [
+              "Reja protectora",
+              "Guardias vigilantes 24 horas",
+              "Áreas verdes",
+              "Pet friendly"
+            ],
+            "contact": {
+              "name": "RAUL PEDRO SANTILLAN ILO",
+              "email": "raulpedro@example.com"
+            },
+            "images": [
+              "https://img10.naventcdn.com/avisos/resize/111/01/44/26/96/23/1200x1200/1479215320.jpg?isFirstImage=true",
+              "https://img10.naventcdn.com/avisos/resize/111/01/44/26/96/23/1200x1200/1479215311.jpg",
+              "https://img10.naventcdn.com/avisos/resize/111/01/44/26/96/23/1200x1200/1479215312.jpg"
+            ]
+          },
+          {
+              "id": 1,
+              "title": "Ferreiros Casa",
+              "price": 35500,
+              "floors": 1,
+              "type": "Casa de condominio",
+              "parking": 1,
+              "rooms": 6,
+              "bathrooms": 8,
+              "description": "Excelente oportunidad de vivienda con acabados de estreno...",
+              "features": [
+                "Cerca al colegio Ingenieros",
+                "Cerca al centro comercial Real Plaza",
+                "Cerca a parques",
+                "Mucha vegetación"
+              ],
+              "included": [
+                "Reja protectora",
+                "Guardias vigilantes 24 horas",
+                "Áreas verdes",
+                "Pet friendly"
+              ],
+              "contact": {
+                "name": "RAUL PEDRO SANTILLAN ILO",
+                "email": "raulpedro@example.com"
+              },
+              "images": [
+                "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696750.jpg?isFirstImage=true",
+                "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696743.jpg",
+                "https://img10.naventcdn.com/avisos/resize/111/01/44/84/30/86/1200x1200/1491696746.jpg"
+              ]
+            }
+  ] 
