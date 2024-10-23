@@ -36,33 +36,23 @@ const filtersData = {
 
 const FiltersSidebar = () => {
   const [selectedFilters, setSelectedFilters] = useState({
-    priceRange: [],
-    propertyTypes: [],
-    floors: [],
-    parking: [],
-    rooms: [],
+    priceRange: "",
+    propertyTypes: "",
+    floors: "",
+    parking: "",
+    rooms: "",
   });
 
-  // Función para manejar el cambio en los checkboxes
-  const handleCheckboxChange = (filterCategory, value) => {
-    setSelectedFilters((prevFilters) => {
-      const isSelected = prevFilters[filterCategory].includes(value);
-      if (isSelected) {
-        return {
-          ...prevFilters,
-          [filterCategory]: prevFilters[filterCategory].filter((item) => item !== value),
-        };
-      } else {
-        return {
-          ...prevFilters,
-          [filterCategory]: [...prevFilters[filterCategory], value],
-        };
-      }
-    });
+  // Función para manejar el cambio en los radio buttons
+  const handleRadioChange = (filterCategory, value) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterCategory]: value,
+    }));
   };
 
   return (
-    <div className="w-full lg:w-64 p-4 bg-gray-50 rounded-lg border">
+    <div className="w-full lg:w-80 p-4 bg-gray-50 rounded-lg border">
       <h3 className="font-semibold text-gray-800 mb-4">Filtros</h3>
 
       {/* Filtro: Rango de precio */}
@@ -72,17 +62,18 @@ const FiltersSidebar = () => {
           {filtersData.priceRange.map((range) => (
             <label key={range.value} className="flex items-center">
               <input
-                type="checkbox"
-                className="mr-2"
+                type="radio"
+                name="priceRange"
+                className="mr-2 rounded-full"
                 value={range.value}
-                checked={selectedFilters.priceRange.includes(range.value)}
-                onChange={() => handleCheckboxChange("priceRange", range.value)}
+                checked={selectedFilters.priceRange === range.value}
+                onChange={() => handleRadioChange("priceRange", range.value)}
               />
               {range.label}
             </label>
           ))}
         </div>
-        <p className="text-sm text-gray-600 mt-2">Hay 265 propiedades disponibles</p>
+   
       </div>
 
       {/* Filtro: Tipo de propiedad */}
@@ -92,11 +83,12 @@ const FiltersSidebar = () => {
           {filtersData.propertyTypes.map((type) => (
             <label key={type.value} className="flex items-center">
               <input
-                type="checkbox"
-                className="mr-2"
+                type="radio"
+                name="propertyTypes"
+                className="mr-2 rounded-full"
                 value={type.value}
-                checked={selectedFilters.propertyTypes.includes(type.value)}
-                onChange={() => handleCheckboxChange("propertyTypes", type.value)}
+                checked={selectedFilters.propertyTypes === type.value}
+                onChange={() => handleRadioChange("propertyTypes", type.value)}
               />
               {type.label}
             </label>
@@ -111,11 +103,12 @@ const FiltersSidebar = () => {
           {filtersData.floors.map((floor) => (
             <label key={floor.value} className="flex items-center">
               <input
-                type="checkbox"
-                className="mr-2"
+                type="radio"
+                name="floors"
+                className="mr-2 rounded-full"
                 value={floor.value}
-                checked={selectedFilters.floors.includes(floor.value)}
-                onChange={() => handleCheckboxChange("floors", floor.value)}
+                checked={selectedFilters.floors === floor.value}
+                onChange={() => handleRadioChange("floors", floor.value)}
               />
               {floor.label}
             </label>
@@ -130,11 +123,12 @@ const FiltersSidebar = () => {
           {filtersData.parking.map((parking) => (
             <label key={parking.value} className="flex items-center">
               <input
-                type="checkbox"
-                className="mr-2"
+                type="radio"
+                name="parking"
+                className="mr-2 rounded-full"
                 value={parking.value}
-                checked={selectedFilters.parking.includes(parking.value)}
-                onChange={() => handleCheckboxChange("parking", parking.value)}
+                checked={selectedFilters.parking === parking.value}
+                onChange={() => handleRadioChange("parking", parking.value)}
               />
               {parking.label}
             </label>
@@ -149,11 +143,12 @@ const FiltersSidebar = () => {
           {filtersData.rooms.map((room) => (
             <label key={room.value} className="flex items-center">
               <input
-                type="checkbox"
-                className="mr-2"
+                type="radio"
+                name="rooms"
+                className="mr-2 rounded-full"
                 value={room.value}
-                checked={selectedFilters.rooms.includes(room.value)}
-                onChange={() => handleCheckboxChange("rooms", room.value)}
+                checked={selectedFilters.rooms === room.value}
+                onChange={() => handleRadioChange("rooms", room.value)}
               />
               {room.label}
             </label>
@@ -161,20 +156,12 @@ const FiltersSidebar = () => {
         </div>
       </div>
 
-      {/* Botón: Limpiar filtros */}
+      {/* Botón de Filtrar */}
       <button
-        className="w-full bg-red-500 text-white py-2 rounded-md mt-4 hover:bg-red-600"
-        onClick={() =>
-          setSelectedFilters({
-            priceRange: [],
-            propertyTypes: [],
-            floors: [],
-            parking: [],
-            rooms: [],
-          })
-        }
+        className="w-full bg-primary text-white py-2 rounded-md mt-4 hover:bg-primary-dark"
+        onClick={() => console.log("Filtrar propiedades")}
       >
-        Limpiar filtros
+        Filtrar
       </button>
     </div>
   );
