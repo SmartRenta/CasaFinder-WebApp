@@ -12,13 +12,13 @@ import {
   ChevronDoubleLeftIcon, 
   ChevronDoubleRightIcon, 
   Bars3Icon, 
-  XMarkIcon 
+  XMarkIcon, 
+  ArrowLeftOnRectangleIcon 
 } from "@heroicons/react/24/outline";
 
-const Sidebar = () => {
+const Sidebar = ({ userRole }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isVisible, setIsVisible] = useState(false); 
-  const [selectedItem, setSelectedItem] = useState("Inicio");
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -30,8 +30,9 @@ const Sidebar = () => {
 
   return (
     <>
+
       <IconButton
-        className="lg:hidden text-white m-2 fixed z-50 top-4 left-4" // Solo visible en pantallas pequeñas, botón de hamburguesa
+        className="lg:hidden text-white m-2 fixed z-50 top-4 left-4"
         onClick={toggleVisibility}
       >
         {isVisible ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
@@ -44,10 +45,12 @@ const Sidebar = () => {
       >
         <Card className="flex flex-col justify-between h-full w-full p-4 bg-primary transition-all duration-300 ease-in-out">
           <div>
+      
             <div className="flex justify-between items-center mb-6">
               {isExpanded && (
                 <Typography variant="h6" className="ml-4 text-white text-xl">
-                  {selectedItem}
+
+                  {userRole === "landlord" ? "Arrendador" : "Arrendatario"}
                 </Typography>
               )}
               <IconButton onClick={toggleSidebar} className="text-white">
@@ -60,32 +63,43 @@ const Sidebar = () => {
             </div>
 
             <List className="flex flex-col gap-2">
-              <NavLink to="/" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all" onClick={() => setSelectedItem("Inicio")}>
+              <NavLink to="/" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all">
                 <HomeIcon className="h-6 w-6" />
                 {isExpanded && <Typography>Inicio</Typography>}
               </NavLink>
 
-              <NavLink to="/propiedades" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all" onClick={() => setSelectedItem("Propiedades")}>
-                <BuildingOfficeIcon className="h-6 w-6" />
-                {isExpanded && <Typography>Propiedades</Typography>}
-              </NavLink>
+              {userRole === "landlord" && (
+                <NavLink to="/propiedades" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all">
+                  <BuildingOfficeIcon className="h-6 w-6" />
+                  {isExpanded && <Typography>Propiedades</Typography>}
+                </NavLink>
+              )}
 
-              <NavLink to="/contratos" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all" onClick={() => setSelectedItem("Contratos")}>
+              <NavLink to="/contratos" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all">
                 <ClipboardIcon className="h-6 w-6" />
                 {isExpanded && <Typography>Contratos</Typography>}
               </NavLink>
 
-              <NavLink to="/transferencias" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all" onClick={() => setSelectedItem("Transferencias")}>
+              <NavLink to="/transferencias" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all">
                 <CurrencyDollarIcon className="h-6 w-6" />
                 {isExpanded && <Typography>Transferencias</Typography>}
               </NavLink>
 
-              <NavLink to="/perfil" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all" onClick={() => setSelectedItem("Perfil")}>
+              <NavLink to="/perfil" className="flex items-center gap-4 py-3 pl-4 hover:bg-gray-700 rounded-lg transition-all">
                 <UserCircleIcon className="h-6 w-6" />
                 {isExpanded && <Typography>Perfil</Typography>}
               </NavLink>
             </List>
           </div>
+
+          <NavLink 
+            to="/logout" 
+            className="flex items-center gap-4 py-3 pl-4 hover:bg-red-600 rounded-lg transition-all"
+            onClick={() => console.log("Cerrar sesión")} 
+          >
+            <ArrowLeftOnRectangleIcon className="h-6 w-6" />
+            {isExpanded && <Typography>Cerrar sesión</Typography>}
+          </NavLink>
         </Card>
       </div>
     </>
