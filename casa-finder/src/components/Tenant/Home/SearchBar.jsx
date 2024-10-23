@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import locationsData from "../../../data/locations.json"; // Archivo JSON con info de Perú
+import locationsData from "../../../data/locations.json"; 
 
 const SearchBar = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -8,16 +8,15 @@ const SearchBar = () => {
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
-  // Actualizar las provincias cuando el departamento cambie
-  useEffect(() => {
+   useEffect(() => {
     if (selectedDepartment) {
       const department = locationsData.departments.find(
         (dept) => dept.name === selectedDepartment
       );
       setProvinces(department?.provinces || []);
-      setSelectedProvince(""); // Resetear la provincia seleccionada
-      setDistricts([]); // Resetear los distritos
-      setSelectedDistrict(""); // Resetear el distrito
+      setSelectedProvince(""); 
+      setDistricts([]); 
+      setSelectedDistrict(""); 
     } else {
       setProvinces([]);
       setDistricts([]);
@@ -44,8 +43,7 @@ const SearchBar = () => {
   return (
     <div className="p-4 bg-white shadow-md rounded-lg">
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-4">
-        {/* Dropdown para Departamentos */}
-        <div className="w-full lg:w-1/4">
+         <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Departamento</label>
           <select
             value={selectedDepartment}
@@ -61,8 +59,7 @@ const SearchBar = () => {
           </select>
         </div>
 
-        {/* Dropdown para Provincias */}
-        <div className="w-full lg:w-1/4">
+         <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Provincia</label>
           <select
             value={selectedProvince}
@@ -79,8 +76,7 @@ const SearchBar = () => {
           </select>
         </div>
 
-        {/* Dropdown para Distritos */}
-        <div className="w-full lg:w-1/4">
+         <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Distrito</label>
           <select
             value={selectedDistrict}
@@ -97,11 +93,10 @@ const SearchBar = () => {
           </select>
         </div>
 
-        {/* Botón de Buscar */}
-        <div className="w-full lg:w-auto lg:ml-4">
+         <div className="w-full lg:w-auto lg:ml-4">
           <button
             onClick={handleSearch}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md mt-6 lg:mt-0 w-full lg:w-auto"
+            className="bg-primary text-white px-4 py-2 rounded-md mt-6 lg:mt-0 w-full lg:w-auto"
           >
             Buscar
           </button>
