@@ -1,8 +1,8 @@
 import React from "react";
-import SearchBar from "../../components/Tenant/SearchBar";
-import SortOptions from "../../components/Tenant/SortOptions";
-import Results from "../../components/Tenant/Results";
-import FiltersSidebar from "../../components/Tenant/FiltersSidebar";
+import SearchBar from "../../components/Tenant/Home/SearchBar";
+import SortOptions from "../../components/Tenant/Home/SortOptions";
+import Results from "../../components/Tenant/Home/Results";
+import FiltersSidebar from "../../components/Tenant/Home/FiltersSidebar";
 
 const Home = () => {
   return (

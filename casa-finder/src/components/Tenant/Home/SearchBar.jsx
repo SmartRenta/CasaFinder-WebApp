@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import locationsData from "../../data/locations.json"; // Archivo JSON con info de Perú
+import locationsData from "../../../data/locations.json"; // Archivo JSON con info de Perú
 
 const SearchBar = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
