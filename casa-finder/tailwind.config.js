@@ -7,7 +7,11 @@ export default {
     './components/**/*.{html,js}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary': '#1F2937',
+      },
+    },
   },
   plugins: [],
 }

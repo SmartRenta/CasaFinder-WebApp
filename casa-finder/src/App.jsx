@@ -1,14 +1,14 @@
+import React from "react";
+
 function App() {
  
   return (
     <>
       <div>
-      <h1 className="text-3xl font-bold underline text-blue-500	">
-      Hello world!
-    </h1>
-      </div>
+      <h1>Aplicación de Dashboard</h1>
+    </div>
     </>
   )
 }
 
-export default App
+export default App;
