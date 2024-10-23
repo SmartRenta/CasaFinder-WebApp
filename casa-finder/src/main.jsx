@@ -6,7 +6,7 @@ import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import { getUserRoleFromCache, setUserRoleInCache } from "./utils/authUtils";
 
-setUserRoleInCache("landlord");
+setUserRoleInCache("tenant");
 const userRole = getUserRoleFromCache();
 
 const router = userRole === "tenant" ? tenantRouter : landlordRouter;
