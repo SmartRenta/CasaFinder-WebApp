@@ -11,9 +11,9 @@ const Dashboard = () => {
     <div className="flex h-screen">
       <Sidebar userRole={userRole} />
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-y-auto">
         <NavBar />
-        <main className="p-6 flex-1 bg-white">
+        <main className="p-6 flex-1 bg-white overflow-y-auto">
           <Outlet />
         </main>
       </div>

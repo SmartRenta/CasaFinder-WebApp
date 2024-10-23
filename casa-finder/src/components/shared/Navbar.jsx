@@ -1,10 +1,10 @@
 import React from "react";
 import { Navbar, IconButton, Avatar, Typography } from "@material-tailwind/react";
-import { BellIcon, UserCircleIcon } from "@heroicons/react/24/solid"; 
+import { BellIcon } from "@heroicons/react/24/solid"; 
 
 const NavBar = () => {
   return (
-    <Navbar className="w-full py-4 px-6 bg-gray-700 text-white flex justify-between items-center">
+    <Navbar className="w-full py-4 px-6 bg-gray-700 text-white flex justify-between items-center border-0">
       <IconButton className="text-white">
          <img
           src="https://cdn-icons-png.flaticon.com/512/6717/6717248.png"
