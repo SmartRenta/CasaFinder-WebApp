@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "date": "15/07/2024 22:19:00",
+        "description": "CasaFinder le da la bienvenida!! Consigue contratos rápidos y seguros.",
+        "read": true
+    },
+    {
+        "id": 2,
+        "date": "05/12/2024 22:19:00",
+        "description": "Revisa la solicitud de propuesta que ha generado Sofía Barrueta para tu propiedad CONDOMINIO PRADERA. Califícala!!",
+        "read": true
+    },
+    {
+        "id": 3,
+        "date": "01/12/2027 22:19:00",
+        "description": "Hoy finaliza tu contrato con Sofía Barrueta por CONDOMINIO PRADERA. Califícala!!",
+        "read": false
+    }
+]
