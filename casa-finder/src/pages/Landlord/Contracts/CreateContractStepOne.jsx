@@ -2,6 +2,9 @@ import React from "react";
 import { TextField, MenuItem, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -15,7 +18,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const CreateContractStepOne = ({ errors, setValue, formValues, nextStep }) => {
+const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerprintSrc, setFingerprintSrc, signatureSrc, setSignatureSrc }) => {
   return (
     <div className="form-container border rounded-lg shadow-lg p-4">
       <div
@@ -161,6 +164,19 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep }) => {
             Trimestral
           </MenuItem>
         </TextField>
+        <TextField
+          style={{ width: "66%" }}
+          label="Telefono"
+          variant="outlined"
+          type="number"
+          value={formValues.phone}
+          onChange={(e) => {
+            debugger;
+            setValue("phone", e?.target?.value || "");
+          }}
+          error={errors?.phone?.message}
+          helperText={errors?.phone?.message}
+        />
       </div>
       <TextField
         style={{ width: "100%", marginBottom: 20 }}
@@ -169,8 +185,10 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep }) => {
         type="number"
         value={formValues.cardnumber}
         onChange={(e) => {
-          setValue("cardnumber", e?.target?.value || "");
+          const value = e.target.value.slice(0, 16);
+          setValue("cardnumber", value);
         }}
+        slotProps={{ htmlInput: { maxLength: 16 } }}
         error={errors?.cardnumber?.message}
         helperText={errors?.cardnumber?.message}
       />
@@ -203,7 +221,8 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep }) => {
           type="number"
           value={formValues.cvv}
           onChange={(e) => {
-            setValue("cvv", e?.target?.value || "");
+            const value = e.target.value.slice(0, 3);
+            setValue("cvv", value);
           }}
           error={errors?.cvv?.message}
           helperText={errors?.cvv?.message}
@@ -259,10 +278,23 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep }) => {
                 type="file"
                 accept="image/*"
                 onChange={(event) => {
+                  const file = event.target.files[0];
                   setValue("signature", event.target.files[0]);
+                  if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                      setSignatureSrc(reader.result); 
+                    };
+                    reader.readAsDataURL(file); 
+                  } else {
+                    alert("Por favor, selecciona un archivo de imagen válido.");
+                  }
                 }}
               />
             </Button>
+          </div>
+          <div style={{justifyContent: "center", display: "flex", width: "100%", marginTop: 20}}>
+            {signatureSrc && <img src={signatureSrc} alt="Preview" style={{ width: "100%", maxWidth: "300px" }} />}
           </div>
         </div>
         <div
@@ -306,32 +338,54 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep }) => {
                 type="file"
                 accept="image/*"
                 onChange={(event) => {
+                  const file = event.target.files[0];
                   setValue("fingerprint", event.target.files[0]);
+                  if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                      setFingerprintSrc(reader.result); 
+                    };
+                    reader.readAsDataURL(file); 
+                  } else {
+                    alert("Por favor, selecciona un archivo de imagen válido.");
+                  }
                 }}
               />
             </Button>
+          </div>
+          <div style={{justifyContent: "center", display: "flex", width: "100%", marginTop: 20}}>
+            {fingerprintSrc && <img src={fingerprintSrc} alt="Preview" style={{ width: "100%", maxWidth: "300px" }} />}
           </div>
         </div>
       </div>
 
       <div style={{ width: "100%", display: "flex", gap: 9 }}>
-        <input type="checkbox" />
-        <div>Aseguro que todos los datos ingresados son verídicos.</div>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={(e) => {
+                  setValue("termsandconditions", e.target.checked);
+                }}
+              />
+            }
+            label="Aseguro que todos los datos ingresados son verídicos."
+          />
+        </FormGroup>
       </div>
 
-<div style={{width: "100%", justifyContent: "end", display: "flex"}}>
-
-      <Button
-        component="label"
-        variant="contained"
-        type="button"
-        color="success"
-        tabIndex={-1}
-        onClick={nextStep}
-      >
-        Acepto
-      </Button>
-</div>
+      <div style={{ width: "100%", justifyContent: "center", display: "flex" }}>
+        <Button
+          component="label"
+          variant="contained"
+          type="button"
+          color="success"
+          tabIndex={-1}
+          onClick={nextStep}
+        >
+          Acepto
+        </Button>
+      </div>
     </div>
   );
 };
