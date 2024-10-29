@@ -4,7 +4,7 @@ import ErrorPage from "./ErrorPage";
 
 import Home from "../pages/Landlord/Home";
 import Properties from "../pages/Landlord/Properties";
-import Contracts from "../pages/Landlord/Contracts";
+import Contracts from "../pages/Landlord/Contracts/Contracts";
 import Transfers from "../pages/Landlord/Transfers";
 import Profile from "../pages/Landlord/Profile";
 
