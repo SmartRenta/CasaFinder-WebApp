@@ -2,6 +2,7 @@ import React from "react";
 import HomePropertyCard from "../../components/landLord/home/HomePropertyCard.jsx";
 import {Property} from "../../entities/Property.js";
 import HomePropertiesCarousel from "../../components/landLord/home/HomePropertiesCarousel.jsx";
+import HomeContractCarousel from "../../components/landLord/home/HomeContractsCarousel.jsx";
 
 const propertiesData = [
     new Property(
@@ -113,10 +114,45 @@ const propertiesData = [
         "San Isidro"
     )
 ]
+const contractsData = [
+    {
+        id: 1,
+        property: propertiesData[0],
+        name: "Juan Perez",
+        date: "01/01/2021",
+        pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
+    },
+    {
+        id: 2,
+        property: propertiesData[1],
+        name: "Maria Lopez",
+        date: "01/01/2021",
+        pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
+    },
+    {
+        id: 3,
+        property: propertiesData[2],
+        name: "Juan Perez",
+        date: "01/01/2021",
+        pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
+    },
+    {
+        id: 4,
+        property: propertiesData[3],
+        name: "Maria Lopez",
+        date: "01/01/2021",
+        pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
+    }
+]
 
 const Home = () => {
     return (
-        <HomePropertiesCarousel properties={propertiesData}/>
+        <>
+            <h2 className="my-2">Mis Propiedades</h2>
+            <HomePropertiesCarousel properties={propertiesData}/>
+            <h2 className="my-2">Mis Contratos</h2>
+            <HomeContractCarousel contracts={contractsData}/>
+        </>
     );
 };
 
