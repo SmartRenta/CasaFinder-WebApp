@@ -7,7 +7,7 @@ import Home from "../pages/Landlord/Home.jsx";
 import Properties from "../pages/Landlord/Properties.jsx";
 import Contracts from "../pages/Landlord/Contracts/Contracts.jsx";
 import Transfers from "../pages/Landlord/Transfers.jsx";
-import Profile from "../pages/Landlord/Profile.jsx";
+import Profile from "../pages/Landlord/ProfileLandlord.jsx";
 
 const landlordRoutes = [
   {

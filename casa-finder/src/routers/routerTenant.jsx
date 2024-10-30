@@ -3,7 +3,7 @@ import Dashboard from "../components/shared/Dashboard.jsx";
 import ErrorPage from "./ErrorPage.jsx";
 
 import Home from "../pages/Tenant/Home.jsx";
-import Profile from "../pages/Tenant/Profile.jsx";
+import Profile from "../pages/Tenant/ProfileTenant.jsx";
 import Contracts from "../pages/Tenant/Contracts.jsx";
 import Transfers from "../pages/Tenant/Transfers.jsx";
 
