@@ -3,6 +3,7 @@ import HomePropertyCard from "../../components/landLord/home/HomePropertyCard.js
 import {Property} from "../../entities/Property.js";
 import HomePropertiesCarousel from "../../components/landLord/home/HomePropertiesCarousel.jsx";
 import HomeContractCarousel from "../../components/landLord/home/HomeContractsCarousel.jsx";
+import HomeTransferCarousel from "../../components/landLord/home/HomeTransferCarousel.jsx";
 
 const propertiesData = [
     new Property(
@@ -145,6 +146,29 @@ const contractsData = [
     }
 ]
 
+const transfersData = [
+    {
+        id: 1,
+        date: "01/01/2021",
+        image: "https://cdn-icons-png.flaticon.com/512/1067/1067281.png"
+    },
+    {
+        id: 2,
+        date: "01/01/2021",
+        image: "https://cdn-icons-png.flaticon.com/512/1067/1067281.png"
+    },
+    {
+        id: 3,
+        date: "01/01/2021",
+        image: "https://cdn-icons-png.flaticon.com/512/1067/1067281.png"
+    },
+    {
+        id: 4,
+        date: "01/01/2021",
+        image: "https://cdn-icons-png.flaticon.com/512/1067/1067281.png"
+    }
+]
+
 const Home = () => {
     return (
         <>
@@ -152,6 +176,8 @@ const Home = () => {
             <HomePropertiesCarousel properties={propertiesData}/>
             <h2 className="my-2">Mis Contratos</h2>
             <HomeContractCarousel contracts={contractsData}/>
+            <h2 className="my-2">Mis Transferencias</h2>
+            <HomeTransferCarousel transfers={transfersData}/>
         </>
     );
 };
