@@ -7,6 +7,7 @@ import Properties from "../pages/Landlord/Properties";
 import Contracts from "../pages/Landlord/Contracts/Contracts";
 import Transfers from "../pages/Landlord/Transfers";
 import Profile from "../pages/Landlord/Profile";
+import NotificationDetails from "../components/shared/Notifications/NotificationDetails";
 
 const landlordRouter = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const landlordRouter = createBrowserRouter([
       { path: "contratos", element: <Contracts /> },
       { path: "transferencias", element: <Transfers /> },
       { path: "perfil", element: <Profile /> },
+      { path: "notifications/:id", element: <NotificationDetails /> },
     ],
   },
 ]);
