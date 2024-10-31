@@ -28,6 +28,9 @@ const Sidebar = ({ userRole }) => {
     setIsVisible(!isVisible);
   };
 
+  // Define the base path according to the user role
+  const basePath = userRole === "landlord" ? "/landlord" : "/tenant";
+
   return (
     <>
       <IconButton
@@ -61,41 +64,58 @@ const Sidebar = ({ userRole }) => {
 
             <List className="flex flex-col gap-2 text-white">
               <NavLink 
-                to="/" 
+                to={`${basePath}/home`} 
                 className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
               >
                 <HomeIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
                 {isExpanded && <Typography className="text-white">Inicio</Typography>}
               </NavLink>
 
+              {/* Routes for Landlord */}
               {userRole === "landlord" && (
-                <NavLink 
-                  to="/propiedades" 
-                  className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
-                >
-                  <BuildingOfficeIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
-                  {isExpanded && <Typography className="text-white">Propiedades</Typography>}
-                </NavLink>
+                <>
+                  <NavLink 
+                    to={`${basePath}/propiedades`} 
+                    className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
+                  >
+                    <BuildingOfficeIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
+                    {isExpanded && <Typography className="text-white">Propiedades</Typography>}
+                  </NavLink>
+
+                  <NavLink 
+                    to={`${basePath}/contratos`} 
+                    className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
+                  >
+                    <ClipboardIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
+                    {isExpanded && <Typography className="text-white">Contratos</Typography>}
+                  </NavLink>
+                </>
               )}
 
-              <NavLink 
-                to="/contratos" 
-                className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
-              >
-                <ClipboardIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
-                {isExpanded && <Typography className="text-white">Contratos</Typography>}
-              </NavLink>
+              {/* Routes for Tenant */}
+              {userRole === "tenant" && (
+                <>
+                  <NavLink 
+                    to={`${basePath}/contratos`} 
+                    className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
+                  >
+                    <ClipboardIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
+                    {isExpanded && <Typography className="text-white">Contratos</Typography>}
+                  </NavLink>
 
-              <NavLink 
-                to="/transferencias" 
-                className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
-              >
-                <CurrencyDollarIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
-                {isExpanded && <Typography className="text-white">Transferencias</Typography>}
-              </NavLink>
+                  <NavLink 
+                    to={`${basePath}/transferencias`} 
+                    className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
+                  >
+                    <CurrencyDollarIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
+                    {isExpanded && <Typography className="text-white">Transferencias</Typography>}
+                  </NavLink>
+                </>
+              )}
 
+              {/* Shared Route for Profile */}
               <NavLink 
-                to="/perfil" 
+                to={`${basePath}/perfil`} 
                 className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-gray-700 rounded-lg transition-all`}
               >
                 <UserCircleIcon className={`h-6 w-6 ${!isExpanded && "h-8 w-8"}`} />
@@ -105,7 +125,7 @@ const Sidebar = ({ userRole }) => {
           </div>
 
           <NavLink 
-            to="/logout" 
+            to="/" 
             className={`flex items-center gap-4 py-3 ${isExpanded ? "pl-4" : "justify-center"} hover:bg-red-600 rounded-lg transition-all`}
             onClick={() => console.log("Cerrar sesión")} 
           >

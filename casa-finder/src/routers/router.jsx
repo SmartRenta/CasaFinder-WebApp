@@ -1,4 +1,3 @@
-// router.jsx
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Auth/login";
 import Register from "../pages/Auth/Register";
@@ -6,7 +5,6 @@ import ErrorPage from "./ErrorPage";
 import landlordRoutes from "./routerLandlord";
 import tenantRoutes from "./routerTenant";
 
-// Router Principal que une todo
 const appRouter = createBrowserRouter([
   {
     path: "/",

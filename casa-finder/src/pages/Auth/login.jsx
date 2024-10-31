@@ -15,10 +15,10 @@ const Login = () => {
     // Lógica de autenticación simple
     if (email === "tenant@example.com" && password === "password") {
       setUserRoleInCache("tenant");
-      navigate("/tenant/perfil"); // Redirige al perfil del tenant
+      navigate("/tenant/home"); // Redirige al perfil del tenant
     } else if (email === "landlord@example.com" && password === "password") {
       setUserRoleInCache("landlord");
-      navigate("/landlord/perfil"); // Redirige al perfil del landlord
+      navigate("/landlord/home"); // Redirige al perfil del landlord
     } else {
       setError(true);
     }

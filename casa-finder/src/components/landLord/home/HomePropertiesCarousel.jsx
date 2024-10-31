@@ -1,27 +1,64 @@
-import HomePropertyCard from "./HomePropertyCard.jsx";
-import React from "react";
-import {FaArrowRight, FaPlusCircle} from "react-icons/fa";
+import React, { useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import PropertyCard from "../../shared/Properties/PropertyCard.jsx";
 
-const HomePropertiesCarousel = ({properties}) => {
+const HomePropertiesCarousel = ({ properties }) => {
+    const [scrollIndex, setScrollIndex] = useState(0);
+    const itemsPerView = 3; // Número de propiedades visibles a la vez
+
+    const totalItems = properties.length;
+    const maxScrollIndex = totalItems - itemsPerView;
+
+    const nextProperties = () => {
+        if (scrollIndex < maxScrollIndex) {
+            setScrollIndex(scrollIndex + 1);
+        }
+    };
+
+    const prevProperties = () => {
+        if (scrollIndex > 0) {
+            setScrollIndex(scrollIndex - 1);
+        }
+    };
+
     return (
-        <div className="flex space-x-6 overflow-x-auto pb-4">
-            <div className="flex space-x-6 overflow-x-auto pb-4 w-full">
-                {properties.map((property) => (
-                    <div key={property.id} className="shrink-0 w-80">
-                        <HomePropertyCard property={property}/>
-                    </div>
-                ))}
+        <div className="flex items-center justify-between w-full px-4 space-x-4">
+            {/* Botón Anterior: Deshabilitado si estamos en el inicio */}
+            <button 
+                onClick={prevProperties} 
+                disabled={scrollIndex === 0}
+                className={`p-2 rounded-full transition-colors ${scrollIndex === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-primary text-white hover:bg-primary-dark'}`}
+            >
+                <FaArrowLeft className="w-6 h-6" />
+            </button>
+
+            {/* Contenedor de propiedades que ocupa todo el ancho */}
+            <div className="flex overflow-hidden w-full">
+                <div 
+                    className="flex transition-transform duration-300"
+                    style={{ transform: `translateX(-${scrollIndex * (100 / itemsPerView)}%)` }}
+                >
+                    {properties.map((property) => (
+                        <div key={property.id} className="flex-shrink-0 w-1/3 p-4"> {/* Cada propiedad ocupa un tercio del ancho */}
+                            <PropertyCard 
+                                property={property} 
+                                onRentClick={() => console.log(`Viewing property ${property.id}`)} 
+                            />
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div className="shrink-0 w-24 flex flex-col justify-center items-center space-y-4 ml-auto">
-                <button className="bg-sky-200 text-black py-2 px-4 rounded-full flex items-center justify-center">
-                    <FaArrowRight className="text-white w-10 h-10"/>
-                </button>
-                <button className="bg-white text-black py-0 px-0 rounded-full flex items-center justify-center">
-                    <FaPlusCircle className="text-green-500 w-14 h-14"/>
-                </button>
-            </div>
+
+            {/* Botón Siguiente: Deshabilitado un paso antes del final */}
+            <button 
+                onClick={nextProperties} 
+                disabled={scrollIndex >= maxScrollIndex - 1}
+                className={`p-2 rounded-full transition-colors ${scrollIndex >= maxScrollIndex - 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-primary text-white hover:bg-primary-dark'}`}
+            >
+                <FaArrowRight className="w-6 h-6" />
+            </button>
         </div>
     );
-}
+};
 
 export default HomePropertiesCarousel;
