@@ -2,10 +2,11 @@ import Dashboard from "../components/shared/Dashboard.jsx";
 import ErrorPage from "./ErrorPage.jsx";
 import Profile from "../pages/Tenant/ProfileTenant.jsx";
 import Home from "../pages/Tenant/Home";
-import Contracts from "../pages/Tenant/Contracts";
+import Contracts from "../pages/Tenant/Contracts/Contracts.jsx";
 import Transfers from "../pages/Tenant/Transfers";
 import PropertyDetails from "../components/Tenant/Home/PropertyDetails";
 import NotificationDetails from "../components/shared/Notifications/NotificationDetails";
+import Contract from "../pages/Contract.jsx";
 
 const tenantRoutes = [
   {
@@ -19,6 +20,7 @@ const tenantRoutes = [
       { path: "perfil", element: <Profile /> },
       { path: "property/:id", element: <PropertyDetails /> },
       { path: "notifications/:id", element: <NotificationDetails /> },
+      { path: "contratos/:id", element: <Contract /> },
     ],
   },
 ];

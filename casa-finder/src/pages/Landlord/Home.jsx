@@ -5,10 +5,11 @@ import HomePropertiesCarousel from "../../components/landLord/home/HomePropertie
 import HomeContractCarousel from "../../components/landLord/home/HomeContractsCarousel.jsx";
 import HomeTransferCarousel from "../../components/landLord/home/HomeTransferCarousel.jsx";
 import propertiesJson from "../../data/propertiesData.json"; // Importamos el JSON
+import contractsJson from "../../data/contracts.json"; 
 
 const Home = () => {
     const [propertiesData, setPropertiesData] = useState([]);
-    const [contractsData, setContractsData] = useState([]);
+    //const [contractsData, setContractsData] = useState([]);
 
     useEffect(() => {
         // Convertimos los datos del JSON en instancias de Property
@@ -35,7 +36,7 @@ const Home = () => {
         setPropertiesData(loadedProperties);
 
         // Creamos los datos de contratos usando las propiedades cargadas
-        const loadedContracts = [
+        /*const loadedContracts = [
             {
                 id: 1,
                 property: loadedProperties[0],
@@ -65,7 +66,7 @@ const Home = () => {
                 pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
             }
         ];
-        setContractsData(loadedContracts);
+        setContractsData(loadedContracts);*/
     }, []);
 
     const transfersData = [
@@ -92,14 +93,14 @@ const Home = () => {
     ];
 
     return (
-        <>
+        <div>
             <h2 className="my-2">Mis Propiedades</h2>
             <HomePropertiesCarousel properties={propertiesData} />
             <h2 className="my-2">Mis Contratos</h2>
-            <HomeContractCarousel contracts={contractsData} />
+            <HomeContractCarousel contracts={contractsJson} />
             <h2 className="my-2">Mis Transferencias</h2>
             <HomeTransferCarousel transfers={transfersData} />
-        </>
+        </div>
     );
 };
 

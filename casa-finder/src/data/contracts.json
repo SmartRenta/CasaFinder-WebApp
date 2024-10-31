@@ -1,0 +1,115 @@
+[
+    
+    {
+        "id": 10,
+        "name": "Sofía Barrueta",
+        "date": "05/12/2024",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Condominio Pradera"
+        },
+        "estado": 1
+    },
+    {
+        "id": 1,
+        "name": "Pedro Castillo",
+        "date": "30/10/2024",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Condominio Pradera"
+        },
+        "estado": 1
+    },
+    {
+        "id": 2,
+        "name": "Keiko Fujimori",
+        "date": "28/10/2024",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Condominio Pradera"
+        },
+        "estado": 1
+    },
+    {
+        "id": 3,
+        "name": "Pedro Pablo Kuczynski",
+        "date": "01/09/2024",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Ferreiros Casa"
+        },
+        "estado": 1
+    },
+    {
+        "id": 4,
+        "name": "Keiko Fujimori",
+        "date": "01/07/2024",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Ferreiros Casa"
+        },
+        "estado": 1
+    },
+    {
+        "id": 5,
+        "name": "Maria Lopez",
+        "date": "06/06/2023",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Ferreiros Casa"
+        },
+        "estado": 2
+    },
+    {
+        "id": 6,
+        "name": "Juan Perez",
+        "date": "05/05/2023",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Condominio Pradera"
+        },
+        "estado": 2
+    },
+    {
+        "id": 7,
+        "name": "Abelarda Abanto",
+        "date": "03/03/2022",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Condominio Pradera"
+        },
+        "estado": 3
+    },
+    {
+        "id": 8,
+        "name": "Bianca Barbados",
+        "date": "02/02/2021",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Ferreiros Casa"
+        },
+        "estado": 3
+    },
+    {
+        "id": 9,
+        "name": "Bianca Barbados",
+        "date": "01/01/2021",
+        "pdfImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png",
+        "property":{
+            "title": "Condominio Pradera"
+        },
+        "estado": 3,
+        "nombres": "Sofia Lucia Barrueta Lopez",
+        "tipo_doc": "DNI",
+        "nro_doc": "12345678",
+        "pais": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Peru.svg",
+        "direccion": "Av La paz 456, Lima, Perú",
+        "fecha_inicio": "01/12/2024",
+        "fecha_fin": "01/12/2027",
+        "frecuencia": "Bimestral",
+        "tc_nro": "1111 222222 33890",
+        "digital_signature": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSexkecEdHnTDzq7XkxIenvQhiVOHDI97UGkA&s",
+        "digital_finger": "https://w7.pngwing.com/pngs/951/968/png-transparent-fingerprint-creative-fingerprint-drawing-fingerprint-black-fingerprint-thumbnail.png"
+    }
+
+]

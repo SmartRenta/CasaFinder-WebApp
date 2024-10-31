@@ -3,9 +3,21 @@ import { List, Typography, Card, IconButton } from "@material-tailwind/react";
 import ContractDownload from "../components/shared/Contracts/ContractDownload";
 import ContractContent from "../components/shared/Contracts/ContractContent";
 import {FaRegAngry, FaRegStar} from "react-icons/fa";
+import contractsJson from "../data/contracts.json"; 
+import { getUserRoleFromCache, setUserRoleInCache } from "../utils/authUtils";
+import { useParams, useNavigate } from "react-router-dom"; 
 
-const Contract = ({ userRole }) => {
+const Contract = () => {
     
+    const { id } = useParams(); 
+    const userRole = getUserRoleFromCache();
+    const contract = contractsJson.find(c => c.id == id)
+    console.log("contract_id:"+id);
+    console.table(contract);
+    if (!contract) {
+        return <div>No se encontró información relacionada.</div>;
+      }
+
     const handleClick = () => {
         console.log("click");
     }
@@ -13,7 +25,7 @@ const Contract = ({ userRole }) => {
     return (
     <div>
         <Typography variant="h2" className="ml-4 my-4 text-black text-xl">
-            CONTRATO
+            CONTRATO {contract.estado === 1 ? "PENDIENTE" : (contract.estado === 2 ? "ACTIVO":(contract.estado === 3 ? "INACTIVO": ""))}
         </Typography>
 
         <div>
@@ -45,15 +57,13 @@ const Contract = ({ userRole }) => {
                         <FaRegAngry className="cursor-pointer text-3xl" onClick={handleClick}/>
                     </div>
                     <div className="w-5/6">
-                        SOFIA LUCIA BARRUETA LOPEZ ⭐ 5
+                        {contract.name} ⭐ 5
                     </div>
             </div>
             }
-            <ContractContent/>
+            <ContractContent contract={contract}/>
             
-            {userRole === "tenant" ?
-            ""
-            : 
+            {userRole === "landlord" && contract.estado === 1 ?
             <div className="mt-6 flex justify-around">
                 <button className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark">
                 Aceptar
@@ -65,6 +75,7 @@ const Contract = ({ userRole }) => {
                 Rechazar
                 </button>
             </div>
+            : ""
             }
             
         </div>

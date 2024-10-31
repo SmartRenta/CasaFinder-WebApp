@@ -7,8 +7,7 @@ const HomeContractCarousel = ({contracts}) => {
             <div className="flex space-x-6 overflow-x-auto pb-4 w-full">
                 {contracts.map((contract) => (
                     <div key={contract.id} className="shrink-0 w-80">
-                        <HomeContractCard property={contract.property} name={contract.name} date={contract.date}
-                                          pdfImage={contract.pdfImage}/>
+                        <HomeContractCard contract={contract}/>
                     </div>
                 ))}
             </div>
