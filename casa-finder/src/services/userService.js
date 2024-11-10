@@ -4,7 +4,7 @@ import {getTokenFromCache} from "../utils/authUtils.js";
 export const getUserData = async () => {
     try {
         const token = getTokenFromCache();
-        const response = await axiosInstance.get('/api/v1/users', {
+        const response = await axiosInstance.get('/api/v1/users/', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
