@@ -1,11 +1,19 @@
 export const getUserRoleFromCache = () => {
     return localStorage.getItem("userRole") || "tenant";
-  };
+};
 
 export const setUserRoleInCache = (role) => {
-    if (role === "tenant" || role === "landlord") {
-      localStorage.setItem("userRole", role);
+    if (role === "TENANT" || role === "LANDLORD") {
+        localStorage.setItem("userRole", role);
     } else {
-      console.warn("Rol inválido, debe ser 'tenant' o 'landlord'");
+        console.warn("Rol inválido, debe ser 'TENANT' o 'LANDLORD'");
     }
-  };
+};
+
+export const setTokenInCache = (token) => {
+    localStorage.setItem("token", token);
+}
+
+export const getTokenFromCache = () => {
+    return localStorage.getItem("token");
+}

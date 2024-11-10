@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10d1d03b-10d2-42e3-aa13-f9a9a8f7c4ca" name="Changes" comment="code: create properties section">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="10d1d03b-10d2-42e3-aa13-f9a9a8f7c4ca" name="Changes" comment="code: add login and register">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casa-finder/src/entities/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/entities/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casa-finder/src/pages/Tenant/ProfileTenant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/pages/Tenant/ProfileTenant.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casa-finder/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/services/userService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -30,7 +39,7 @@
     "Node.js.App.jsx.executor": "Run",
     "Node.js.main.jsx.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/cristopherrondonananos/Documents/Arquitectura de Software Emergentes/WebApp/CasaFinder-WebApp",
     "node.js.detected.package.eslint": "true",
@@ -39,15 +48,15 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -61,6 +70,7 @@
       <updated>1729721250461</updated>
       <workItem from="1729721251941" duration="12289000" />
       <workItem from="1729733565711" duration="4043000" />
+      <workItem from="1731196831311" duration="7521000" />
     </task>
     <task id="LOCAL-00001" summary="code: create properties section">
       <option name="closed" value="true" />
@@ -70,7 +80,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729740167154</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="code: add login and register">
+      <option name="closed" value="true" />
+      <created>1731202071689</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731202071689</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -78,6 +96,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="code: create properties section" />
-    <option name="LAST_COMMIT_MESSAGE" value="code: create properties section" />
+    <MESSAGE value="code: add login and register" />
+    <option name="LAST_COMMIT_MESSAGE" value="code: add login and register" />
   </component>
 </project>
