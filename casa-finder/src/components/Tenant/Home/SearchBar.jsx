@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import locationsData from "../../../data/locations.json"; 
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
-   useEffect(() => {
+  useEffect(() => {
     if (selectedDepartment) {
       const department = locationsData.departments.find(
         (dept) => dept.name === selectedDepartment
@@ -33,17 +33,19 @@ const SearchBar = () => {
     }
   }, [selectedProvince]);
 
+  // Función para manejar la búsqueda y pasar los filtros al componente de resultados
   const handleSearch = () => {
-    // Lógica para manejar la búsqueda
-    console.log("Departamento:", selectedDepartment);
-    console.log("Provincia:", selectedProvince);
-    console.log("Distrito:", selectedDistrict);
+    onSearch({
+      department: selectedDepartment,
+      province: selectedProvince,
+      district: selectedDistrict,
+    });
   };
 
   return (
     <div className="p-4 bg-white shadow-md rounded-lg">
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-4">
-         <div className="w-full lg:w-1/4">
+        <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Departamento</label>
           <select
             value={selectedDepartment}
@@ -59,7 +61,7 @@ const SearchBar = () => {
           </select>
         </div>
 
-         <div className="w-full lg:w-1/4">
+        <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Provincia</label>
           <select
             value={selectedProvince}
@@ -76,7 +78,7 @@ const SearchBar = () => {
           </select>
         </div>
 
-         <div className="w-full lg:w-1/4">
+        <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Distrito</label>
           <select
             value={selectedDistrict}
@@ -93,7 +95,7 @@ const SearchBar = () => {
           </select>
         </div>
 
-         <div className="w-full lg:w-auto lg:ml-4">
+        <div className="w-full lg:w-auto lg:ml-4">
           <button
             onClick={handleSearch}
             className="bg-primary text-white px-4 py-2 rounded-md mt-6 lg:mt-0 w-full lg:w-auto"

@@ -18,6 +18,8 @@ const Home = () => {
                 propertyData.id,
                 propertyData.title,
                 propertyData.price,
+                propertyData.currency,       // Agregado campo currency
+                propertyData.timePeriod,     // Agregado campo timePeriod
                 propertyData.floors,
                 propertyData.type,
                 propertyData.parking,
@@ -25,48 +27,17 @@ const Home = () => {
                 propertyData.bathrooms,
                 propertyData.description,
                 propertyData.features,
-                propertyData.included,
+                propertyData.includes,       // Asegúrate de que el JSON tenga `includes`
                 propertyData.images,
                 propertyData.contact,
                 propertyData.region,
                 propertyData.province,
-                propertyData.district
+                propertyData.district,
+                propertyData.address         // Agregado campo address
             )
         );
         setPropertiesData(loadedProperties);
 
-        // Creamos los datos de contratos usando las propiedades cargadas
-        /*const loadedContracts = [
-            {
-                id: 1,
-                property: loadedProperties[0],
-                name: "Juan Perez",
-                date: "01/01/2021",
-                pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
-            },
-            {
-                id: 2,
-                property: loadedProperties[1],
-                name: "Maria Lopez",
-                date: "01/01/2021",
-                pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
-            },
-            {
-                id: 3,
-                property: loadedProperties[2],
-                name: "Juan Perez",
-                date: "01/01/2021",
-                pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
-            },
-            {
-                id: 4,
-                property: loadedProperties[3],
-                name: "Maria Lopez",
-                date: "01/01/2021",
-                pdfImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png"
-            }
-        ];
-        setContractsData(loadedContracts);*/
     }, []);
 
     const transfersData = [

@@ -1,9 +1,13 @@
 import React from "react";
 
 const PropertyCard = ({ property, onRentClick }) => {
+
+  console.log(property)
   const getPlural = (number, singular, plural) => {
     return number === 1 ? singular : plural;
   };
+
+  
 
   return (
     <div className="border rounded-lg p-4 bg-gray-100 flex flex-col justify-between w-full">
