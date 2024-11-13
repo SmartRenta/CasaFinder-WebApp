@@ -1,168 +1,173 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Datos de los filtros en formato JSON
 const filtersData = {
-  priceRange: [
-    { label: "Menor a S/ 10,000.00", value: "range1" },
-    { label: "S/ 10,000.00 a S/ 20,000.00", value: "range2" },
-    { label: "S/ 20,000.00 a S/ 30,000.00", value: "range3" },
-    { label: "S/ 30,000.00 a S/ 40,000.00", value: "range4" },
-    { label: "S/ 40,000.00 a S/ 50,000.00", value: "range5" },
-  ],
   propertyTypes: [
-    { label: "Casa", value: "house" },
-    { label: "Casa de campo", value: "countryHouse" },
-    { label: "Casa de playa", value: "beachHouse" },
-    { label: "Casa en condominio", value: "condo" },
-  ],
-  floors: [
-    { label: "1 piso", value: "1floor" },
-    { label: "2 pisos", value: "2floors" },
-    { label: "3 pisos", value: "3floors" },
-    { label: "4 pisos", value: "4floors" },
-  ],
-  parking: [
-    { label: "1 vehículo", value: "1vehicle" },
-    { label: "2 vehículos", value: "2vehicles" },
-    { label: "3 vehículos", value: "3vehicles" },
-    { label: "4 vehículos", value: "4vehicles" },
-  ],
-  rooms: [
-    { label: "4 habitaciones", value: "4rooms" },
-    { label: "6 habitaciones", value: "6rooms" },
-    { label: "8 habitaciones", value: "8rooms" },
+    { label: "Casa", value: "Casa" },
+    { label: "Casa de Campo", value: "Casa de Campo" },
+    { label: "Casa de Playa", value: "Casa de Playa" },
+    { label: "Casa en Condominio", value: "Casa en Condominio" },
   ],
 };
 
-const FiltersSidebar = () => {
-  const [selectedFilters, setSelectedFilters] = useState({
-    priceRange: "",
-    propertyTypes: "",
-    floors: "",
-    parking: "",
-    rooms: "",
-  });
+const FiltersSidebar = ({ filters, setFilters }) => {
+  const [selectedFilters, setSelectedFilters] = useState(filters);
 
-  // Función para manejar el cambio en los radio buttons
-  const handleRadioChange = (filterCategory, value) => {
+  useEffect(() => {
+    setSelectedFilters(filters);
+  }, [filters]);
+
+  // Función para manejar el cambio en los inputs
+  const handleInputChange = (filterCategory, value) => {
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
       [filterCategory]: value,
     }));
   };
 
+  // Función para reiniciar los filtros seleccionados
+  const resetFilters = () => {
+    const resetState = {
+      priceMin: "",
+      priceMax: "",
+      currency: "",
+      propertyType: "",
+      floors: "",
+      parking: "",
+      rooms: "",
+      sortOrder: "",
+    };
+    setSelectedFilters(resetState);
+    setFilters(resetState);  // Actualizamos el estado global de filtros
+  };
+
+  // Verificación para habilitar el botón de Filtrar solo si todos los campos requeridos están completos
+  const isFormComplete = () => {
+    return Object.values(selectedFilters).every((value) => value !== "" && value !== null);
+  };
+
+  // Actualizar los filtros cuando cambien
+  const updateFilters = () => {
+    setFilters(selectedFilters);
+  };
+
   return (
     <div className="w-full lg:w-80 p-4 bg-gray-50 rounded-lg border">
+      {/* Orden de Filtrado */}
+      <div className="flex justify-between items-center mb-4">
+        <label className="mr-2 text-gray-700 font-medium">Ordenar por</label>
+        <select
+          className="border p-2 rounded-md"
+          value={selectedFilters.sortOrder}
+          onChange={(e) => handleInputChange("sortOrder", e.target.value)}
+        >
+          <option value="price-asc">Precio menor a mayor</option>
+          <option value="price-desc">Precio mayor a menor</option>
+        </select>
+      </div>
+
       <h3 className="font-semibold text-gray-800 mb-4">Filtros</h3>
 
       {/* Filtro: Rango de precio */}
       <div className="mb-4">
         <h4 className="font-medium text-gray-700">Rango de precio</h4>
-        <div className="space-y-2">
-          {filtersData.priceRange.map((range) => (
-            <label key={range.value} className="flex items-center">
-              <input
-                type="radio"
-                name="priceRange"
-                className="mr-2 rounded-full"
-                value={range.value}
-                checked={selectedFilters.priceRange === range.value}
-                onChange={() => handleRadioChange("priceRange", range.value)}
-              />
-              {range.label}
-            </label>
-          ))}
+        <div className="flex space-x-2 mb-2">
+          <select
+            className="w-20 px-3 py-2 border rounded"
+            value={selectedFilters.currency}
+            onChange={(e) => handleInputChange("currency", e.target.value)}
+          >
+            <option value="">Seleccionar moneda</option>
+            <option value="PEN">PEN</option>
+            <option value="USD">USD</option>
+          </select>
+          <input
+            type="number"
+            placeholder="Mínimo"
+            className="w-full px-3 py-2 border rounded"
+            value={selectedFilters.priceMin}
+            onChange={(e) => handleInputChange("priceMin", e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Máximo"
+            className="w-full px-3 py-2 border rounded"
+            value={selectedFilters.priceMax}
+            onChange={(e) => handleInputChange("priceMax", e.target.value)}
+          />
         </div>
-   
       </div>
 
       {/* Filtro: Tipo de propiedad */}
       <div className="mb-4">
         <h4 className="font-medium text-gray-700">Tipo de propiedad</h4>
-        <div className="space-y-2">
+        <select
+          name="propertyType"
+          className="w-full px-3 py-2 border rounded"
+          value={selectedFilters.propertyType}
+          onChange={(e) => handleInputChange("propertyType", e.target.value)}
+        >
+          <option value="">Seleccionar tipo</option>
           {filtersData.propertyTypes.map((type) => (
-            <label key={type.value} className="flex items-center">
-              <input
-                type="radio"
-                name="propertyTypes"
-                className="mr-2 rounded-full"
-                value={type.value}
-                checked={selectedFilters.propertyTypes === type.value}
-                onChange={() => handleRadioChange("propertyTypes", type.value)}
-              />
+            <option key={type.value} value={type.value}>
               {type.label}
-            </label>
+            </option>
           ))}
-        </div>
+        </select>
       </div>
 
       {/* Filtro: Pisos */}
       <div className="mb-4">
         <h4 className="font-medium text-gray-700">Pisos</h4>
-        <div className="space-y-2">
-          {filtersData.floors.map((floor) => (
-            <label key={floor.value} className="flex items-center">
-              <input
-                type="radio"
-                name="floors"
-                className="mr-2 rounded-full"
-                value={floor.value}
-                checked={selectedFilters.floors === floor.value}
-                onChange={() => handleRadioChange("floors", floor.value)}
-              />
-              {floor.label}
-            </label>
-          ))}
-        </div>
+        <input
+          type="number"
+          placeholder="Número de pisos"
+          className="w-full px-3 py-2 border rounded"
+          value={selectedFilters.floors}
+          onChange={(e) => handleInputChange("floors", e.target.value)}
+        />
       </div>
 
       {/* Filtro: Estacionamientos */}
       <div className="mb-4">
         <h4 className="font-medium text-gray-700">Estacionamientos</h4>
-        <div className="space-y-2">
-          {filtersData.parking.map((parking) => (
-            <label key={parking.value} className="flex items-center">
-              <input
-                type="radio"
-                name="parking"
-                className="mr-2 rounded-full"
-                value={parking.value}
-                checked={selectedFilters.parking === parking.value}
-                onChange={() => handleRadioChange("parking", parking.value)}
-              />
-              {parking.label}
-            </label>
-          ))}
-        </div>
+        <input
+          type="number"
+          placeholder="Número de estacionamientos"
+          className="w-full px-3 py-2 border rounded"
+          value={selectedFilters.parking}
+          onChange={(e) => handleInputChange("parking", e.target.value)}
+        />
       </div>
 
       {/* Filtro: Habitaciones */}
       <div className="mb-4">
         <h4 className="font-medium text-gray-700">Habitaciones</h4>
-        <div className="space-y-2">
-          {filtersData.rooms.map((room) => (
-            <label key={room.value} className="flex items-center">
-              <input
-                type="radio"
-                name="rooms"
-                className="mr-2 rounded-full"
-                value={room.value}
-                checked={selectedFilters.rooms === room.value}
-                onChange={() => handleRadioChange("rooms", room.value)}
-              />
-              {room.label}
-            </label>
-          ))}
-        </div>
+        <input
+          type="number"
+          placeholder="Número de habitaciones"
+          className="w-full px-3 py-2 border rounded"
+          value={selectedFilters.rooms}
+          onChange={(e) => handleInputChange("rooms", e.target.value)}
+        />
       </div>
 
-      {/* Botón de Filtrar */}
-      <button
-        className="w-full bg-primary text-white py-2 rounded-md mt-4 hover:bg-primary-dark"
-        onClick={() => console.log("Filtrar propiedades")}
-      >
-        Filtrar
-      </button>
+      {/* Botones de Filtrar y Resetear */}
+      <div className="flex gap-4 mt-4">
+        <button
+          className={`w-full py-2 rounded-md ${isFormComplete() ? "bg-primary text-white hover:bg-primary-dark" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
+          onClick={updateFilters}
+          disabled={!isFormComplete()}
+        >
+          Filtrar
+        </button>
+        <button
+          className="w-full bg-gray-300 text-gray-700 py-2 rounded-md hover:bg-gray-400"
+          onClick={resetFilters}
+        >
+          Resetear
+        </button>
+      </div>
     </div>
   );
 };

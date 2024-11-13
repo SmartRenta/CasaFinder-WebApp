@@ -1,0 +1,27 @@
+[
+    {
+        "id": 6,
+        "type": 3,
+        "date": "01/12/2027 22:19:00",
+        "description": "Hoy finaliza tu contrato con Raul Pedro Santillan Ilo sobre CONDOMINIO PRADERA. Califícalos!!",
+        "read": false,
+        "contract_id": 0
+    },
+    {
+        "id": 5,
+        "type": 2,
+        "date": "10/12/2024 22:19:00",
+        "description": "Su propuesta de contrato para CONDOMINIO PRADERA ha sido aceptado por Raul Pedro Santillan Ilo",
+        "read": true,
+        "contract_id": 10
+    },
+    {
+        "id": 4,
+        "type": 1,
+        "date": "01/11/2024 22:19:00",
+        "description": "CasaFinder le da la bienvenida!! Consigue contratos rápidos y seguros.",
+        "read": true,
+        "contract_id": 0
+    }
+    
+]

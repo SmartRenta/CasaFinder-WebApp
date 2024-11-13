@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import locationsData from "../../../data/locations.json"; 
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
-   useEffect(() => {
+  // Maneja la selección del departamento y carga las provincias correspondientes
+  useEffect(() => {
     if (selectedDepartment) {
-      const department = locationsData.departments.find(
-        (dept) => dept.name === selectedDepartment
+      const department = locationsData.find(
+        (dept) => dept.region === selectedDepartment
       );
-      setProvinces(department?.provinces || []);
+      setProvinces(department?.provincias || []);
       setSelectedProvince(""); 
       setDistricts([]); 
       setSelectedDistrict(""); 
@@ -23,27 +24,32 @@ const SearchBar = () => {
     }
   }, [selectedDepartment]);
 
-  // Actualizar los distritos cuando la provincia cambie
+  // Maneja la selección de la provincia y carga los distritos correspondientes
   useEffect(() => {
     if (selectedProvince) {
-      setDistricts(locationsData.districts[selectedProvince] || []);
+      const province = provinces.find(
+        (prov) => prov.provincia === selectedProvince
+      );
+      setDistricts(province?.distritos || []);
     } else {
       setDistricts([]);
       setSelectedDistrict("");
     }
-  }, [selectedProvince]);
+  }, [selectedProvince, provinces]);
 
+  // Función para manejar la búsqueda y pasar los filtros al componente de resultados
   const handleSearch = () => {
-    // Lógica para manejar la búsqueda
-    console.log("Departamento:", selectedDepartment);
-    console.log("Provincia:", selectedProvince);
-    console.log("Distrito:", selectedDistrict);
+    onSearch({
+      department: selectedDepartment,
+      province: selectedProvince,
+      district: selectedDistrict,
+    });
   };
 
   return (
     <div className="p-4 bg-white shadow-md rounded-lg">
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-4">
-         <div className="w-full lg:w-1/4">
+        <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Departamento</label>
           <select
             value={selectedDepartment}
@@ -51,15 +57,15 @@ const SearchBar = () => {
             className="mt-1 block w-full p-2 border rounded-md"
           >
             <option value="">Selecciona un departamento</option>
-            {locationsData.departments.map((dept) => (
-              <option key={dept.name} value={dept.name}>
-                {dept.name}
+            {locationsData.map((dept) => (
+              <option key={dept.region} value={dept.region}>
+                {dept.region}
               </option>
             ))}
           </select>
         </div>
 
-         <div className="w-full lg:w-1/4">
+        <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Provincia</label>
           <select
             value={selectedProvince}
@@ -69,14 +75,14 @@ const SearchBar = () => {
           >
             <option value="">Selecciona una provincia</option>
             {provinces.map((province) => (
-              <option key={province} value={province}>
-                {province}
+              <option key={province.provincia} value={province.provincia}>
+                {province.provincia}
               </option>
             ))}
           </select>
         </div>
 
-         <div className="w-full lg:w-1/4">
+        <div className="w-full lg:w-1/4">
           <label className="block text-gray-700 font-medium">Distrito</label>
           <select
             value={selectedDistrict}
@@ -93,7 +99,7 @@ const SearchBar = () => {
           </select>
         </div>
 
-         <div className="w-full lg:w-auto lg:ml-4">
+        <div className="w-full lg:w-auto lg:ml-4">
           <button
             onClick={handleSearch}
             className="bg-primary text-white px-4 py-2 rounded-md mt-6 lg:mt-0 w-full lg:w-auto"

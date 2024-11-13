@@ -1,11 +1,12 @@
-import {FaPlus} from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
-const NewPropertyButton = ({onClick}) => {
+const NewPropertyButton = ({ onClick }) => {
     return (
         <button
             onClick={onClick}
-            className="inline-flex items-center rounded-md bg-blue-500 px-6 py-3 text-lg font-medium text-white hover:bg-blue-600 transition-colors">
-            <FaPlus className="mr-2"/>
+            className="bg-primary text-white py-2 rounded-md mt-4 hover:bg-primary-dark inline-flex items-center px-4"
+        >
+            <FaPlus className="mr-2" />
             Nueva Propiedad
         </button>
     );

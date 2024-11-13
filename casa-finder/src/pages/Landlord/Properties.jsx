@@ -1,72 +1,55 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Property} from "../../entities/Property.js";
-import PropertyCard from "../../components/landLord/properties/PropertyCard.jsx";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import PropertyService from "../../services/propertyService";
+import PropertyCard from "../../components/shared/Properties/PropertyCard.jsx";
 import NewPropertyButton from "../../components/landLord/properties/NewPropertyButton.jsx";
 import NewPropertyForm from "../../components/landLord/properties/NewPropertyForm.jsx";
-
-const propertiesData = [
-    new Property(
-        1,
-        "Casa en Miraflores",
-        500000,
-        2,
-        "Casa",
-        1,
-        3,
-        2,
-        "Hermosa casa en Miraflores con vista al mar.",
-        ["Jardín", "Piscina"],
-        ["Muebles", "Electrodomésticos"],
-        ["https://theressa.net/images/projects/5cc80075c4e92-_MG_2458a.jpg", "https://img10.naventcdn.com/avisos/111/01/44/45/36/48/360x266/1483562791.jpg?isFirstImage=true"],
-        {name: "Juan Perez", email: "juan.perez@example.com"},
-        "Lima",
-        "Lima",
-        "Miraflores"
-    ),
-    new Property(
-        2,
-        "Departamento en San Isidro",
-        300000,
-        1,
-        "Departamento",
-        2,
-        2,
-        2,
-        "Moderno departamento en San Isidro.",
-        ["Gimnasio", "Sauna"],
-        ["Cocina equipada", "Aire acondicionado"],
-        ["https://cdn.delujo.pe/data/img/proyecto/original/prm_3101.webp", "https://cdn.delujo.pe/data/img/proyecto/original/prm_3092.webp"],
-        {name: "Maria Lopez", email: "maria.lopez@example.com"},
-        "Lima",
-        "Lima",
-        "San Isidro"
-    )
-]
+import { getUserIdFromCache } from "../../utils/authUtils.js";
 
 const Properties = () => {
+    const [properties, setProperties] = useState([]);
     const [visibleNewPropertyDialog, setVisibleNewPropertyDialog] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchProperties = async () => {
+            const landlordId = getUserIdFromCache(); // Obtener landlordId del caché
+            if (landlordId) {
+                const loadedProperties = await PropertyService.getPropertiesByLandlord(landlordId);
+                setProperties(loadedProperties);
+            }
+        };
+
+        fetchProperties();
+    }, []);
 
     const handleNewPropertyClick = () => {
         setVisibleNewPropertyDialog(true);
-    }
+    };
 
     const handleCloseNewPropertyDialog = () => {
         setVisibleNewPropertyDialog(false);
-    }
+    };
+
+    const handleViewProperty = (propertyId) => {
+        navigate(`/landlord/property/${propertyId}`);
+    };
 
     return (
-        <div>
-            <div className="row">
-                {propertiesData.map((property) => (
-                    <div className="col-4">
-                        <PropertyCard property={property}/>
-                    </div>
+        <div className="container mx-auto p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {properties.map((property) => (
+                    <PropertyCard 
+                        key={property.id} 
+                        property={property} 
+                        onRentClick={() => handleViewProperty(property.id)}
+                    />
                 ))}
             </div>
             <div className="flex justify-center mt-4">
-                <NewPropertyButton onClick={handleNewPropertyClick}></NewPropertyButton>
+                <NewPropertyButton onClick={handleNewPropertyClick} />
             </div>
-            {visibleNewPropertyDialog && <NewPropertyForm onClose={handleCloseNewPropertyDialog}/>}
+            {visibleNewPropertyDialog && <NewPropertyForm onClose={handleCloseNewPropertyDialog} />}
         </div>
     );
 };

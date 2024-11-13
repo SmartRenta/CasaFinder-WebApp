@@ -1,0 +1,130 @@
+.profile-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.profile-info h2 {
+    margin: 0;
+    font-size: 1.6em;
+}
+
+.profile-info p {
+    color: #555;
+}
+
+.profile-rating {
+    display: flex;
+    align-items: center;
+}
+
+.rating-star {
+    color: #FFD700;
+    font-size: 2em;
+    margin-right: 5px;
+}
+
+.profile-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.profile-section,
+.profile-contact,
+.profile-properties,
+.profile-reviews {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-contact ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.profile-contact ul li {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.property-card {
+    display: flex;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.property-image {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.property-info h4 {
+    margin: 0 0 5px 0;
+}
+
+.property-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.property-footer button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.review-card {
+    display: flex;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reviewer-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #ddd;
+    margin-right: 15px;
+}

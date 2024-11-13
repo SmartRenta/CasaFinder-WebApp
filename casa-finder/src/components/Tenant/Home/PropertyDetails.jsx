@@ -1,16 +1,25 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom"; 
-import propertyData from "../../../data/propertiesData.json";
-import Carousel from "react-multi-carousel"; 
-import "react-multi-carousel/lib/styles.css"; 
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import PropertyService from "../../../services/propertyService"; 
 
 const PropertyDetails = () => {
-  const { id } = useParams(); // Obtener el ID de la propiedad desde la URL
-  const property = propertyData.find((prop) => prop.id === parseInt(id)); 
-  const navigate = useNavigate(); // Para navegar de vuelta
+  const { id } = useParams();
+  const [property, setProperty] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProperty = async () => {
+      const propertyData = await PropertyService.getPropertyById(id);
+      setProperty(propertyData);
+    };
+
+    fetchProperty();
+  }, [id]);
 
   if (!property) {
-    return <div>No se encontró la propiedad.</div>;
+    return <div>Cargando propiedad...</div>;
   }
 
   const handleBack = () => {
@@ -24,7 +33,10 @@ const PropertyDetails = () => {
           <h2 className="text-3xl font-bold mb-4">{property.title}</h2>
           
           <div className="text-lg mb-6 space-y-2">
-            <p className="text-2xl font-semibold text-primary">S/ {property.price.toLocaleString()}</p>
+            <p className="text-2xl font-semibold text-primary">
+              {property.currency} {property.price}
+            </p>
+            <p className="text-gray-700">Periodo: {property.timePeriod}</p>
             <p className="text-gray-700">{property.floors} {property.floors === 1 ? 'Piso' : 'Pisos'}</p>
             <p className="text-gray-700">Tipo: {property.type}</p>
             <p className="text-gray-700">
@@ -36,6 +48,7 @@ const PropertyDetails = () => {
             <p className="text-gray-700">
               Baños: {property.bathrooms} {property.bathrooms === 1 ? 'Baño' : 'Baños'}
             </p>
+            <p className="text-gray-700 mt-2">Dirección: {property.address}</p>
           </div>
 
           <div className="mt-4">
@@ -86,7 +99,7 @@ const PropertyDetails = () => {
             <div className="mt-6">
               <h4 className="font-semibold mb-2">¿Qué incluye el precio?</h4>
               <ul className="list-none space-y-1">
-                {property.included.map((item, index) => (
+                {property.includes.map((item, index) => (
                   <li key={index} className="text-gray-600">✅ {item}</li>
                 ))}
               </ul>
@@ -99,14 +112,14 @@ const PropertyDetails = () => {
 
             <div className="mt-6">
               <h4 className="font-semibold mb-2">Contacto</h4>
+              <p className="text-gray-800 font-semibold">{property.landlord.name} {property.landlord.lastName}</p>
               <p>
-                <a href={`mailto:${property.contact.email}`} className="text-primary hover:underline">
-                  {property.contact.name}
+                <a href={`mailto:${property.landlord.email}`} className="text-primary hover:underline">
+                  {property.landlord.email}
                 </a>
               </p>
             </div>
 
-            {/* Separación de los botones con justify-between */}
             <div className="mt-6 flex justify-between">
               <button className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark">
                 Alquilar casa

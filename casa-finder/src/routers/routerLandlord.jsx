@@ -1,26 +1,30 @@
-import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "../components/shared/Dashboard";
-import ErrorPage from "./ErrorPage"; 
-
+import Dashboard from "../components/shared/Dashboard.jsx";
+import ErrorPage from "./ErrorPage.jsx";
+import Profile from "../pages/Landlord/ProfileLandlord.jsx";
 import Home from "../pages/Landlord/Home";
+import Contracts from "../pages/Landlord/Contracts.jsx";
 import Properties from "../pages/Landlord/Properties";
-import Contracts from "../pages/Landlord/Contracts/Contracts";
 import Transfers from "../pages/Landlord/Transfers";
-import Profile from "../pages/Landlord/Profile";
+import NotificationDetails from "../components/shared/Notifications/NotificationDetails";
+import LandlordPropertyDetails from "../components/Tenant/Home/PropertyDetails.jsx"; // Importamos el nuevo componente de detalles de propiedad
+import Contract from "../pages/Contract.jsx";
 
-const landlordRouter = createBrowserRouter([
+const landlordRoutes = [
   {
-    path: "/",
-    element: <Dashboard />, 
-    errorElement: <ErrorPage />, 
+    path: "/landlord",
+    element: <Dashboard />,
+    errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <Home /> },
+      { path: "home", element: <Home /> },
       { path: "propiedades", element: <Properties /> },
       { path: "contratos", element: <Contracts /> },
       { path: "transferencias", element: <Transfers /> },
       { path: "perfil", element: <Profile /> },
+      { path: "property/:id", element: <LandlordPropertyDetails /> }, // Nueva ruta para detalles de propiedad
+      { path: "notifications/:id", element: <NotificationDetails /> },
+      { path: "contratos/:id", element: <Contract /> },
     ],
   },
-]);
+];
 
-export default landlordRouter;
+export default landlordRoutes;
