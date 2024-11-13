@@ -8,7 +8,7 @@ const CreateContractStepTwo = ({
   errors,
   setValue,
   formValues,
-  nextStep,
+  triggerSubmit,
   prevStep, fingerprintSrc, signatureSrc
 }) => {
   return (
@@ -182,6 +182,7 @@ const CreateContractStepTwo = ({
           style={{  marginBottom: 20 }}
           variant="outlined"
           size="small"
+          type="password"
           value={formValues.password}
           onChange={(e) => {
             setValue("password", e?.target?.value || "");
@@ -220,16 +221,16 @@ const CreateContractStepTwo = ({
           color="error"
           tabIndex={-1}
           onClick={prevStep}
-        >
+          >
           Volver
         </Button>
         <Button
           component="label"
           variant="contained"
-          type="button"
+          type="submit"
           color="success"
           tabIndex={-1}
-          onClick={nextStep}
+          onClick={triggerSubmit}
         >
           Acepto
         </Button>

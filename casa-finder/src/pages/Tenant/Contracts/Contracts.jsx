@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { useForm } from "react-hook-form";
 import CreateContractStepOne from "./CreateContractStepOne.jsx";
 import CreateContractStepTwo from "./CreateContractStepTwo.jsx";
 import CreateContractStepThree from "./CreateContractStepThree.jsx";
+import ContractService from "../../../services/contractService.js";
 
 const Contracts = () => {
   const [step, setStep] = useState(1);
   const [signatureSrc, setSignatureSrc] = useState(null);
   const [fingerprintSrc, setFingerprintSrc] = useState(null);
+  const formRef = useRef(); // referencia al formulario
   const {
     register,
     handleSubmit,
@@ -36,6 +38,9 @@ const Contracts = () => {
       enddate: new Date().toISOString().split("T")[0],
     },
   });
+  const triggerSubmit = () => {
+    formRef.current.requestSubmit();
+  };
 
   useEffect(() => {
     register("fullname", {
@@ -62,12 +67,8 @@ const Contracts = () => {
     register("expirationdate", {
       validate: (value) => (value && value.length) || "El campo es requerido",
     });
-    register("password", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("termsandconditions", {
-      validate: (value) => value || "Debe aceptar los terminos y condiciones",
-    });
+    register("password");
+    register("termsandconditions");
     register("termsandconditions2", {
       validate: (value) => value || "Debe aceptar los terminos y condiciones",
     });
@@ -93,10 +94,21 @@ const Contracts = () => {
 
   const formValues = watch();
 
-  const onSubmit = (data) => {
-    console.log("Formulario completo:", data);
-    alert("Formulario enviado correctamente");
-  };
+  const onSubmit = handleSubmit(async (data) => {
+    debugger
+    try {
+        const response = await ContractService.createContract(data);
+        debugger
+        if (response) {
+            console.log("Propiedad creada:", response);
+            onClose(); 
+        } else {
+            console.error("Error al crear el contrato.");
+        }
+    } catch (error) {
+        console.error("Error en la creación de el contrato:", error);
+    }
+  });
   const nextStep = async () => {
     trigger("fullname")
     trigger("doctype")
@@ -114,7 +126,8 @@ const Contracts = () => {
     trigger("startdate")
     trigger("enddate")
     const isStepValid = Object.keys(errors).length === 0;
-    if (isStepValid) {
+    console.log(errors)
+    if (!isStepValid) {
       setStep((prev) => prev + 1);
     }else{
       alert("Los datos no pertenecen al titular");
@@ -125,7 +138,7 @@ const Contracts = () => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit} ref={formRef}>
         {step === 1 && (
           <CreateContractStepOne
             setValue={setValue}
@@ -145,6 +158,7 @@ const Contracts = () => {
             prevStep={prevStep}
             signatureSrc={signatureSrc}
             fingerprintSrc={fingerprintSrc}
+            triggerSubmit={triggerSubmit}
           />
         )}
         {step === 3 && 

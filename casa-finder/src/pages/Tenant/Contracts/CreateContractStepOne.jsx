@@ -122,7 +122,6 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
           type="date"
           value={formValues.enddate}
           onChange={(e) => {
-            debugger;
             setValue("enddate", e?.target?.value || "");
           }}
           error={errors?.enddate?.message}
@@ -171,7 +170,6 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
           type="number"
           value={formValues.phone}
           onChange={(e) => {
-            debugger;
             setValue("phone", e?.target?.value || "");
           }}
           error={errors?.phone?.message}
