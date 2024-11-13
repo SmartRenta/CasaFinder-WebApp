@@ -8,12 +8,13 @@ const SearchBar = ({ onSearch }) => {
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
+  // Maneja la selección del departamento y carga las provincias correspondientes
   useEffect(() => {
     if (selectedDepartment) {
-      const department = locationsData.departments.find(
-        (dept) => dept.name === selectedDepartment
+      const department = locationsData.find(
+        (dept) => dept.region === selectedDepartment
       );
-      setProvinces(department?.provinces || []);
+      setProvinces(department?.provincias || []);
       setSelectedProvince(""); 
       setDistricts([]); 
       setSelectedDistrict(""); 
@@ -23,15 +24,18 @@ const SearchBar = ({ onSearch }) => {
     }
   }, [selectedDepartment]);
 
-  // Actualizar los distritos cuando la provincia cambie
+  // Maneja la selección de la provincia y carga los distritos correspondientes
   useEffect(() => {
     if (selectedProvince) {
-      setDistricts(locationsData.districts[selectedProvince] || []);
+      const province = provinces.find(
+        (prov) => prov.provincia === selectedProvince
+      );
+      setDistricts(province?.distritos || []);
     } else {
       setDistricts([]);
       setSelectedDistrict("");
     }
-  }, [selectedProvince]);
+  }, [selectedProvince, provinces]);
 
   // Función para manejar la búsqueda y pasar los filtros al componente de resultados
   const handleSearch = () => {
@@ -53,9 +57,9 @@ const SearchBar = ({ onSearch }) => {
             className="mt-1 block w-full p-2 border rounded-md"
           >
             <option value="">Selecciona un departamento</option>
-            {locationsData.departments.map((dept) => (
-              <option key={dept.name} value={dept.name}>
-                {dept.name}
+            {locationsData.map((dept) => (
+              <option key={dept.region} value={dept.region}>
+                {dept.region}
               </option>
             ))}
           </select>
@@ -71,8 +75,8 @@ const SearchBar = ({ onSearch }) => {
           >
             <option value="">Selecciona una provincia</option>
             {provinces.map((province) => (
-              <option key={province} value={province}>
-                {province}
+              <option key={province.provincia} value={province.provincia}>
+                {province.provincia}
               </option>
             ))}
           </select>

@@ -1,138 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
+import PropertyService from "../../../services/propertyService";
+import { getUserIdFromCache } from "../../../utils/authUtils";
+import locationsData from "../../../data/locations.json";  
 
 const NewPropertyForm = ({ onClose }) => {
-    const regionsData = [
-        {
-            "region": "Amazonas",
-            "provincias": [
-                {
-                    "provincia": "Chachapoyas",
-                    "distritos": ["Chachapoyas", "Asunción", "Balsas"]
-                },
-                {
-                    "provincia": "Bagua",
-                    "distritos": ["Bagua", "Aramango", "Copallín"]
-                },
-                {
-                    "provincia": "Bongará",
-                    "distritos": ["Jumbilla", "Chisquilla", "Churuja"]
-                },
-                {
-                    "provincia": "Condorcanqui",
-                    "distritos": ["Santa María de Nieva", "El Cenepa", "Río Santiago"]
-                },
-                {
-                    "provincia": "Luya",
-                    "distritos": ["Lamud", "Camporredondo", "Cocabamba"]
-                },
-                {
-                    "provincia": "Rodríguez de Mendoza",
-                    "distritos": ["San Nicolás", "Chirimoto", "Limabamba"]
-                },
-                {
-                    "provincia": "Utcubamba",
-                    "distritos": ["Bagua Grande", "Cajaruro", "Cumba"]
-                }
-            ]
-        },
-        {
-            "region": "Áncash",
-            "provincias": [
-                {
-                    "provincia": "Huaraz",
-                    "distritos": ["Huaraz", "Independencia", "Cochabamba"]
-                },
-                {
-                    "provincia": "Aija",
-                    "distritos": ["Aija", "Coris", "Huacllan"]
-                },
-                {
-                    "provincia": "Antonio Raymondi",
-                    "distritos": ["Llamellin", "Aczo", "Chaccho"]
-                },
-                {
-                    "provincia": "Asunción",
-                    "distritos": ["Chacas", "Acochaca"]
-                },
-                {
-                    "provincia": "Bolognesi",
-                    "distritos": ["Chiquián", "Abelardo Pardo Lezameta", "Antonio Raymondi"]
-                },
-                {
-                    "provincia": "Carhuaz",
-                    "distritos": ["Carhuaz", "Acopampa", "Amashca"]
-                },
-                {
-                    "provincia": "Casma",
-                    "distritos": ["Casma", "Buenavista Alta", "Comandante Noel"]
-                }
-            ]
-        },
-        {
-            "region": "Cusco",
-            "provincias": [
-                {
-                    "provincia": "Cusco",
-                    "distritos": ["Cusco", "San Sebastián", "San Jerónimo", "Wanchaq"]
-                },
-                {
-                    "provincia": "Urubamba",
-                    "distritos": ["Urubamba", "Chinchero", "Ollantaytambo"]
-                },
-                {
-                    "provincia": "La Convención",
-                    "distritos": ["Quillabamba", "Santa Teresa", "Echarate"]
-                },
-                {
-                    "provincia": "Espinar",
-                    "distritos": ["Espinar", "Coporaque", "Condoroma"]
-                }
-            ]
-        },
-        {
-            "region": "Lima",
-            "provincias": [
-                {
-                    "provincia": "Lima",
-                    "distritos": ["Miraflores", "San Isidro", "La Molina", "Surco", "Barranco", "San Borja"]
-                },
-                {
-                    "provincia": "Huaral",
-                    "distritos": ["Huaral", "Atavillos Alto", "Santa Cruz de Andamarca"]
-                },
-                {
-                    "provincia": "Cañete",
-                    "distritos": ["San Vicente de Cañete", "Imperial", "Mala"]
-                },
-                {
-                    "provincia": "Huarochirí",
-                    "distritos": ["Matucana", "San Mateo", "Ricardo Palma"]
-                }
-            ]
-        },
-        {
-            "region": "Arequipa",
-            "provincias": [
-                {
-                    "provincia": "Arequipa",
-                    "distritos": ["Arequipa", "Cayma", "Cerro Colorado", "Yanahuara", "Mariano Melgar", "Socabaya"]
-                },
-                {
-                    "provincia": "Camaná",
-                    "distritos": ["Camaná", "José María Quimper", "Mariano Nicolás Valcárcel"]
-                },
-                {
-                    "provincia": "Islay",
-                    "distritos": ["Mollendo", "Cocachacra", "Mejia"]
-                },
-                {
-                    "provincia": "Caravelí",
-                    "distritos": ["Caravelí", "Acari", "Atico"]
-                }
-            ]
-        }
-    ];
     
+    const [regionsData, setRegionsData] = useState([]);
+
+    useEffect(() => {
+        setRegionsData(locationsData); 
+    }, []);
+    
+
 
     const [formData, setFormData] = useState({
         id: "",
@@ -168,14 +47,12 @@ const NewPropertyForm = ({ onClose }) => {
             'district', 'address'
         ];
         
-        // Verificar que todos los campos obligatorios estén llenos
         for (const field of requiredFields) {
             if (!formData[field]) {
                 return false;
             }
         }
         
-        // Verificar que los arrays dinámicos tengan al menos un elemento no vacío
         const arrayFields = ['features', 'includes', 'images'];
         for (const arrayField of arrayFields) {
             if (formData[arrayField].length === 0 || formData[arrayField][0] === "") {
@@ -183,7 +60,6 @@ const NewPropertyForm = ({ onClose }) => {
             }
         }
     
-        // Verificar que los términos estén aceptados
         return formData.acceptTerms;
     };
 
@@ -224,16 +100,65 @@ const NewPropertyForm = ({ onClose }) => {
         setFormData({ ...formData, [field]: updatedArray });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onClose();
+    
+        const landlordId = getUserIdFromCache();  
+    
+        const propertyData = {
+            title: formData.title,
+            description: formData.description,
+            price: parseFloat(formData.price),
+            currency: formData.currency,
+            timePeriod: parseInt(formData.timePeriod),
+            floors: parseInt(formData.floors),
+            type: formData.type,
+            parking: parseInt(formData.parking),
+            rooms: parseInt(formData.rooms),
+            bathrooms: parseInt(formData.bathrooms),
+            features: formData.features,
+            includes: formData.includes,
+            images: formData.images,
+            region: formData.region,
+            province: formData.province,
+            district: formData.district,
+            address: formData.address,
+            landlord: {
+                id: landlordId,
+                name: "string",  
+                lastName: "string",  
+                description: "string",  
+                phone: 0, 
+                registrationDate: "", 
+                email: "string", 
+                facebookUserName: "string",  
+                instagramUserName: "string", 
+                password: "string",  
+                userType: "LANDLORD", 
+                documentType: "DNI", 
+                documentNumber: 0 
+            }  
+        };
+    
+        try {
+            const response = await PropertyService.createProperty(propertyData);
+            if (response) {
+                console.log("Propiedad creada:", response);
+                onClose(); 
+            } else {
+                console.error("Error al crear la propiedad.");
+            }
+        } catch (error) {
+            console.error("Error en la creación de la propiedad:", error);
+        }
     };
+    
 
     const handleClickOutside = (e) => {
         if (formRef.current && !formRef.current.contains(e.target)) {
             onClose();
         }
-    };
+    }; 
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
@@ -322,6 +247,7 @@ const NewPropertyForm = ({ onClose }) => {
                         >
                             <option value="">Seleccionar tipo</option>
                             <option value="Casa">Casa</option>
+                            <option value="Casa de Playa">Casa de Playa</option>
                             <option value="Casa de Campo">Casa de Campo</option>
                             <option value="Condominio">Condominio</option>
                         </select>

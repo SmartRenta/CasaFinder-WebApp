@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "../../components/Tenant/Home/SearchBar";
 import SortOptions from "../../components/Tenant/Home/SortOptions";
 import Results from "../../components/Tenant/Home/Results";
 import FiltersSidebar from "../../components/Tenant/Home/FiltersSidebar";
-import propertiesData from "../../data/propertiesData.json";  // Importamos los datos de propiedades
+import PropertyService from "../../services/propertyService";  
 
 const Home = () => {
   const [filters, setFilters] = useState({
@@ -17,47 +17,67 @@ const Home = () => {
     sortOrder: "",
   });
 
-  const [allProperties, setAllProperties] = useState(propertiesData);  // Estado para almacenar todas las propiedades
-  const [filteredProperties, setFilteredProperties] = useState(propertiesData);  // Estado para las propiedades filtradas
+  const [allProperties, setAllProperties] = useState([]);  
+  const [filteredProperties, setFilteredProperties] = useState([]); 
 
-  // Función para actualizar los filtros
+  // Cargar todas las propiedades al montar el componente
+  useEffect(() => {
+    const fetchAllProperties = async () => {
+      try {
+        const response = await PropertyService.getAllProperties();
+        setAllProperties(response);
+        setFilteredProperties(response); 
+      } catch (error) {
+        console.error("Error al obtener todas las propiedades:", error);
+        setAllProperties([]);
+        setFilteredProperties([]);
+      }
+    };
+
+    fetchAllProperties();
+  }, []);
+
+  
   const updateFilters = (newFilters) => {
     setFilters(newFilters);
+    applyFilters(allProperties, newFilters);  
   };
 
-  // Función para manejar los resultados de la búsqueda desde SearchBar
+  
   const handleSearchResults = (searchFilters) => {
-    // Llamamos a la función para filtrar las propiedades con los filtros de ubicación
-    fetchPropertiesFromAPI(searchFilters);  
+    
+    if (!searchFilters.department && !searchFilters.province && !searchFilters.district) {
+      setFilteredProperties(allProperties);  
+    } else {
+      fetchPropertiesByLocation(searchFilters);  
+    }
   };
 
-  // Simulación de llamada a la API que recibe filtros de ubicación y retorna propiedades
-  const fetchPropertiesFromAPI = (searchFilters) => {
-    // Filtramos las propiedades por el departamento, provincia y distrito
-    const filteredData = propertiesData.filter((property) => {
-      const isDepartmentMatch = !searchFilters.department || property.region === searchFilters.department;
-      const isProvinceMatch = !searchFilters.province || property.province === searchFilters.province;
-      const isDistrictMatch = !searchFilters.district || property.district === searchFilters.district;
-
-      return isDepartmentMatch && isProvinceMatch && isDistrictMatch;
-    });
-
-    setAllProperties(filteredData);  // Establece las propiedades con los resultados de la búsqueda
-    applyFilters(filteredData);  // Aplica los filtros adicionales (precio, tipo de propiedad, etc.)
+  
+  const fetchPropertiesByLocation = async (searchFilters) => {
+    const { department, province, district } = searchFilters;
+    try {
+      const response = await PropertyService.findPropertiesByLocation(department, province, district);
+      setFilteredProperties(response);  
+      applyFilters(response, filters);  
+    } catch (error) {
+      console.error("Error al obtener propiedades por ubicación:", error);
+      setFilteredProperties([]); 
+    }
   };
 
-  // Función para aplicar los filtros adicionales
-  const applyFilters = (properties) => {
+  
+  const applyFilters = (properties, activeFilters) => {
     const filtered = properties.filter((property) => {
       const isPriceInRange =
-        (!filters.priceMin || property.price >= parseFloat(filters.priceMin)) &&
-        (!filters.priceMax || property.price <= parseFloat(filters.priceMax));
+        (!activeFilters.priceMin || property.price >= parseFloat(activeFilters.priceMin)) &&
+        (!activeFilters.priceMax || property.price <= parseFloat(activeFilters.priceMax));
 
-      const isCurrencyMatch = !filters.currency || property.currency === filters.currency;
-      const isTypeMatch = !filters.propertyType || property.type === filters.propertyType;
-      const isFloorsMatch = !filters.floors || property.floors === parseInt(filters.floors);
-      const isParkingMatch = !filters.parking || property.parking === parseInt(filters.parking);
-      const isRoomsMatch = !filters.rooms || property.rooms === parseInt(filters.rooms);
+      const isCurrencyMatch = !activeFilters.currency || property.currency === activeFilters.currency;
+      const isTypeMatch = !activeFilters.propertyType || property.type === activeFilters.propertyType;
+      const isFloorsMatch = !activeFilters.floors || property.floors === parseInt(activeFilters.floors);
+      const isParkingMatch = !activeFilters.parking || property.parking === parseInt(activeFilters.parking);
+      const isRoomsMatch = !activeFilters.rooms || property.rooms === parseInt(activeFilters.rooms);
 
       return (
         isPriceInRange &&
@@ -69,23 +89,23 @@ const Home = () => {
       );
     });
 
-    // Aplica el orden de precios si corresponde
+    
     const sortedProperties = filtered.sort((a, b) => {
-      if (filters.sortOrder === "price-asc") {
+      if (activeFilters.sortOrder === "price-asc") {
         return a.price - b.price;
-      } else if (filters.sortOrder === "price-desc") {
+      } else if (activeFilters.sortOrder === "price-desc") {
         return b.price - a.price;
       }
-      return 0;  // Si no se aplica un orden, no hace nada
+      return 0;  
     });
 
-    setFilteredProperties(sortedProperties);  // Actualiza las propiedades filtradas
+    setFilteredProperties(sortedProperties);  
   };
 
   return (
     <div className="p-4">
       <div className="flex flex-col space-y-4">
-        <SearchBar onSearch={handleSearchResults} />  {/* Pasa la función para manejar los resultados */}
+        <SearchBar onSearch={handleSearchResults} />  
       </div>
 
       <div className="flex flex-col lg:flex-row-reverse gap-6 mt-6">
@@ -94,7 +114,7 @@ const Home = () => {
         </div>
 
         <div className="flex-1">
-          <Results filters={filters} properties={filteredProperties} />  {/* Pasa las propiedades filtradas */}
+          <Results filters={filters} properties={filteredProperties} />  
         </div>
       </div>
     </div>

@@ -14,11 +14,21 @@ export const setTokenInCache = (token) => {
     localStorage.setItem("token", token);
 }
 
+export const setUserIdInCache = (userId) => {
+    localStorage.setItem("userId", userId);
+}
+
 export const getTokenFromCache = () => {
     return localStorage.getItem("token");
 }
 
+export const getUserIdFromCache = () => {
+    return localStorage.getItem("userId");
+};
+
 export const clearCache = () => {
     localStorage.removeItem("userRole");
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+
 }
