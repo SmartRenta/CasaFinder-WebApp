@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setTokenInCache, setUserRoleInCache, clearCache } from "../../utils/authUtils";
+import { setTokenInCache, setUserRoleInCache, clearCache, setUserIdInCache } from "../../utils/authUtils";
 import logo from "../../assets/logo.png"; 
 import { login } from "../../services/authService.js";
 
@@ -18,6 +18,10 @@ const Login = () => {
             if (response) {
                 setUserRoleInCache(response.userType); // Guarda el rol en caché
                 setTokenInCache(response.token);       // Guarda el token en caché
+                
+                //TODO: UPDATE DEFAULT USER ID
+                setUserIdInCache(6);
+
                 if (response.userType === "TENANT") {
                     navigate("/tenant/home");
                 } else {

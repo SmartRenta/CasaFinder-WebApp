@@ -1,11 +1,11 @@
 {
     "departments": [
-      { "name": "Lima", "provinces": ["Lima", "Barranca", "Cañete", "Huaral", "Huarochirí"] },
+      { "name": "LIMA", "provinces": ["LIMA", "Barranca", "Cañete", "Huaral", "Huarochirí"] },
       { "name": "Cusco", "provinces": ["Cusco", "Anta", "Calca", "Canas", "Espinar"] },
       { "name": "Arequipa", "provinces": ["Arequipa", "Camaná", "Caravelí", "Castilla", "Islay"] }
     ],
     "districts": {
-      "Lima": ["Miraflores", "San Isidro", "Surco", "Magdalena", "La Molina"],
+      "LIMA": ["MIRAFLORES", "San Isidro", "Surco", "Magdalena", "La Molina"],
       "Cusco": ["San Sebastián", "San Jerónimo", "Santiago", "Wanchaq"],
       "Arequipa": ["Cayma", "Cerro Colorado", "Paucarpata", "Yanahuara"]
     }

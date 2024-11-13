@@ -3,7 +3,7 @@ import SearchBar from "../../components/Tenant/Home/SearchBar";
 import SortOptions from "../../components/Tenant/Home/SortOptions";
 import Results from "../../components/Tenant/Home/Results";
 import FiltersSidebar from "../../components/Tenant/Home/FiltersSidebar";
-import propertiesData from "../../data/propertiesData.json";  // Importamos los datos de propiedades
+import PropertyService from "../../services/propertyService";  
 
 const Home = () => {
   const [filters, setFilters] = useState({
@@ -17,8 +17,8 @@ const Home = () => {
     sortOrder: "",
   });
 
-  const [allProperties, setAllProperties] = useState(propertiesData);  // Estado para almacenar todas las propiedades
-  const [filteredProperties, setFilteredProperties] = useState(propertiesData);  // Estado para las propiedades filtradas
+  const [allProperties, setAllProperties] = useState([]);  // Estado inicial vacío para almacenar todas las propiedades
+  const [filteredProperties, setFilteredProperties] = useState([]);  // Estado para las propiedades filtradas
 
   // Función para actualizar los filtros
   const updateFilters = (newFilters) => {
@@ -27,23 +27,20 @@ const Home = () => {
 
   // Función para manejar los resultados de la búsqueda desde SearchBar
   const handleSearchResults = (searchFilters) => {
-    // Llamamos a la función para filtrar las propiedades con los filtros de ubicación
-    fetchPropertiesFromAPI(searchFilters);  
+    fetchPropertiesFromAPI(searchFilters);  // Llamada a la API para filtrar las propiedades por ubicación
   };
 
-  // Simulación de llamada a la API que recibe filtros de ubicación y retorna propiedades
-  const fetchPropertiesFromAPI = (searchFilters) => {
-    // Filtramos las propiedades por el departamento, provincia y distrito
-    const filteredData = propertiesData.filter((property) => {
-      const isDepartmentMatch = !searchFilters.department || property.region === searchFilters.department;
-      const isProvinceMatch = !searchFilters.province || property.province === searchFilters.province;
-      const isDistrictMatch = !searchFilters.district || property.district === searchFilters.district;
-
-      return isDepartmentMatch && isProvinceMatch && isDistrictMatch;
-    });
-
-    setAllProperties(filteredData);  // Establece las propiedades con los resultados de la búsqueda
-    applyFilters(filteredData);  // Aplica los filtros adicionales (precio, tipo de propiedad, etc.)
+  // Llamada a la API para obtener propiedades filtradas por ubicación
+  const fetchPropertiesFromAPI = async (searchFilters) => {
+    const { department, province, district } = searchFilters;
+    try {
+      const response = await PropertyService.findPropertiesByLocation(department, province, district);
+      setAllProperties(response);  // Establece las propiedades con los resultados de la búsqueda
+      applyFilters(response);  // Aplica los filtros adicionales (precio, tipo de propiedad, etc.)
+    } catch (error) {
+      console.error("Error al obtener propiedades:", error);
+      setAllProperties([]);  // Resetea en caso de error
+    }
   };
 
   // Función para aplicar los filtros adicionales

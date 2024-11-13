@@ -1,42 +1,25 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom"; 
-import propertyData from "../../../data/propertiesData.json";
-import Carousel from "react-multi-carousel"; 
-import "react-multi-carousel/lib/styles.css"; 
-import { Property } from "../../../entities/Property"; // Importamos la clase Property
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import PropertyService from "../../../services/propertyService"; 
 
 const PropertyDetails = () => {
-  const { id } = useParams(); // Obtener el ID de la propiedad desde la URL
-  const propertyDataItem = propertyData.find((prop) => prop.id === parseInt(id)); 
+  const { id } = useParams();
+  const [property, setProperty] = useState(null);
+  const navigate = useNavigate();
 
-  const property = propertyDataItem
-    ? new Property(
-        propertyDataItem.id,
-        propertyDataItem.title,
-        propertyDataItem.price,
-        propertyDataItem.currency,
-        propertyDataItem.timePeriod,
-        propertyDataItem.floors,
-        propertyDataItem.type,
-        propertyDataItem.parking,
-        propertyDataItem.rooms,
-        propertyDataItem.bathrooms,
-        propertyDataItem.description,
-        propertyDataItem.features,
-        propertyDataItem.includes,
-        propertyDataItem.images,
-        propertyDataItem.contact,
-        propertyDataItem.region,
-        propertyDataItem.province,
-        propertyDataItem.district,
-        propertyDataItem.address
-      )
-    : null; // Crear una instancia de la clase Property
+  useEffect(() => {
+    const fetchProperty = async () => {
+      const propertyData = await PropertyService.getPropertyById(id);
+      setProperty(propertyData);
+    };
 
-  const navigate = useNavigate(); // Para navegar de vuelta
+    fetchProperty();
+  }, [id]);
 
   if (!property) {
-    return <div>No se encontró la propiedad.</div>;
+    return <div>Cargando propiedad...</div>;
   }
 
   const handleBack = () => {
@@ -50,7 +33,9 @@ const PropertyDetails = () => {
           <h2 className="text-3xl font-bold mb-4">{property.title}</h2>
           
           <div className="text-lg mb-6 space-y-2">
-            <p className="text-2xl font-semibold text-primary">{property.formatPrice()}</p>
+            <p className="text-2xl font-semibold text-primary">
+              {property.currency} {property.price}
+            </p>
             <p className="text-gray-700">Periodo: {property.timePeriod}</p>
             <p className="text-gray-700">{property.floors} {property.floors === 1 ? 'Piso' : 'Pisos'}</p>
             <p className="text-gray-700">Tipo: {property.type}</p>
@@ -63,7 +48,7 @@ const PropertyDetails = () => {
             <p className="text-gray-700">
               Baños: {property.bathrooms} {property.bathrooms === 1 ? 'Baño' : 'Baños'}
             </p>
-            <p className="text-gray-700 mt-2">Dirección: {property.getFullAddress()}</p>
+            <p className="text-gray-700 mt-2">Dirección: {property.address}</p>
           </div>
 
           <div className="mt-4">
@@ -127,10 +112,10 @@ const PropertyDetails = () => {
 
             <div className="mt-6">
               <h4 className="font-semibold mb-2">Contacto</h4>
-              <p className="text-gray-800 font-semibold">{property.contact.name}</p>
+              <p className="text-gray-800 font-semibold">{property.landlord.name} {property.landlord.lastName}</p>
               <p>
-                <a href={`mailto:${property.contact.email}`} className="text-primary hover:underline">
-                  {property.contact.email}
+                <a href={`mailto:${property.landlord.email}`} className="text-primary hover:underline">
+                  {property.landlord.email}
                 </a>
               </p>
             </div>

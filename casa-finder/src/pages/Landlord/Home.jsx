@@ -1,43 +1,25 @@
 import React, { useEffect, useState } from "react";
 import HomePropertyCard from "../../components/landLord/home/HomePropertyCard.jsx";
-import { Property } from "../../entities/Property.js";
 import HomePropertiesCarousel from "../../components/landLord/home/HomePropertiesCarousel.jsx";
 import HomeContractCarousel from "../../components/landLord/home/HomeContractsCarousel.jsx";
 import HomeTransferCarousel from "../../components/landLord/home/HomeTransferCarousel.jsx";
-import propertiesJson from "../../data/propertiesData.json"; // Importamos el JSON
-import contractsJson from "../../data/contracts.json"; 
+import PropertyService from "../../services/propertyService";
+import { getUserIdFromCache } from "../../utils/authUtils.js";
+import contractsJson from "../../data/contracts.json"; // Suponiendo que sigues usando datos estáticos para contratos
 
 const Home = () => {
     const [propertiesData, setPropertiesData] = useState([]);
-    //const [contractsData, setContractsData] = useState([]);
 
     useEffect(() => {
-        // Convertimos los datos del JSON en instancias de Property
-        const loadedProperties = propertiesJson.map(propertyData => 
-            new Property(
-                propertyData.id,
-                propertyData.title,
-                propertyData.price,
-                propertyData.currency,       // Agregado campo currency
-                propertyData.timePeriod,     // Agregado campo timePeriod
-                propertyData.floors,
-                propertyData.type,
-                propertyData.parking,
-                propertyData.rooms,
-                propertyData.bathrooms,
-                propertyData.description,
-                propertyData.features,
-                propertyData.includes,       // Asegúrate de que el JSON tenga `includes`
-                propertyData.images,
-                propertyData.contact,
-                propertyData.region,
-                propertyData.province,
-                propertyData.district,
-                propertyData.address         // Agregado campo address
-            )
-        );
-        setPropertiesData(loadedProperties);
+        const fetchProperties = async () => {
+            const landlordId = getUserIdFromCache(); // Obtiene el ID del landlord desde el caché
+            if (landlordId) {
+                const loadedProperties = await PropertyService.getPropertiesByLandlord(landlordId);
+                setPropertiesData(loadedProperties);
+            }
+        };
 
+        fetchProperties();
     }, []);
 
     const transfersData = [

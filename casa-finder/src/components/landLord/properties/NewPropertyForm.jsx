@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import PropertyService from "../../../services/propertyService";
+import { getUserIdFromCache } from "../../../utils/authUtils";
+
 
 const NewPropertyForm = ({ onClose }) => {
     const regionsData = [
@@ -168,14 +171,12 @@ const NewPropertyForm = ({ onClose }) => {
             'district', 'address'
         ];
         
-        // Verificar que todos los campos obligatorios estén llenos
         for (const field of requiredFields) {
             if (!formData[field]) {
                 return false;
             }
         }
         
-        // Verificar que los arrays dinámicos tengan al menos un elemento no vacío
         const arrayFields = ['features', 'includes', 'images'];
         for (const arrayField of arrayFields) {
             if (formData[arrayField].length === 0 || formData[arrayField][0] === "") {
@@ -183,7 +184,6 @@ const NewPropertyForm = ({ onClose }) => {
             }
         }
     
-        // Verificar que los términos estén aceptados
         return formData.acceptTerms;
     };
 
@@ -224,16 +224,65 @@ const NewPropertyForm = ({ onClose }) => {
         setFormData({ ...formData, [field]: updatedArray });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onClose();
+    
+        const landlordId = getUserIdFromCache();  
+    
+        const propertyData = {
+            title: formData.title,
+            description: formData.description,
+            price: parseFloat(formData.price),
+            currency: formData.currency,
+            timePeriod: parseInt(formData.timePeriod),
+            floors: parseInt(formData.floors),
+            type: formData.type,
+            parking: parseInt(formData.parking),
+            rooms: parseInt(formData.rooms),
+            bathrooms: parseInt(formData.bathrooms),
+            features: formData.features,
+            includes: formData.includes,
+            images: formData.images,
+            region: formData.region,
+            province: formData.province,
+            district: formData.district,
+            address: formData.address,
+            landlord: {
+                id: landlordId,
+                name: "string",  
+                lastName: "string",  
+                description: "string",  
+                phone: 0, 
+                registrationDate: "", 
+                email: "string", 
+                facebookUserName: "string",  
+                instagramUserName: "string", 
+                password: "string",  
+                userType: "LANDLORD", 
+                documentType: "DNI", 
+                documentNumber: 0 
+            }  
+        };
+    
+        try {
+            const response = await PropertyService.createProperty(propertyData);
+            if (response) {
+                console.log("Propiedad creada:", response);
+                onClose(); 
+            } else {
+                console.error("Error al crear la propiedad.");
+            }
+        } catch (error) {
+            console.error("Error en la creación de la propiedad:", error);
+        }
     };
+    
 
     const handleClickOutside = (e) => {
         if (formRef.current && !formRef.current.contains(e.target)) {
             onClose();
         }
-    };
+    }; 
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
