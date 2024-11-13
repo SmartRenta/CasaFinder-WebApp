@@ -193,7 +193,7 @@ const Register = () => {
                     <label className="block mb-4">
                         <span className="text-gray-700">Tipo de Usuario:</span>
                         <select
-                            name="role"
+                            name="userType"
                             value={formData.userType}
                             onChange={handleChange}
                             className="mt-1 p-2 border border-gray-300 rounded w-full"
