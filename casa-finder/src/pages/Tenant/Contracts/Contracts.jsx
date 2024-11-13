@@ -19,7 +19,7 @@ const Contracts = () => {
     trigger,
   } = useForm({
     defaultValues: {
-      email: "",
+      landlordEmail: "",
       doctype: "",
       docnum: "",
       address: "",
@@ -34,6 +34,8 @@ const Contracts = () => {
       termsandconditions2: false,
       expirationdate: "",
       phone: "",
+      propertyId: 1,
+      tenantId:getUserIdFromCache(),
       startdate: new Date().toISOString().split("T")[0],
       enddate: new Date().toISOString().split("T")[0],
     },
@@ -43,7 +45,7 @@ const Contracts = () => {
   };
 
   useEffect(() => {
-    register("email", {
+    register("landlordEmail", {
       validate: (value) => (value && value.length) || "El campo es requerido",
     });
     register("doctype", {
@@ -110,7 +112,7 @@ const Contracts = () => {
     }
   });
   const nextStep = async () => {
-    trigger("email")
+    trigger("landlordEmail")
     trigger("doctype")
     trigger("docnum")
     trigger("address")
