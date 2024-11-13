@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { setTokenInCache, setUserRoleInCache, clearCache, setUserIdInCache } from "../../utils/authUtils";
 import logo from "../../assets/logo.png"; 
 import { login } from "../../services/authService.js";
+import { getUserData } from "../../services/userService.js";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -16,11 +17,13 @@ const Login = () => {
         try {
             const response = await login(email, password);
             if (response) {
-                setUserRoleInCache(response.userType); // Guarda el rol en caché
-                setTokenInCache(response.token);       // Guarda el token en caché
-                
-                //TODO: UPDATE DEFAULT USER ID
-                setUserIdInCache(6);
+                setUserRoleInCache(response.userType); 
+                setTokenInCache(response.token);       
+
+                const userData = await getUserData(); 
+                if (userData && userData.id) {
+                    setUserIdInCache(userData.id); 
+                }
 
                 if (response.userType === "TENANT") {
                     navigate("/tenant/home");
@@ -35,7 +38,7 @@ const Login = () => {
     };
 
     const handleLogout = () => {
-        clearCache(); // Limpia el caché al cerrar sesión
+        clearCache();
         navigate("/login");
     };
 

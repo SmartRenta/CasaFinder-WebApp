@@ -1,141 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropertyService from "../../../services/propertyService";
 import { getUserIdFromCache } from "../../../utils/authUtils";
-
+import locationsData from "../../../data/locations.json";  
 
 const NewPropertyForm = ({ onClose }) => {
-    const regionsData = [
-        {
-            "region": "Amazonas",
-            "provincias": [
-                {
-                    "provincia": "Chachapoyas",
-                    "distritos": ["Chachapoyas", "Asunción", "Balsas"]
-                },
-                {
-                    "provincia": "Bagua",
-                    "distritos": ["Bagua", "Aramango", "Copallín"]
-                },
-                {
-                    "provincia": "Bongará",
-                    "distritos": ["Jumbilla", "Chisquilla", "Churuja"]
-                },
-                {
-                    "provincia": "Condorcanqui",
-                    "distritos": ["Santa María de Nieva", "El Cenepa", "Río Santiago"]
-                },
-                {
-                    "provincia": "Luya",
-                    "distritos": ["Lamud", "Camporredondo", "Cocabamba"]
-                },
-                {
-                    "provincia": "Rodríguez de Mendoza",
-                    "distritos": ["San Nicolás", "Chirimoto", "Limabamba"]
-                },
-                {
-                    "provincia": "Utcubamba",
-                    "distritos": ["Bagua Grande", "Cajaruro", "Cumba"]
-                }
-            ]
-        },
-        {
-            "region": "Áncash",
-            "provincias": [
-                {
-                    "provincia": "Huaraz",
-                    "distritos": ["Huaraz", "Independencia", "Cochabamba"]
-                },
-                {
-                    "provincia": "Aija",
-                    "distritos": ["Aija", "Coris", "Huacllan"]
-                },
-                {
-                    "provincia": "Antonio Raymondi",
-                    "distritos": ["Llamellin", "Aczo", "Chaccho"]
-                },
-                {
-                    "provincia": "Asunción",
-                    "distritos": ["Chacas", "Acochaca"]
-                },
-                {
-                    "provincia": "Bolognesi",
-                    "distritos": ["Chiquián", "Abelardo Pardo Lezameta", "Antonio Raymondi"]
-                },
-                {
-                    "provincia": "Carhuaz",
-                    "distritos": ["Carhuaz", "Acopampa", "Amashca"]
-                },
-                {
-                    "provincia": "Casma",
-                    "distritos": ["Casma", "Buenavista Alta", "Comandante Noel"]
-                }
-            ]
-        },
-        {
-            "region": "Cusco",
-            "provincias": [
-                {
-                    "provincia": "Cusco",
-                    "distritos": ["Cusco", "San Sebastián", "San Jerónimo", "Wanchaq"]
-                },
-                {
-                    "provincia": "Urubamba",
-                    "distritos": ["Urubamba", "Chinchero", "Ollantaytambo"]
-                },
-                {
-                    "provincia": "La Convención",
-                    "distritos": ["Quillabamba", "Santa Teresa", "Echarate"]
-                },
-                {
-                    "provincia": "Espinar",
-                    "distritos": ["Espinar", "Coporaque", "Condoroma"]
-                }
-            ]
-        },
-        {
-            "region": "Lima",
-            "provincias": [
-                {
-                    "provincia": "Lima",
-                    "distritos": ["Miraflores", "San Isidro", "La Molina", "Surco", "Barranco", "San Borja"]
-                },
-                {
-                    "provincia": "Huaral",
-                    "distritos": ["Huaral", "Atavillos Alto", "Santa Cruz de Andamarca"]
-                },
-                {
-                    "provincia": "Cañete",
-                    "distritos": ["San Vicente de Cañete", "Imperial", "Mala"]
-                },
-                {
-                    "provincia": "Huarochirí",
-                    "distritos": ["Matucana", "San Mateo", "Ricardo Palma"]
-                }
-            ]
-        },
-        {
-            "region": "Arequipa",
-            "provincias": [
-                {
-                    "provincia": "Arequipa",
-                    "distritos": ["Arequipa", "Cayma", "Cerro Colorado", "Yanahuara", "Mariano Melgar", "Socabaya"]
-                },
-                {
-                    "provincia": "Camaná",
-                    "distritos": ["Camaná", "José María Quimper", "Mariano Nicolás Valcárcel"]
-                },
-                {
-                    "provincia": "Islay",
-                    "distritos": ["Mollendo", "Cocachacra", "Mejia"]
-                },
-                {
-                    "provincia": "Caravelí",
-                    "distritos": ["Caravelí", "Acari", "Atico"]
-                }
-            ]
-        }
-    ];
     
+    const [regionsData, setRegionsData] = useState([]);
+
+    useEffect(() => {
+        setRegionsData(locationsData); 
+    }, []);
+    
+
 
     const [formData, setFormData] = useState({
         id: "",
@@ -371,6 +247,7 @@ const NewPropertyForm = ({ onClose }) => {
                         >
                             <option value="">Seleccionar tipo</option>
                             <option value="Casa">Casa</option>
+                            <option value="Casa de Playa">Casa de Playa</option>
                             <option value="Casa de Campo">Casa de Campo</option>
                             <option value="Condominio">Condominio</option>
                         </select>

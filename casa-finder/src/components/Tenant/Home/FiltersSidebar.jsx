@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 // Datos de los filtros en formato JSON
 const filtersData = {
   propertyTypes: [
-    { label: "Casa", value: "house" },
-    { label: "Casa de campo", value: "countryHouse" },
-    { label: "Casa de playa", value: "beachHouse" },
-    { label: "Casa en condominio", value: "condo" },
+    { label: "Casa", value: "Casa" },
+    { label: "Casa de Campo", value: "Casa de Campo" },
+    { label: "Casa de Playa", value: "Casa de Playa" },
+    { label: "Casa en Condominio", value: "Casa en Condominio" },
   ],
 };
 
