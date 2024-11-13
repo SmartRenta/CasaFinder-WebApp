@@ -32,14 +32,14 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
       </div>
       <TextField
         style={{ width: "100%", margin: "20px 0" }}
-        label="Nombres completos"
+        label="Correo del propietario"
         variant="outlined"
-        value={formValues.fullname}
+        value={formValues.landlordEmail}
         onChange={(e) => {
-          setValue("fullname", e?.target?.value || "");
+          setValue("landlordEmail", e?.target?.value || "");
         }}
-        error={errors?.fullname?.message}
-        helperText={errors?.fullname?.message}
+        error={errors?.landlordEmail?.message}
+        helperText={errors?.landlordEmail?.message}
       />
       <div style={{ display: "flex", width: "100%", gap: 8, marginBottom: 20 }}>
         <TextField
