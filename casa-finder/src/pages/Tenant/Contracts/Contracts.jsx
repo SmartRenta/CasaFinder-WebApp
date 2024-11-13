@@ -19,7 +19,7 @@ const Contracts = () => {
     trigger,
   } = useForm({
     defaultValues: {
-      fullname: "",
+      email: "",
       doctype: "",
       docnum: "",
       address: "",
@@ -43,7 +43,7 @@ const Contracts = () => {
   };
 
   useEffect(() => {
-    register("fullname", {
+    register("email", {
       validate: (value) => (value && value.length) || "El campo es requerido",
     });
     register("doctype", {
@@ -110,7 +110,7 @@ const Contracts = () => {
     }
   });
   const nextStep = async () => {
-    trigger("fullname")
+    trigger("email")
     trigger("doctype")
     trigger("docnum")
     trigger("address")

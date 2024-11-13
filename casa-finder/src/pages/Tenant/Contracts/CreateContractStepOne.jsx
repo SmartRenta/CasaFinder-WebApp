@@ -32,14 +32,14 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
       </div>
       <TextField
         style={{ width: "100%", margin: "20px 0" }}
-        label="Nombres completos"
+        label="Email"
         variant="outlined"
-        value={formValues.fullname}
+        value={formValues.email}
         onChange={(e) => {
-          setValue("fullname", e?.target?.value || "");
+          setValue("email", e?.target?.value || "");
         }}
-        error={errors?.fullname?.message}
-        helperText={errors?.fullname?.message}
+        error={errors?.email?.message}
+        helperText={errors?.email?.message}
       />
       <div style={{ display: "flex", width: "100%", gap: 8, marginBottom: 20 }}>
         <TextField
