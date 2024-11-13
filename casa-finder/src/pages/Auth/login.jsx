@@ -1,8 +1,8 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {setTokenInCache, setUserRoleInCache} from "../../utils/authUtils";
-import logo from "../../assets/logo.png"; // Asegúrate de tener el logo en assets
-import {login} from "../../services/authService.js";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { setTokenInCache, setUserRoleInCache, clearCache } from "../../utils/authUtils";
+import logo from "../../assets/logo.png"; 
+import { login } from "../../services/authService.js";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -14,10 +14,10 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response =  await login(email, password);
+            const response = await login(email, password);
             if (response) {
-                setUserRoleInCache(response.userType);
-                setTokenInCache(response.token);
+                setUserRoleInCache(response.userType); // Guarda el rol en caché
+                setTokenInCache(response.token);       // Guarda el token en caché
                 if (response.userType === "TENANT") {
                     navigate("/tenant/home");
                 } else {
@@ -28,18 +28,11 @@ const Login = () => {
             console.error(e);
             setError(true);
         }
+    };
 
-
-        // // Lógica de autenticación simple
-        // if (email === "tenant@example.com" && password === "password") {
-        //   setUserRoleInCache("tenant");
-        //   navigate("/tenant/home"); // Redirige al perfil del tenant
-        // } else if (email === "landlord@example.com" && password === "password") {
-        //   setUserRoleInCache("landlord");
-        //   navigate("/landlord/home"); // Redirige al perfil del landlord
-        // } else {
-        //   setError(true);
-        // }
+    const handleLogout = () => {
+        clearCache(); // Limpia el caché al cerrar sesión
+        navigate("/login");
     };
 
     return (

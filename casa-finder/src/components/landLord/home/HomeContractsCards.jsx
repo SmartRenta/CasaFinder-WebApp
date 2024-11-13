@@ -18,7 +18,7 @@ const HomeContractCard = ({contract}) => {
     };
 
     const handleClick = (contract) => {
-        const basePath = userRole === "tenant" ? "/tenant" : "/landlord";
+        const basePath = userRole === "TENANT" ? "/tenant" : "/landlord";
         navigate(`${basePath}/contratos/${contract.id}`);
     };
 

@@ -22,12 +22,14 @@ const Register = () => {
     const [error, setError] = useState(null);
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormData((prev) => ({...prev, [name]: value}));
+        const { name, value } = e.target;
+        console.log(`Campo: ${name}, Valor: ${value}`); // Verificar el cambio de valor
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
-
+    
     const handleRegister = async (e) => {
         e.preventDefault();
+        console.log("UserType seleccionado:", formData.userType);
         setError(null);
         setSuccessMessage('');
         try {
@@ -193,7 +195,7 @@ const Register = () => {
                     <label className="block mb-4">
                         <span className="text-gray-700">Tipo de Usuario:</span>
                         <select
-                            name="role"
+                            name="userType"
                             value={formData.userType}
                             onChange={handleChange}
                             className="mt-1 p-2 border border-gray-300 rounded w-full"

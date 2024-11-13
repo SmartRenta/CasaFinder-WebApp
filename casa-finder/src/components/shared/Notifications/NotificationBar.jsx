@@ -7,7 +7,7 @@ import notificationsTenant from "../../../data/notificationsTenant.json";
 
 const NotificationBar = ({ onClose }) => {
     const userRole = getUserRoleFromCache();
-    const data = (userRole === "tenant" ? notificationsTenant : notificationsLandlord);
+    const data = (userRole === "TENANT" ? notificationsTenant : notificationsLandlord);
     const formRef = useRef(null);
     const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const NotificationBar = ({ onClose }) => {
 
     const handleClick = (notification) => {
         onClose();
-        const basePath = userRole === "tenant" ? "/tenant" : "/landlord";
+        const basePath = userRole === "TENANT" ? "/tenant" : "/landlord";
         navigate(`${basePath}/notifications/${notification.id}`);
     };
 

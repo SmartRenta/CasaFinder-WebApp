@@ -12,9 +12,9 @@ const NotificationDetails = ({}) => {
     
     const { id } = useParams(); 
     const userRole = getUserRoleFromCache();
-    const data = (userRole === "tenant" ? notificationsTenant : notificationsLandlord);
+    const data = (userRole === "TENANT" ? notificationsTenant : notificationsLandlord);
     const notification = data.find((notif) => notif.id === parseInt(id)); 
-    const basePath = userRole === "tenant" ? "/tenant" : "/landlord";
+    const basePath = userRole === "TENANT" ? "/tenant" : "/landlord";
     const navigate = useNavigate();
     if (!notification) {
         return <div>No se encontró información relacionada.</div>;
