@@ -22,12 +22,14 @@ const Register = () => {
     const [error, setError] = useState(null);
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormData((prev) => ({...prev, [name]: value}));
+        const { name, value } = e.target;
+        console.log(`Campo: ${name}, Valor: ${value}`); // Verificar el cambio de valor
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
-
+    
     const handleRegister = async (e) => {
         e.preventDefault();
+        console.log("UserType seleccionado:", formData.userType);
         setError(null);
         setSuccessMessage('');
         try {

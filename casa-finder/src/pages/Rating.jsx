@@ -11,7 +11,7 @@ const Rating = ({ userRole }) => {
         
         <div className="flex justify-center align-center">
             <div className="bg-gray-300 overflow-y-auto px-16 py-8 my-4" style={{width:"50%"}}>
-                {userRole === "tenant" ?
+                {userRole === "TENANT" ?
                 <div>
                     <Typography variant="h2" className="text-black text-xl my-4 text-center">
                         Califica al propietario

@@ -29,7 +29,7 @@ const Contract = () => {
         </Typography>
 
         <div>
-            {userRole === "tenant" ?
+            {userRole === "TENANT" ?
             <div className="flex">
                 <div className="w-1/5">
                     <img
@@ -49,7 +49,7 @@ const Contract = () => {
             ""
             }
             <ContractDownload/>
-            {userRole === "tenant" ?
+            {userRole === "TENANT" ?
             ""
             : 
             <div className="flex">
@@ -63,7 +63,7 @@ const Contract = () => {
             }
             <ContractContent contract={contract}/>
             
-            {userRole === "landlord" && contract.estado === 1 ?
+            {userRole === "LANDLORD" && contract.estado === 1 ?
             <div className="mt-6 flex justify-around">
                 <button className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark">
                 Aceptar

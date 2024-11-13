@@ -7,7 +7,7 @@ const Welcome = ({ userRole }) => {
         <Typography variant="h2" className="ml-4 mt-4 text-black text-xl">
             Bienvenido a CasaFinder!
         </Typography>
-        {userRole === "tenant" ?
+        {userRole === "TENANT" ?
         <p className="ml-4 mt-4">Encuentra tu próxima propiedad para alquilar.</p>
         :
         <p className="ml-4 mt-4">Lista tus propiedades en alquiler.</p>

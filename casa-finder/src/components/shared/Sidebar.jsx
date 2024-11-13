@@ -29,7 +29,7 @@ const Sidebar = ({ userRole }) => {
   };
 
   // Define the base path according to the user role
-  const basePath = userRole === "landlord" ? "/landlord" : "/tenant";
+  const basePath = userRole === "LANDLORD" ? "/landlord" : "/tenant";
 
   return (
     <>
@@ -50,7 +50,7 @@ const Sidebar = ({ userRole }) => {
             <div className="flex justify-between items-center mb-6">
               {isExpanded && (
                 <Typography variant="h6" className="ml-4 text-white text-xl">
-                  {userRole === "landlord" ? "Arrendador" : "Arrendatario"}
+                  {userRole === "LANDLORD" ? "Arrendador" : "Arrendatario"}
                 </Typography>
               )}
               <IconButton onClick={toggleSidebar} className="text-white">
@@ -72,7 +72,7 @@ const Sidebar = ({ userRole }) => {
               </NavLink>
 
               {/* Routes for Landlord */}
-              {userRole === "landlord" && (
+              {userRole === "LANDLORD" && (
                 <>
                   <NavLink 
                     to={`${basePath}/propiedades`} 
@@ -93,7 +93,7 @@ const Sidebar = ({ userRole }) => {
               )}
 
               {/* Routes for Tenant */}
-              {userRole === "tenant" && (
+              {userRole === "TENANT" && (
                 <>
                   <NavLink 
                     to={`${basePath}/contratos`} 

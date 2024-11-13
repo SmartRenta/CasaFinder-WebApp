@@ -1,5 +1,5 @@
 export const getUserRoleFromCache = () => {
-    return localStorage.getItem("userRole") || "tenant";
+    return localStorage.getItem("userRole") || "TENANT";
 };
 
 export const setUserRoleInCache = (role) => {
@@ -16,4 +16,9 @@ export const setTokenInCache = (token) => {
 
 export const getTokenFromCache = () => {
     return localStorage.getItem("token");
+}
+
+export const clearCache = () => {
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("token");
 }
