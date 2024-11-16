@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10d1d03b-10d2-42e3-aa13-f9a9a8f7c4ca" name="Changes" comment="feat: add connection to backend in login, register and profile">
+    <list default="true" id="10d1d03b-10d2-42e3-aa13-f9a9a8f7c4ca" name="Changes" comment="feat: fix ProfileLandlord.jsx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casa-finder/src/entities/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/entities/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casa-finder/src/pages/Landlord/ProfileLandlord.css" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/pages/Landlord/ProfileLandlord.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/casa-finder/src/pages/Landlord/ProfileLandlord.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/pages/Landlord/ProfileLandlord.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casa-finder/src/pages/Tenant/ProfileTenant.css" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/pages/Tenant/ProfileTenant.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casa-finder/src/pages/Tenant/ProfileTenant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/pages/Tenant/ProfileTenant.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casa-finder/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/casa-finder/src/services/userService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,24 +37,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Node.js.App.jsx.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.main.jsx.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/cristopherrondonananos/Documents/Arquitectura de Software Emergentes/WebApp/CasaFinder-WebApp&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.App.jsx.executor": "Run",
+    "Node.js.main.jsx.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "develop",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/cristopherrondonananos/Documents/Arquitectura de Software Emergentes/WebApp/CasaFinder-WebApp",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -69,7 +75,8 @@
       <workItem from="1729721251941" duration="12289000" />
       <workItem from="1729733565711" duration="4043000" />
       <workItem from="1731196831311" duration="8078000" />
-      <workItem from="1731784977655" duration="984000" />
+      <workItem from="1731784977655" duration="4029000" />
+      <workItem from="1731789601426" duration="3432000" />
     </task>
     <task id="LOCAL-00001" summary="code: create properties section">
       <option name="closed" value="true" />
@@ -95,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731204755192</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: fix ProfileLandlord.jsx">
+      <option name="closed" value="true" />
+      <created>1731786033741</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731786033741</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -105,6 +120,7 @@
     <MESSAGE value="code: create properties section" />
     <MESSAGE value="code: add login and register" />
     <MESSAGE value="feat: add connection to backend in login, register and profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add connection to backend in login, register and profile" />
+    <MESSAGE value="feat: fix ProfileLandlord.jsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: fix ProfileLandlord.jsx" />
   </component>
 </project>

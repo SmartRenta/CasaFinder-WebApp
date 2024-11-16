@@ -15,3 +15,19 @@ export const getUserData = async () => {
         return null;
     }
 }
+
+export const updateUserData = async (userData) => {
+    try {
+        console.log(userData);
+        const token = getTokenFromCache();
+        const response = await axiosInstance.put('/api/v1/users/', userData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}

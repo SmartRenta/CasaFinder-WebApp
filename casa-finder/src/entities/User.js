@@ -1,5 +1,5 @@
 export class User {
-    constructor(id, name, lastName, description, phone, email, password, facebookUserName, instagramUserName, userType, documentType, documentNumber, registrationDate) {
+    constructor(id, name, lastName, description, phone, email, password, facebookUserName, instagramUserName, userType, documentType, documentNumber, registrationDate, imageUrl) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -13,6 +13,7 @@ export class User {
         this.documentType = documentType;
         this.documentNumber = documentNumber;
         this.registrationDate = registrationDate;
+        this.imageUrl = imageUrl;
     }
 
     getFullName() {
@@ -23,16 +24,5 @@ export class User {
         const date = new Date(this.registrationDate);
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return `Se unió el ${date.toLocaleDateString('es-ES', options)}`;
-    }
-
-    getUserDetails() {
-        return `
-            ${this.getFullName()}
-            Email: ${this.email}
-            Teléfono: ${this.phone}
-            Descripción: ${this.description}
-            Facebook: ${this.facebookUserName}
-            Instagram: ${this.instagramUserName}
-        `;
     }
 }
