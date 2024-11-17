@@ -8,6 +8,7 @@ import Transfers from "../pages/Landlord/Transfers";
 import NotificationDetails from "../components/shared/Notifications/NotificationDetails";
 import LandlordPropertyDetails from "../components/Tenant/Home/PropertyDetails.jsx"; // Importamos el nuevo componente de detalles de propiedad
 import Contract from "../pages/Contract.jsx";
+import Welcome from "../pages/Landlord/Welcome.jsx";
 
 const landlordRoutes = [
   {
@@ -23,6 +24,7 @@ const landlordRoutes = [
       { path: "property/:id", element: <LandlordPropertyDetails /> }, // Nueva ruta para detalles de propiedad
       { path: "notifications/:id", element: <NotificationDetails /> },
       { path: "contratos/:id", element: <Contract /> },
+      { path: "welcome", element: <Welcome /> },
     ],
   },
 ];

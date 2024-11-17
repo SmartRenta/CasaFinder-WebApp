@@ -1,15 +1,27 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NotificationCard from "./NotificationCard";
-import { getUserRoleFromCache } from "../../../utils/authUtils";
+import { getUserRoleFromCache, getUserIdFromCache} from "../../../utils/authUtils";
 import notificationsLandlord from "../../../data/notificationsLandlord.json";
 import notificationsTenant from "../../../data/notificationsTenant.json";
+import notificationService from "../../../services/notificationService";
 
 const NotificationBar = ({ onClose }) => {
     const userRole = getUserRoleFromCache();
-    const data = (userRole === "TENANT" ? notificationsTenant : notificationsLandlord);
+    //const data = (userRole === "TENANT" ? notificationsTenant : notificationsLandlord);
     const formRef = useRef(null);
     const navigate = useNavigate();
+
+    const [notificationData, setNotificationData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const id = getUserIdFromCache();
+            const data = await notificationService.getAllNotifications(id);
+            setNotificationData(data);
+        }
+        fetchData();
+    }, []);
 
     const handleClickOutside = (e) => {
         if (formRef.current && !formRef.current.contains(e.target)) {
@@ -33,16 +45,25 @@ const NotificationBar = ({ onClose }) => {
         e.currentTarget.style.background = '#374151';
     };
 
-    const handleClick = (notification) => {
+    const handleClick = async (notification) => {
+
         onClose();
-        const basePath = userRole === "TENANT" ? "/tenant" : "/landlord";
-        navigate(`${basePath}/notifications/${notification.id}`);
+        if(!notification.read){
+            const done = await notificationService.markAsRead(notification.id);
+            if(done){
+                notification.read = true;
+            }
+        }
+        navigate(notification.route);
     };
 
     return (
-        <div className="fixed inset-y-0 right-0 mt-6 bg-opacity-50">
+        <div className="fixed z-50 inset-y-0 right-0 mt-6 bg-opacity-50">
             <div ref={formRef} className="w-64 h-96 overflow-y-auto mt-6 bg-gray-700 text-white text-black p-4 shadow-lg border rounded">
-                {data.reverse().map((notification) => (
+            { notificationData.length === 0 ?
+                (<div>No hay ninguna notificación por el momento</div>)
+                :
+                (notificationData.reverse().map((notification) => (
                     <div 
                         key={notification.id} 
                         className="col-4" 
@@ -52,7 +73,8 @@ const NotificationBar = ({ onClose }) => {
                     >
                         <NotificationCard notification={notification} />
                     </div>
-                ))}
+                )))
+                }
             </div>
         </div>
     );
