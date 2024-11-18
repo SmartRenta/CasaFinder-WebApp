@@ -4,6 +4,7 @@ import CreateContractStepOne from "./CreateContractStepOne.jsx";
 import CreateContractStepTwo from "./CreateContractStepTwo.jsx";
 import CreateContractStepThree from "./CreateContractStepThree.jsx";
 import ContractService from "../../../services/contractService.js";
+import { getUserIdFromCache } from "../../../utils/authUtils";
 
 const Contracts = () => {
   const [step, setStep] = useState(1);
@@ -97,13 +98,15 @@ const Contracts = () => {
   const formValues = watch();
 
   const onSubmit = handleSubmit(async (data) => {
-    debugger
     try {
-        const response = await ContractService.createContract(data);
-        debugger
+        const response = await ContractService.createContract({...data,
+          signature: signatureSrc,
+          fingerprint: fingerprintSrc
+        });
         if (response) {
+          debugger
             console.log("Propiedad creada:", response);
-            onClose(); 
+            setStep((prev) => prev + 1);
         } else {
             console.error("Error al crear el contrato.");
         }
@@ -128,8 +131,8 @@ const Contracts = () => {
     trigger("startdate")
     trigger("enddate")
     const isStepValid = Object.keys(errors).length === 0;
-    console.log(errors)
-    if (!isStepValid) {
+    console.log(isStepValid)
+    if (isStepValid) {
       setStep((prev) => prev + 1);
     }else{
       alert("Los datos no pertenecen al titular");
