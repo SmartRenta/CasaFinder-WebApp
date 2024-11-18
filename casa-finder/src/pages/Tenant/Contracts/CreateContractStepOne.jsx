@@ -108,24 +108,24 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
           label="Fecha de inicio de alquiler"
           variant="outlined"
           type="date"
-          value={formValues.startdate}
+          value={formValues.startDate}
           onChange={(e) => {
-            setValue("startdate", e?.target?.value || "");
+            setValue("startDate", e?.target?.value || "");
           }}
-          error={errors?.startdate?.message}
-          helperText={errors?.startdate?.message}
+          error={errors?.startDate?.message}
+          helperText={errors?.startDate?.message}
         />
         <TextField
           style={{ width: "50%" }}
           label="Fecha de fin de alquiler"
           variant="outlined"
           type="date"
-          value={formValues.enddate}
+          value={formValues.endDate}
           onChange={(e) => {
-            setValue("enddate", e?.target?.value || "");
+            setValue("endDate", e?.target?.value || "");
           }}
-          error={errors?.enddate?.message}
-          helperText={errors?.enddate?.message}
+          error={errors?.endDate?.message}
+          helperText={errors?.endDate?.message}
         />
       </div>
       <p style={{ color: "red", marginBottom: 20 }}>
@@ -181,14 +181,14 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
         label="Numero de tarjeta de crédito (mismo titular)"
         variant="outlined"
         type="number"
-        value={formValues.cardnumber}
+        value={formValues.creditcard}
         onChange={(e) => {
           const value = e.target.value.slice(0, 16);
-          setValue("cardnumber", value);
+          setValue("creditcard", value);
         }}
         slotProps={{ htmlInput: { maxLength: 16 } }}
-        error={errors?.cardnumber?.message}
-        helperText={errors?.cardnumber?.message}
+        error={errors?.creditcard?.message}
+        helperText={errors?.creditcard?.message}
       />
       <div
         style={{
@@ -205,12 +205,12 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
           label="Fecha de Vencimiento"
           variant="outlined"
           type="month"
-          value={formValues.expirationdate}
+          value={formValues.expirationDate}
           onChange={(e) => {
-            setValue("expirationdate", e?.target?.value || "");
+            setValue("expirationDate", e?.target?.value || "");
           }}
-          error={errors?.expirationdate?.message}
-          helperText={errors?.expirationdate?.message}
+          error={errors?.expirationDate?.message}
+          helperText={errors?.expirationDate?.message}
         />
         <TextField
           style={{ width: "50%", marginBottom: 20 }}

@@ -26,19 +26,19 @@ const Contracts = () => {
       address: "",
       frequency: "",
       country: "",
-      cardnumber: "",
+      creditcard: "",
       cvv: "",
       signature: "",
       fingerprint: "",
       password: "",
       termsandconditions: false,
       termsandconditions2: false,
-      expirationdate: "",
+      expirationDate: "",
       phone: "",
       propertyId: 1,
       tenantId:getUserIdFromCache(),
-      startdate: new Date().toISOString().split("T")[0],
-      enddate: new Date().toISOString().split("T")[0],
+      startDate: new Date().toISOString().split("T")[0],
+      endDate: new Date().toISOString().split("T")[0],
     },
   });
   const triggerSubmit = () => {
@@ -61,13 +61,13 @@ const Contracts = () => {
     register("country", {
       validate: (value) => (value && value.length) || "El campo es requerido",
     });
-    register("startdate", {
+    register("startDate", {
       validate: (value) => (value && value.length) || "El campo es requerido",
     });
-    register("enddate", {
+    register("endDate", {
       validate: (value) => (value && value.length) || "El campo es requerido",
     });
-    register("expirationdate", {
+    register("expirationDate", {
       validate: (value) => (value && value.length) || "El campo es requerido",
     });
     register("password");
@@ -87,7 +87,7 @@ const Contracts = () => {
     register("phone", {
       validate: (value) => value > 0 || "El campo es requerido",
     });
-    register("cardnumber", {
+    register("creditcard", {
       validate: (value) => value > 0 || "El campo es requerido",
     });
     register("cvv", {
@@ -121,15 +121,15 @@ const Contracts = () => {
     trigger("address")
     trigger("frequency")
     trigger("country")
-    trigger("cardnumber")
+    trigger("creditcard")
     trigger("cvv")
     trigger("signature")
     trigger("fingerprint")
     trigger("termsandconditions")
-    trigger("expirationdate")
+    trigger("expirationDate")
     trigger("phone")
-    trigger("startdate")
-    trigger("enddate")
+    trigger("startDate")
+    trigger("endDate")
     const isStepValid = Object.keys(errors).length === 0;
     console.log(isStepValid)
     if (isStepValid) {

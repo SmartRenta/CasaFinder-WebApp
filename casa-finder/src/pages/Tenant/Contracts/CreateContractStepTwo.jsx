@@ -43,8 +43,8 @@ const CreateContractStepTwo = ({
         mi intencion de alquilar la propiedad de John Doe identificado con DNI
         1234569 con número de celular 987654312 y domicilio en Jr. Nueva Yoirk
         789, de ahora en adelante llamado EL ARRENDADOR, desde el{" "}
-        {formValues.startdate.split("-").reverse().join("/")} hasta el{" "}
-        {formValues.enddate.split("-").reverse().join("/")}.
+        {formValues.startDate.split("-").reverse().join("/")} hasta el{" "}
+        {formValues.endDate.split("-").reverse().join("/")}.
       </div>
       <div
         style={{
@@ -62,7 +62,7 @@ const CreateContractStepTwo = ({
         }}
       >
         Yo, LA ARRENDATARIA, autorizo el débito automático a la tarjeta de
-        crédito {formValues.cardnumber} a mi mismo nombre bajo el monto acordado
+        crédito {formValues.creditcard} a mi mismo nombre bajo el monto acordado
         de S/ 25,500.00 con una frecuencia de pago bimestral y además, la
         retención de los 4 meses de garantía solicitados
       </div>
