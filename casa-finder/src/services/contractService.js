@@ -5,8 +5,8 @@ const ContractService = {
 
     createContract: async (propertyData) => {
         try {
-            debugger
             const token = getTokenFromCache();
+            propertyData.expirationDate =  `${propertyData.expirationDate}-01`;
             const response = await axiosInstance.post('/api/v1/contracts/', propertyData, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -14,11 +14,22 @@ const ContractService = {
             });
             return response.data;
         } catch (error) {
-            console.error("Error al crear una contrato:", error);
+            console.error("Error al crear un contrato:", error);
             return null;
         }
     },
 
+    getContractById: async(id) => {
+        try{
+            const token = getTokenFromCache();
+            const response = await axiosInstance.get(`/api/v1/contracts/${id}`, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            return response.data;
+        }catch(error){
+            console.error("Error al obtener el contrato con id "+id+": ", error);
+        }
+    }
 };
 
 export default ContractService;

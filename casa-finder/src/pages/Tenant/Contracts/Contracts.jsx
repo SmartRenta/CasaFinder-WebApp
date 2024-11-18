@@ -131,10 +131,12 @@ const Contracts = () => {
     trigger("startDate")
     trigger("endDate")
     const isStepValid = Object.keys(errors).length === 0;
-    console.log(isStepValid)
+    console.log("isStepValid: "+isStepValid);
     if (isStepValid) {
       setStep((prev) => prev + 1);
     }else{
+      console.log("errors:");
+      console.table(errors);
       alert("Los datos no pertenecen al titular");
     }
   };

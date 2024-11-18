@@ -7,7 +7,7 @@ import notificationsTenant from "../../../data/notificationsTenant.json";
 import notificationService from "../../../services/notificationService";
 
 const NotificationBar = ({ onClose }) => {
-    const userRole = getUserRoleFromCache();
+    //const userRole = getUserRoleFromCache();
     //const data = (userRole === "TENANT" ? notificationsTenant : notificationsLandlord);
     const formRef = useRef(null);
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const NotificationBar = ({ onClose }) => {
 
             const id = getUserIdFromCache();
             const data = await notificationService.getAllNotifications(id);
-            setNotificationData(data);
+            setNotificationData(data.sort( (a,b) => new Date(b.creationDate) - new Date(a.creationDate)));
         }
         fetchData();
     }, []);
@@ -63,7 +63,7 @@ const NotificationBar = ({ onClose }) => {
             { notificationData.length === 0 ?
                 (<div>No hay ninguna notificación por el momento</div>)
                 :
-                (notificationData.reverse().map((notification) => (
+                (notificationData.map((notification) => (
                     <div 
                         key={notification.id} 
                         className="col-4" 
