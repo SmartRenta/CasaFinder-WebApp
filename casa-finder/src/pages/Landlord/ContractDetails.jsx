@@ -38,7 +38,7 @@ const ContractDetails = () => {
         const done =  await ContractService.setContractResponseById(id, accepted); 
         console.log("done: "+done);    
         if(done)   {
-            contract.accepted = true;
+            contract.accepted = accepted;
             if(accepted){
                 //BLOCKCHAIN
                 console.log("blockchain");
