@@ -17,13 +17,16 @@ const PropertyDetails = () => {
 
     fetchProperty();
   }, [id]);
-
   if (!property) {
     return <div>Cargando propiedad...</div>;
   }
 
   const handleBack = () => {
     navigate(-1); // Navegar a la página anterior
+  };
+
+  const goToCreateContract = () => {
+    navigate(`/tenant/createcontract/${property.id}/${property.landlord.id}`);
   };
 
   return (
@@ -121,7 +124,9 @@ const PropertyDetails = () => {
             </div>
 
             <div className="mt-6 flex justify-between">
-              <button className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark">
+              <button className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark"
+                onClick={goToCreateContract}
+              >
                 Alquilar casa
               </button>
 

@@ -1,174 +1,51 @@
-import React, { useState, useEffect,useRef } from "react";
-import { useForm } from "react-hook-form";
-import CreateContractStepOne from "./CreateContractStepOne.jsx";
-import CreateContractStepTwo from "./CreateContractStepTwo.jsx";
-import CreateContractStepThree from "./CreateContractStepThree.jsx";
+import React, { useState, useEffect } from "react";
+import HomeContractCarousel from "../../../components/Tenant/Home/HomeContractsCarousel.jsx";
+import { Typography } from "@material-tailwind/react";
+import { getUserIdFromCache } from "../../../utils/authUtils.js";
 import ContractService from "../../../services/contractService.js";
-import { getUserIdFromCache } from "../../../utils/authUtils";
 
 const Contracts = () => {
-  const [step, setStep] = useState(1);
-  const [signatureSrc, setSignatureSrc] = useState(null);
-  const [fingerprintSrc, setFingerprintSrc] = useState(null);
-  const formRef = useRef(); // referencia al formulario
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-    watch,
-    trigger,
-  } = useForm({
-    defaultValues: {
-      landlordEmail: "",
-      doctype: "",
-      docnum: "",
-      address: "",
-      frequency: "",
-      country: "",
-      creditcard: "",
-      cvv: "",
-      signature: "",
-      fingerprint: "",
-      password: "",
-      termsandconditions: false,
-      termsandconditions2: false,
-      expirationDate: "",
-      phone: "",
-      propertyId: 1,
-      tenantId:getUserIdFromCache(),
-      startDate: new Date().toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
-    },
-  });
-  const triggerSubmit = () => {
-    formRef.current.requestSubmit();
-  };
 
-  useEffect(() => {
-    register("landlordEmail", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("doctype", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("frequency", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("address", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("country", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("startDate", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("endDate", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("expirationDate", {
-      validate: (value) => (value && value.length) || "El campo es requerido",
-    });
-    register("password");
-    register("termsandconditions");
-    register("termsandconditions2", {
-      validate: (value) => value || "Debe aceptar los terminos y condiciones",
-    });
-    register("signature", {
-      validate: (value) => value || "Debe aceptar los terminos y condiciones",
-    });
-    register("fingerprint", {
-      validate: (value) => value || "Debe aceptar los terminos y condiciones",
-    });
-    register("docnum", {
-      validate: (value) => value > 0 || "El campo es requerido",
-    });
-    register("phone", {
-      validate: (value) => value > 0 || "El campo es requerido",
-    });
-    register("creditcard", {
-      validate: (value) => value > 0 || "El campo es requerido",
-    });
-    register("cvv", {
-      validate: (value) => value > 0 || "El campo es requerido",
-    });
-  }, [register]);
+  const [contractsData, setContractsData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
 
-  const formValues = watch();
-
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-        const response = await ContractService.createContract({...data,
-          signature: signatureSrc,
-          fingerprint: fingerprintSrc
-        });
-        if (response) {
-            setStep((prev) => prev + 1);
-        } else {
-            console.error("Error al crear el contrato.");
+            const userId = getUserIdFromCache();
+            const data = await ContractService.getAllContractsById(userId);
+            setContractsData(data);
         }
-    } catch (error) {
-        console.error("Error en la creación de el contrato:", error);
-    }
-  });
-  const nextStep = async () => {
-    trigger("landlordEmail")
-    trigger("doctype")
-    trigger("docnum")
-    trigger("address")
-    trigger("frequency")
-    trigger("country")
-    trigger("creditcard")
-    trigger("cvv")
-    trigger("signature")
-    trigger("fingerprint")
-    trigger("termsandconditions")
-    trigger("expirationDate")
-    trigger("phone")
-    trigger("startDate")
-    trigger("endDate")
-    const isStepValid = Object.keys(errors).length === 0;
-    if (isStepValid) {
-      setStep((prev) => prev + 1);
-    }else{
-      alert("Los datos no pertenecen al titular");
-    }
-  };
-  const prevStep = () => {
-    setStep((prev) => prev - 1);
-  };
+        fetchData();
+    }, []);
+
+  const pendientes = contractsData.filter(c => c.accepted == null);
+  const aceptados = contractsData.filter(c => c.accepted == true);
+  const rechazados = contractsData.filter(c => c.accepted == false);
+
   return (
-    <div>
-      <form onSubmit={onSubmit} ref={formRef}>
-        {step === 1 && (
-          <CreateContractStepOne
-            setValue={setValue}
-            errors={errors}
-            formValues={formValues}
-            nextStep={nextStep}
-            fingerprintSrc={fingerprintSrc} setFingerprintSrc={setFingerprintSrc}
-            signatureSrc={signatureSrc} setSignatureSrc={setSignatureSrc}
-          />
-        )}
-        {step === 2 && (
-          <CreateContractStepTwo
-            setValue={setValue}
-            errors={errors}
-            formValues={formValues}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            signatureSrc={signatureSrc}
-            fingerprintSrc={fingerprintSrc}
-            triggerSubmit={triggerSubmit}
-          />
-        )}
-        {step === 3 && 
-          <CreateContractStepThree
-          />}
-      </form>
-    </div>
+    <>
+      <Typography variant="h2" className="text-black text-xl my-4">
+        CONTRATOS
+      </Typography>
+
+      <Typography variant="h6" className="text-black my-4">
+        Contratos pendientes
+      </Typography>
+      <HomeContractCarousel contracts={pendientes} />
+      
+      <Typography variant="h6" className="text-black my-4">
+        Contratos aceptados
+      </Typography>
+      <HomeContractCarousel contracts={aceptados} />
+
+      <Typography variant="h6" className="text-black my-4">
+        Contratos rechazados
+      </Typography>
+      <HomeContractCarousel contracts={rechazados} />
+      
+    </>
   );
+
+
 };
 
 export default Contracts;
