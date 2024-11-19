@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { List, Typography, Card, IconButton } from "@material-tailwind/react";
-import ContractDownload from "../components/shared/Contracts/ContractDownload";
 import ContractContent from "../components/shared/Contracts/ContractContent";
-import {FaRegAngry, FaRegStar} from "react-icons/fa";
 import contractsJson from "../data/contracts.json"; 
 import { getUserRoleFromCache, setUserRoleInCache } from "../utils/authUtils";
 import { useParams, useNavigate } from "react-router-dom"; 
 
 const Contract = () => {
     
+    //ESTE ARCHIVO SE BORRARA
     const { id } = useParams(); 
     const userRole = getUserRoleFromCache();
     const contract = contractsJson.find(c => c.id == id)
@@ -48,19 +47,7 @@ const Contract = () => {
             : 
             ""
             }
-            <ContractDownload/>
-            {userRole === "TENANT" ?
-            ""
-            : 
-            <div className="flex">
-                    <div className="w-1/6 flex justify-end">
-                        <FaRegAngry className="cursor-pointer text-3xl" onClick={handleClick}/>
-                    </div>
-                    <div className="w-5/6">
-                        {contract.name} ⭐ 5
-                    </div>
-            </div>
-            }
+
             <ContractContent contract={contract}/>
             
             {userRole === "LANDLORD" && contract.estado === 1 ?

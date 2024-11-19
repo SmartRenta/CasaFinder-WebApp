@@ -12,8 +12,8 @@ const NotificationCard = ({notification}) => {
                 }
             </div>
             <div className="w-4/5 ">
-                <div className="date">{notification.date}</div>
-                <div className="description">{notification.description}</div>
+                <div className="date">{new Date(notification.creationDate).toLocaleString('es-ES').replace(",","")}</div>
+                <div className="description">{notification.content}</div>
             </div>
         </div>
     );

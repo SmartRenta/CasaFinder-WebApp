@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HomeContractCarousel from "../../components/landLord/home/HomeContractsCarousel.jsx";
 import { List, Typography, Card, IconButton } from "@material-tailwind/react";
 import contractsJson from "../../data/contracts.json"; 
+import { getUserIdFromCache } from "../../utils/authUtils";
+import ContractService from "../../services/contractService.js";
 
 const Contracts = () => {
 
-  const pendientes = contractsJson.filter(c => c.estado == 1);
-  const activos = contractsJson.filter(c => c.estado == 2);
-  const inactivos = contractsJson.filter(c => c.estado == 3);
+  const [contractsData, setContractsData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const userId = getUserIdFromCache();
+            const data = await ContractService.getAllContractsById(userId);
+            setContractsData(data);
+        }
+        fetchData();
+    }, []);
+
+  const pendientes = contractsData.filter(c => c.accepted == null);
+  const aceptados = contractsData.filter(c => c.accepted == true);
+  const rechazados = contractsData.filter(c => c.accepted == false);
 
   return (
     <>
@@ -21,14 +34,14 @@ const Contracts = () => {
       <HomeContractCarousel contracts={pendientes} />
       
       <Typography variant="h6" className="text-black my-4">
-        Contratos activos
+        Contratos aceptados
       </Typography>
-      <HomeContractCarousel contracts={activos} />
+      <HomeContractCarousel contracts={aceptados} />
 
       <Typography variant="h6" className="text-black my-4">
-        Contratos inactivos
+        Contratos rechazados
       </Typography>
-      <HomeContractCarousel contracts={inactivos} />
+      <HomeContractCarousel contracts={rechazados} />
       
     </>
   );

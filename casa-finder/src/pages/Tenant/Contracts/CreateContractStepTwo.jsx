@@ -62,7 +62,7 @@ const CreateContractStepTwo = ({
         }}
       >
         Yo, LA ARRENDATARIA, autorizo el débito automático a la tarjeta de
-        crédito {formValues.creditcard} a mi mismo nombre bajo el monto acordado
+        crédito {formValues.creditcard.slice(0,-3).replace(/./g, "X")}{formValues.creditcard.slice(-3)} a mi mismo nombre bajo el monto acordado
         de S/ 25,500.00 con una frecuencia de pago bimestral y además, la
         retención de los 4 meses de garantía solicitados
       </div>
@@ -103,12 +103,10 @@ const CreateContractStepTwo = ({
           fontSize: 16,
         }}
       >
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged.
+        EL ARRENDATARIO está obligado a permitir la inspección del bien arrendado por parte del ARRENDADOR, 
+        para cuyo efecto éste deberá cursar previo aviso por escrito, con una anticipación no menor de dos días. Queda convenido que forma parte de la inspección del bien arrendado, la exhibición de los recibos debidamente cancelados correspondientes a los servicios y tributos que se refiere la cláusula novena.
+        EL ARRENDATARIO está obligado a efectuar por cuenta y costo propio las reparaciones y mantenimientos que sean necesarios para conservar el bien en el mismo estado en que fue recibido.
+        EL ARRENDATARIO se obliga a desocupar el bien arrendado en la fecha de vencimiento del plazo estipulado en la cláusula sexta de este contrato, salvo renovación del mismo.
       </div>
 
       <div

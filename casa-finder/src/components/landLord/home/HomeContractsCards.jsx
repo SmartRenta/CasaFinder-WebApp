@@ -28,7 +28,7 @@ const HomeContractCard = ({contract}) => {
                         onMouseEnter={handleMouseEnter} 
                         onMouseLeave={handleMouseLeave}>
             <div className="w-full">
-                <img className="w-full h-80 object-fill rounded" src={contract.pdfImage} alt="PDF"/>
+                <img className="w-full h-80 object-fill rounded" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png" alt="PDF"/>
             </div>
             <div className="flex-1 p-4">
                 <h3 className="text-lg font-medium">{contract.property.title}</h3>

@@ -7,6 +7,7 @@ import Transfers from "../pages/Tenant/Transfers";
 import PropertyDetails from "../components/Tenant/Home/PropertyDetails";
 import NotificationDetails from "../components/shared/Notifications/NotificationDetails";
 import Contract from "../pages/Contract.jsx";
+import Welcome from "../pages/Tenant/Welcome.jsx";
 
 const tenantRoutes = [
   {
@@ -19,8 +20,8 @@ const tenantRoutes = [
       { path: "transferencias", element: <Transfers /> },
       { path: "perfil", element: <Profile /> },
       { path: "property/:id", element: <PropertyDetails /> },
-      { path: "notifications/:id", element: <NotificationDetails /> },
       { path: "contratos/:id", element: <Contract /> },
+      { path: "welcome", element: <Welcome /> },
     ],
   },
 ];
