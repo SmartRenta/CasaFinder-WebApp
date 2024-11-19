@@ -18,7 +18,16 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerprintSrc, setFingerprintSrc, signatureSrc, setSignatureSrc }) => {
+const CreateContractStepOne = ({
+  errors,
+  setValue,
+  formValues,
+  nextStep,
+  fingerprintSrc,
+  setFingerprintSrc,
+  signatureSrc,
+  setSignatureSrc,
+}) => {
   return (
     <div className="form-container border rounded-lg shadow-lg p-4">
       <div
@@ -30,47 +39,26 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
       >
         Por favor ingrese todos los datos
       </div>
-      <TextField
-        style={{ width: "100%", margin: "20px 0" }}
-        label="Correo del propietario"
-        variant="outlined"
-        value={formValues.landlordEmail}
-        onChange={(e) => {
-          setValue("landlordEmail", e?.target?.value || "");
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          gap: 8,
+          marginBottom: 20,
+          marginTop: 20,
+          borderBottom: "1px black solid",
         }}
-        error={errors?.landlordEmail?.message}
-        helperText={errors?.landlordEmail?.message}
-      />
-      <div style={{ display: "flex", width: "100%", gap: 8, marginBottom: 20 }}>
+      >
         <TextField
-          style={{ width: "33%" }}
-          select
-          label="Tipo de documento"
-          value={formValues.doctype}
-          onChange={(e) => {
-            setValue("doctype", e?.target?.value || "");
-          }}
-          error={errors?.doctype?.message}
-          helperText={errors?.doctype?.message}
-        >
-          <MenuItem key={"DNI"} value={"DNI"}>
-            DNI
-          </MenuItem>
-          <MenuItem key={"RUC"} value={"RUC"}>
-            RUC
-          </MenuItem>
-        </TextField>
-        <TextField
-          style={{ width: "33%" }}
-          label="Número de documento"
+          style={{ width: "66%", marginBottom: 20 }}
+          label="Dirección"
           variant="outlined"
-          type="number"
-          value={formValues.docnum}
+          value={formValues.address}
           onChange={(e) => {
-            setValue("docnum", e?.target?.value || "");
+            setValue("address", e?.target?.value || "");
           }}
-          error={errors?.docnum?.message}
-          helperText={errors?.docnum?.message}
+          error={errors?.address?.message}
+          helperText={errors?.address?.message}
         />
         <TextField
           style={{ width: "33%" }}
@@ -91,20 +79,9 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
           </MenuItem>
         </TextField>
       </div>
-      <TextField
-        style={{ width: "100%", marginBottom: 20 }}
-        label="Dirección"
-        variant="outlined"
-        value={formValues.address}
-        onChange={(e) => {
-          setValue("address", e?.target?.value || "");
-        }}
-        error={errors?.address?.message}
-        helperText={errors?.address?.message}
-      />
       <div style={{ display: "flex", width: "100%", gap: 8, marginBottom: 10 }}>
         <TextField
-          style={{ width: "50%" }}
+          style={{ width: "33%" }}
           label="Fecha de inicio de alquiler"
           variant="outlined"
           type="date"
@@ -116,7 +93,7 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
           helperText={errors?.startDate?.message}
         />
         <TextField
-          style={{ width: "50%" }}
+          style={{ width: "33%" }}
           label="Fecha de fin de alquiler"
           variant="outlined"
           type="date"
@@ -127,21 +104,6 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
           error={errors?.endDate?.message}
           helperText={errors?.endDate?.message}
         />
-      </div>
-      <p style={{ color: "red", marginBottom: 20 }}>
-        *La fecha de inicio se considera desde las 00:00 horas y para la de fin
-        hasta las 23:59 horas.
-      </p>
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          gap: 8,
-          paddingBottom: 20,
-          marginBottom: 20,
-          borderBottom: "1px black solid",
-        }}
-      >
         <TextField
           style={{ width: "33%" }}
           select
@@ -163,69 +125,11 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
             Trimestral
           </MenuItem>
         </TextField>
-        <TextField
-          style={{ width: "66%" }}
-          label="Telefono"
-          variant="outlined"
-          type="number"
-          value={formValues.phone}
-          onChange={(e) => {
-            setValue("phone", e?.target?.value || "");
-          }}
-          error={errors?.phone?.message}
-          helperText={errors?.phone?.message}
-        />
       </div>
-      <TextField
-        style={{ width: "100%", marginBottom: 20 }}
-        label="Numero de tarjeta de crédito (mismo titular)"
-        variant="outlined"
-        type="number"
-        value={formValues.creditcard}
-        onChange={(e) => {
-          const value = e.target.value.slice(0, 16);
-          setValue("creditcard", value);
-        }}
-        slotProps={{ htmlInput: { maxLength: 16 } }}
-        error={errors?.creditcard?.message}
-        helperText={errors?.creditcard?.message}
-      />
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          gap: 8,
-          paddingBottom: 20,
-          marginBottom: 20,
-          borderBottom: "1px black solid",
-        }}
-      >
-        <TextField
-          style={{ width: "50%", marginBottom: 20 }}
-          label="Fecha de Vencimiento"
-          variant="outlined"
-          type="month"
-          value={formValues.expirationDate}
-          onChange={(e) => {
-            setValue("expirationDate", e?.target?.value || "");
-          }}
-          error={errors?.expirationDate?.message}
-          helperText={errors?.expirationDate?.message}
-        />
-        <TextField
-          style={{ width: "50%", marginBottom: 20 }}
-          label="CVV"
-          variant="outlined"
-          type="number"
-          value={formValues.cvv}
-          onChange={(e) => {
-            const value = e.target.value.slice(0, 3);
-            setValue("cvv", value);
-          }}
-          error={errors?.cvv?.message}
-          helperText={errors?.cvv?.message}
-        />
-      </div>
+      <p style={{ color: "red", marginBottom: 20, paddingBottom: 20,  borderBottom: "black 1px solid", }}>
+        *La fecha de inicio se considera desde las 00:00 horas y para la de fin
+        hasta las 23:59 horas.
+      </p>
       <div
         style={{
           display: "flex",
@@ -281,9 +185,9 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
                   if (file && file.type.startsWith("image/")) {
                     const reader = new FileReader();
                     reader.onload = () => {
-                      setSignatureSrc(reader.result); 
+                      setSignatureSrc(reader.result);
                     };
-                    reader.readAsDataURL(file); 
+                    reader.readAsDataURL(file);
                   } else {
                     alert("Por favor, selecciona un archivo de imagen válido.");
                   }
@@ -291,8 +195,21 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
               />
             </Button>
           </div>
-          <div style={{justifyContent: "center", display: "flex", width: "100%", marginTop: 20}}>
-            {signatureSrc && <img src={signatureSrc} alt="Preview" style={{ width: "100%", maxWidth: "300px" }} />}
+          <div
+            style={{
+              justifyContent: "center",
+              display: "flex",
+              width: "100%",
+              marginTop: 20,
+            }}
+          >
+            {signatureSrc && (
+              <img
+                src={signatureSrc}
+                alt="Preview"
+                style={{ width: "100%", maxWidth: "300px" }}
+              />
+            )}
           </div>
         </div>
         <div
@@ -341,9 +258,9 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
                   if (file && file.type.startsWith("image/")) {
                     const reader = new FileReader();
                     reader.onload = () => {
-                      setFingerprintSrc(reader.result); 
+                      setFingerprintSrc(reader.result);
                     };
-                    reader.readAsDataURL(file); 
+                    reader.readAsDataURL(file);
                   } else {
                     alert("Por favor, selecciona un archivo de imagen válido.");
                   }
@@ -351,8 +268,21 @@ const CreateContractStepOne = ({ errors, setValue, formValues, nextStep, fingerp
               />
             </Button>
           </div>
-          <div style={{justifyContent: "center", display: "flex", width: "100%", marginTop: 20}}>
-            {fingerprintSrc && <img src={fingerprintSrc} alt="Preview" style={{ width: "100%", maxWidth: "300px" }} />}
+          <div
+            style={{
+              justifyContent: "center",
+              display: "flex",
+              width: "100%",
+              marginTop: 20,
+            }}
+          >
+            {fingerprintSrc && (
+              <img
+                src={fingerprintSrc}
+                alt="Preview"
+                style={{ width: "100%", maxWidth: "300px" }}
+              />
+            )}
           </div>
         </div>
       </div>

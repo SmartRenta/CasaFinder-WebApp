@@ -9,6 +9,7 @@ const CreateContractStepTwo = ({
   setValue,
   formValues,
   triggerSubmit,
+  property, userData,
   prevStep, fingerprintSrc, signatureSrc
 }) => {
   return (
@@ -36,13 +37,12 @@ const CreateContractStepTwo = ({
           fontSize: 16,
         }}
       >
-        Yo, {formValues.fullname} identificada con {formValues.doctype}{" "}
-        {formValues.docnum} con número de telefono {formValues.phone} y con
+        Yo, {userData.name} {userData.lastName} identificada con {userData.documentType}{" "}
+        {userData.documentNumber} con número de telefono {userData.phone} y con
         domicilio
         {formValues.address}, {formValues.country}, de ahora en adelante declaro
-        mi intencion de alquilar la propiedad de John Doe identificado con DNI
-        1234569 con número de celular 987654312 y domicilio en Jr. Nueva Yoirk
-        789, de ahora en adelante llamado EL ARRENDADOR, desde el{" "}
+        mi intencion de alquilar la propiedad de {property.landlord.name}  {property.landlord.lastName} identificado con {property.landlord.documentType} 
+        {property.landlord.documentNumber} con número de celular {property.landlord.phone}, de ahora en adelante llamado EL ARRENDADOR, desde el{" "}
         {formValues.startDate.split("-").reverse().join("/")} hasta el{" "}
         {formValues.endDate.split("-").reverse().join("/")}.
       </div>
@@ -61,9 +61,8 @@ const CreateContractStepTwo = ({
           fontSize: 16,
         }}
       >
-        Yo, LA ARRENDATARIA, autorizo el débito automático a la tarjeta de
-        crédito {formValues.creditcard.slice(0,-3).replace(/./g, "X")}{formValues.creditcard.slice(-3)} a mi mismo nombre bajo el monto acordado
-        de S/ 25,500.00 con una frecuencia de pago bimestral y además, la
+        Yo, LA ARRENDATARIA, autorizo autorizo los pagos a mi mismo nombre bajo el monto acordado
+        de {property.currency} {property.price} con una frecuencia de pago {formValues.frequency} y además, la
         retención de los 4 meses de garantía solicitados
       </div>
       <div
