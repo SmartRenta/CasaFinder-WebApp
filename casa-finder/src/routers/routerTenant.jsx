@@ -20,7 +20,6 @@ const tenantRoutes = [
       { path: "transferencias", element: <Transfers /> },
       { path: "perfil", element: <Profile /> },
       { path: "property/:id", element: <PropertyDetails /> },
-      { path: "notifications/:id", element: <NotificationDetails /> },
       { path: "contratos/:id", element: <Contract /> },
       { path: "welcome", element: <Welcome /> },
     ],

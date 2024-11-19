@@ -22,7 +22,6 @@ const landlordRoutes = [
       { path: "transferencias", element: <Transfers /> },
       { path: "perfil", element: <Profile /> },
       { path: "property/:id", element: <LandlordPropertyDetails /> }, // Nueva ruta para detalles de propiedad
-      { path: "notifications/:id", element: <NotificationDetails /> },
       { path: "contratos/:id", element: <ContractDetails /> },
       { path: "welcome", element: <Welcome /> },
     ],

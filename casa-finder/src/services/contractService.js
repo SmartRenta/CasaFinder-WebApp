@@ -29,6 +29,29 @@ const ContractService = {
         }catch(error){
             console.error("Error al obtener el contrato con id "+id+": ", error);
         }
+    },
+
+    setContractResponseById: async(id, accepted) => {
+        try{
+            const token = getTokenFromCache();
+            const response = await axiosInstance.post(`/api/v1/contracts/${id}/response`, accepted, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            return response.data;
+        }catch(error){
+            console.error("Error al cambiar el estado del contrato "+id+": ", error);
+        }
+    },
+    getAllContractsById: async(userId) => {
+        try{
+            const token = getTokenFromCache();
+            const response = await axiosInstance.get(`/api/v1/users/${userId}/contracts`, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            return response.data;
+        }catch(error){
+            console.error("Error al obtener contratos del usuario "+userId+": ", error);
+        }
     }
 };
 
