@@ -50,7 +50,7 @@ const ContractDetails = () => {
     return (
     <div>
         <Typography variant="h2" className="ml-4 my-4 text-black text-xl">
-            CONTRATO {contract.accepted == null ? "PENDIENTE": contract.accepted == true ? "ACEPTADO" : "RECHAZADO" }
+            CONTRATO {contract.status}
         </Typography>
         <div>
             <ContractContent contract={contract}/>

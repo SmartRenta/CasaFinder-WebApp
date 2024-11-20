@@ -54,6 +54,8 @@ const NotificationBar = ({ onClose }) => {
                 notification.read = true;
             }
         }
+        console.table(notification);
+        console.log(notification.route);
         navigate(notification.route);
     };
 

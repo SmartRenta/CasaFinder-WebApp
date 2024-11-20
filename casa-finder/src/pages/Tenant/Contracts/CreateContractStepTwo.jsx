@@ -12,6 +12,7 @@ const CreateContractStepTwo = ({
   property, userData,
   prevStep, fingerprintSrc, signatureSrc
 }) => {
+  console.table(property);
   return (
     <div className="form-container border rounded-lg shadow-lg p-4">
       <div
@@ -37,14 +38,13 @@ const CreateContractStepTwo = ({
           fontSize: 16,
         }}
       >
-        Yo, {userData.name} {userData.lastName} identificada con {userData.documentType}{" "}
-        {userData.documentNumber} con número de telefono {userData.phone} y con
-        domicilio
-        {formValues.address}, {formValues.country}, de ahora en adelante declaro
-        mi intencion de alquilar la propiedad de {property.landlord.name}  {property.landlord.lastName} identificado con {property.landlord.documentType} 
-        {property.landlord.documentNumber} con número de celular {property.landlord.phone}, de ahora en adelante llamado EL ARRENDADOR, desde el{" "}
-        {formValues.startDate.split("-").reverse().join("/")} hasta el{" "}
-        {formValues.endDate.split("-").reverse().join("/")}.
+        Yo, {userData.name} {userData.lastName} identificado con {userData.documentType} {userData.documentNumber} con 
+        número de teléfono {userData.phone} y con
+        domicilio en {formValues.address}, {formValues.country}, de ahora en adelante llamado EL ARRENDATARIO, 
+        por la presente declaro mi intención de alquilar la propiedad 
+        de {property.landlord.name} {property.landlord.lastName} identificado 
+        con {property.landlord.documentType} {property.landlord.documentNumber} con número de teléfono {property.landlord.phone}, de ahora en adelante llamado EL ARRENDADOR, 
+        desde el {formValues.startDate.split("-").reverse().join("/")} hasta el {formValues.endDate.split("-").reverse().join("/")}.
       </div>
       <div
         style={{
@@ -54,16 +54,14 @@ const CreateContractStepTwo = ({
           paddingTop: 10,
         }}
       >
-        1. Débito automático
+        1. Pago frecuente
       </div>
       <div
         style={{
           fontSize: 16,
         }}
       >
-        Yo, LA ARRENDATARIA, autorizo autorizo los pagos a mi mismo nombre bajo el monto acordado
-        de {property.currency} {property.price} con una frecuencia de pago {formValues.frequency} y además, la
-        retención de los 4 meses de garantía solicitados
+        Yo, EL ARRENDATARIO, doy fe del pago bajo el monto acordado de {property.currency} {property.price} con una frecuencia de pago {formValues.frequency}.
       </div>
       <div
         style={{
@@ -73,19 +71,30 @@ const CreateContractStepTwo = ({
           paddingTop: 10,
         }}
       >
-        2. Servicio incluido
+        2. Servicios incluidos
       </div>
       <div
         style={{
           fontSize: 16,
         }}
       >
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged.
+        Se incluyen los siguientes servicios:
+        <ul>
+        {
+            property?.includes.map( (value, index) => (
+                <li key={index}>▪ {value}</li>
+            ))
+        }
+        </ul>
+        <br></br>
+        Las ventajas con las que cuenta son:
+        <ul>
+        {
+            property?.features.map((value, index) => (
+                <li key={index}>▪ {value}</li>
+            ))
+        }
+        </ul>
       </div>
       <div
         style={{

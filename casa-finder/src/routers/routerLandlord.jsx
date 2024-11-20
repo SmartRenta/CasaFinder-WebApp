@@ -5,7 +5,6 @@ import Home from "../pages/Landlord/Home";
 import Contracts from "../pages/Landlord/Contracts.jsx";
 import Properties from "../pages/Landlord/Properties";
 import Transfers from "../pages/Landlord/Transfers";
-import NotificationDetails from "../components/shared/Notifications/NotificationDetails";
 import LandlordPropertyDetails from "../components/Tenant/Home/PropertyDetails.jsx"; // Importamos el nuevo componente de detalles de propiedad
 import Welcome from "../pages/Landlord/Welcome.jsx";
 import ContractDetails from "../pages/Landlord/ContractDetails.jsx";

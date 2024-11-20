@@ -8,6 +8,7 @@ const HomeContractCard = ({contract}) => {
     const navigate = useNavigate();
     const userRole = getUserRoleFromCache();
 
+    console.table(contract);
     const handleMouseEnter = (e) => {
         e.currentTarget.style.background = '#D3D3D3';
         e.currentTarget.style.cursor = 'pointer';
@@ -31,9 +32,9 @@ const HomeContractCard = ({contract}) => {
                 <img className="w-full h-80 object-fill rounded" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/640px-PDF_file_icon.svg.png" alt="PDF"/>
             </div>
             <div className="flex-1 p-4">
-                <h3 className="text-lg font-medium">{contract.property.title}</h3>
-                <p className="text-gray-700 mt-2">{contract.name}</p>
-                <p className="text-gray-500">{contract.date}</p>
+                <h3 className="text-lg font-medium">{contract?.property?.title}</h3>
+                <p className="text-gray-700 mt-2">{contract?.tenant.name} {contract?.tenant?.lastName}</p>
+                <p className="text-gray-500">{new Date(contract.creationDate).toLocaleString('es-ES')}</p>
                 <div className="mt-4">
                 </div>
             </div>

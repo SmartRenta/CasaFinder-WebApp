@@ -26,7 +26,7 @@ const PropertyDetails = () => {
   };
 
   const goToCreateContract = () => {
-    navigate(`/tenant/createcontract/${property.id}/${property.landlord.id}`);
+    navigate(`/tenant/contratos/${property.id}/${property.landlord.id}`);
   };
 
   return (

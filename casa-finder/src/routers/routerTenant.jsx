@@ -3,12 +3,11 @@ import ErrorPage from "./ErrorPage.jsx";
 import Profile from "../pages/Tenant/ProfileTenant.jsx";
 import Home from "../pages/Tenant/Home";
 import Contracts from "../pages/Tenant/Contracts/Contracts.jsx";
-import CreateContract from "../pages/Tenant/CreateContract/CreateContract.jsx";
+import CreateContract from "../pages/Tenant/Contracts/CreateContract.jsx";
 import Transfers from "../pages/Tenant/Transfers";
 import PropertyDetails from "../components/Tenant/Home/PropertyDetails";
-import NotificationDetails from "../components/shared/Notifications/NotificationDetails";
-import Contract from "../pages/Contract.jsx";
 import Welcome from "../pages/Tenant/Welcome.jsx";
+import CreateContractStepFour from "../pages/Tenant/Contracts/CreateContractStepFour.jsx";
 
 const tenantRoutes = [
   {
@@ -21,9 +20,9 @@ const tenantRoutes = [
       { path: "transferencias", element: <Transfers /> },
       { path: "perfil", element: <Profile /> },
       { path: "property/:id", element: <PropertyDetails /> },
-      { path: "contratos/:id", element: <Contract /> },
+      { path: "contratos/:id", element: <CreateContractStepFour /> },
       { path: "welcome", element: <Welcome /> },
-      { path: "createcontract/:propertyId/:landlordId", element: <CreateContract /> },
+      { path: "contratos/:propertyId/:landlordId", element: <CreateContract/> },
     ],
   },
 ];

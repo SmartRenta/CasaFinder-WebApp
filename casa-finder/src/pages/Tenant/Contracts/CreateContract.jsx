@@ -6,7 +6,7 @@ import CreateContractStepThree from "./CreateContractStepThree.jsx";
 import ContractService from "../../../services/contractService.js";
 import { getUserIdFromCache } from "../../../utils/authUtils.js";
 import { useParams } from "react-router-dom";
-import PropertyService from "../../../services/propertyService"; 
+import PropertyService from "../../../services/propertyService.js"; 
 import {getUserData} from "../../../services/userService.js"; 
 
 const CreateContract = () => {
@@ -17,6 +17,11 @@ const CreateContract = () => {
   const [property, setProperty] = useState(null);
   const [userData, setUserData] = useState(null);
   const formRef = useRef(); // referencia al formulario
+
+  console.log(new Date().toLocaleDateString());
+  console.log(new Date().toLocaleDateString().split("/").reverse().join("-"));
+
+
   const {
     register,
     handleSubmit,
@@ -37,8 +42,8 @@ const CreateContract = () => {
       termsandconditions2: false,
       propertyId: propertyId,
       tenantId:getUserIdFromCache(),
-      startDate: new Date().toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: new Date().toLocaleDateString().split("/").reverse().join("-"),//.split("T")[0],
+      endDate: new Date().toLocaleDateString().split("/").reverse().join("-")//.toISOString().split("T")[0],
     },
   });
   const triggerSubmit = () => {

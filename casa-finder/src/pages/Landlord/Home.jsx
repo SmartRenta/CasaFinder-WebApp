@@ -6,6 +6,7 @@ import HomeTransferCarousel from "../../components/landLord/home/HomeTransferCar
 import PropertyService from "../../services/propertyService";
 import { getUserIdFromCache } from "../../utils/authUtils.js";
 import contractsJson from "../../data/contracts.json"; // Suponiendo que sigues usando datos estáticos para contratos
+import ContractService from "../../services/contractService.js";
 
 const Home = () => {
     const [propertiesData, setPropertiesData] = useState([]);
@@ -20,6 +21,17 @@ const Home = () => {
         };
 
         fetchProperties();
+    }, []);
+
+    const [contractsData, setContractsData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const userId = getUserIdFromCache();
+            const data = await ContractService.getAllContractsById(userId);
+            setContractsData(data);
+        }
+        fetchData();
     }, []);
 
     const transfersData = [
@@ -50,7 +62,7 @@ const Home = () => {
             <h2 className="my-2">Mis Propiedades</h2>
             <HomePropertiesCarousel properties={propertiesData} />
             <h2 className="my-2">Mis Contratos</h2>
-            <HomeContractCarousel contracts={contractsJson} />
+            <HomeContractCarousel contracts={contractsData} />
             <h2 className="my-2">Mis Transferencias</h2>
             <HomeTransferCarousel transfers={transfersData} />
         </div>

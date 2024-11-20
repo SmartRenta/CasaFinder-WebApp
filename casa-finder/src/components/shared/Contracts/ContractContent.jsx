@@ -10,8 +10,8 @@ const ContractContent = ({contract}) => {
     const divRef = useRef();
     const userRole = getUserRoleFromCache();
 
-    const startDate = new Date(`${contract?.startDate}T00:00:00-05:00`);
-    const endDate = new Date(`${contract?.endDate}T00:00:00-05:00`);
+    const startDate = new Date(contract?.startDate);
+    const endDate = new Date(contract?.endDate);
 
     const handlePdfDownload = async () => {
         
@@ -54,16 +54,16 @@ const ContractContent = ({contract}) => {
             </div>
             <div ref={divRef} className="h-96 bg-gray-300 overflow-y-auto px-16 py-8 my-4">
                 <Typography variant="h2" className="text-black text-xl my-4 text-center">
-                    CONTRATO DIGITAL
+                    CONTRATO DIGITAL {contract.status}
                 </Typography>
                 <div className="border-t-2 py-4 border-black">
-                    <p>Yo, {contract?.tenant?.name} {contract?.tenant?.lastName} identificada con {contract?.tenant?.documentType} {contract?.tenant?.documentNumber} con número de celular {contract?.tenant?.phone} y con domicilio en {contract?.address}, de ahora en adelante llamada LA ARRENDATARIA, 
-                        por la presente declaro mi intención de alquilar la propiedad de {contract?.landlord?.name} {contract?.landlord?.lastName} identificado con {contract?.landlord?.documentType} {contract?.landlord?.documentNumber} con número de celular {contract?.landlord?.phone}, de ahora en adelante llamado EL ARRENDADOR, 
-                        desde el {startDate.toLocaleDateString('es-ES')} hasta el {endDate.toLocaleDateString('es-ES')}. </p>
+                    <p>Yo, {contract?.tenant?.name} {contract?.tenant?.lastName} identificado con {contract?.tenant?.documentType} {contract?.tenant?.documentNumber} con número de teléfono {contract?.tenant?.phone} y con domicilio en {contract?.address}, {contract?.country}, de ahora en adelante llamado EL ARRENDATARIO, 
+                        por la presente declaro mi intención de alquilar la propiedad de {contract?.landlord?.name} {contract?.landlord?.lastName} identificado con {contract?.landlord?.documentType} {contract?.landlord?.documentNumber} con número de teléfono {contract?.landlord?.phone}, de ahora en adelante llamado EL ARRENDADOR, 
+                        desde el {startDate.toLocaleString('es-ES')} hasta el {endDate.toLocaleString('es-ES')}. </p>
                 </div>
                 <div className="border-t-2 py-4 border-black">
-                    <strong>1. Débito automático</strong><br></br>
-                    <p>Yo, LA ARRENDATARIA, autorizo el débito automático a la tarjeta de crédito {contract?.creditcard?.slice(0, -3).replace(/./g, "X")}{contract?.creditcard?.slice(-3)} a mi mismo nombre bajo el monto acordado de {contract?.property?.currency} {contract?.property?.price} con una frecuencia de pago {contract?.frequency}.</p>
+                    <strong>1. Pago frecuente</strong><br></br>
+                    <p>Yo, EL ARRENDATARIO, doy fe del pago bajo el monto acordado de {contract?.property?.currency} {contract?.property?.price} con una frecuencia de pago {contract?.frequency}.</p>
                 </div> 
                 <div className="border-t-2 py-4 border-black">
                     <strong>2. Servicios incluidos</strong><br></br>
@@ -76,7 +76,7 @@ const ContractContent = ({contract}) => {
                     }
                     </ul>
                     <br></br>
-                    <p>Las ventajas con las que contará son:</p>
+                    <p>Las ventajas con las que cuenta son:</p>
                     <ul>
                     {
                         contract?.property?.features.map((value, index) => (
