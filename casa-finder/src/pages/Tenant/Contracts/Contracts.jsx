@@ -17,15 +17,25 @@ const ContractSection = ({ title, contracts }) => (
 const Contracts = () => {
   const [contractsData, setContractsData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // Estado para manejar errores
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userId = getUserIdFromCache();
+        if (!userId) {
+          throw new Error("El usuario no está autenticado.");
+        }
         const data = await ContractService.getAllContractsByTenantId(userId);
+        if (!data || !Array.isArray(data)) {
+          throw new Error("Datos inválidos recibidos del servidor.");
+        }
         setContractsData(data);
       } catch (error) {
         console.error("Error fetching contracts:", error);
+        setError(
+          error.message || "Hubo un error en el servidor. Por favor, inténtalo más tarde."
+        );
       } finally {
         setLoading(false);
       }
@@ -33,22 +43,33 @@ const Contracts = () => {
     fetchData();
   }, []);
 
-  // Filtrado optimizado con useMemo
+  // Filtrado optimizado con useMemo, validando que contractsData sea un array
   const pendientes = useMemo(
-    () => contractsData.filter((c) => c.accepted == null),
+    () => (Array.isArray(contractsData) ? contractsData.filter((c) => c.accepted == null) : []),
     [contractsData]
   );
   const aceptados = useMemo(
-    () => contractsData.filter((c) => c.accepted === true),
+    () => (Array.isArray(contractsData) ? contractsData.filter((c) => c.accepted === true) : []),
     [contractsData]
   );
   const rechazados = useMemo(
-    () => contractsData.filter((c) => c.accepted === false),
+    () => (Array.isArray(contractsData) ? contractsData.filter((c) => c.accepted === false) : []),
     [contractsData]
   );
 
   if (loading) {
     return <Typography>Cargando contratos...</Typography>;
+  }
+
+  if (error) {
+    return (
+      <div className="text-center">
+        <Typography variant="h6" className="text-red-500">
+          Oops!
+        </Typography>
+        <Typography>{error}</Typography>
+      </div>
+    );
   }
 
   return (

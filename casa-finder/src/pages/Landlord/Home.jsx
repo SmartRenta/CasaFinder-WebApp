@@ -64,7 +64,11 @@ const Home = () => {
         <div className="container mx-auto p-4">
             {/* Mis Propiedades */}
             <h2 className="my-2 text-xl font-semibold">Mis Propiedades</h2>
-            <HomePropertiesCarousel properties={propertiesData} />
+            {propertiesData.length > 0 ? (
+                <HomePropertiesCarousel properties={propertiesData} />
+            ) : (
+                <p className="text-gray-500">No tienes propiedades registradas.</p>
+            )}
 
             {/* Mis Transferencias */}
             <h2 className="my-2 text-xl font-semibold">Mis Transferencias</h2>
