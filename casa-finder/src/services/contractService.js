@@ -19,7 +19,7 @@ const ContractService = {
         }
     },
 
-    getContractById: async(id) => {
+    getContractById: async(id) => { 
         try{
             const token = getTokenFromCache();
             const response = await axiosInstance.get(`/api/v1/contracts/${id}`, {
@@ -52,7 +52,35 @@ const ContractService = {
         }catch(error){
             console.error("Error al obtener contratos del usuario "+userId+": ", error);
         }
+    },
+
+    getAllContractsByTenantId: async(tenantId) => {
+        try{
+            const token = getTokenFromCache();
+            const response = await axiosInstance.get(`/api/v1/tenants/${tenantId}/contracts`, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            return response.data;
+        }catch(error){
+            console.error("Error al obtener contratos del usuario "+tenantId+": ", error);
+        }
+    },
+
+    updateContract: async (id, contractData) => {
+        try {
+            const token = getTokenFromCache();
+            const response = await axiosInstance.put(`/api/v1/contracts/${id}`, contractData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error al actualizar el contrato con id ${id}:`, error);
+            return null;
+        }
     }
+
 };
 
 export default ContractService;

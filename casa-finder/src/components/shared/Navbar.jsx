@@ -40,7 +40,7 @@ const NavBar = () => {
           <Avatar
             variant="circular"
             alt="User"
-            src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp"
+            src={userData.imageUrl}
             className="rounded-full h-10 w-10"
           />
           <Typography variant="h6" className="text-white">

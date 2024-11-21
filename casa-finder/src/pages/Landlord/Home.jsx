@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import HomePropertyCard from "../../components/landLord/home/HomePropertyCard.jsx";
 import HomePropertiesCarousel from "../../components/landLord/home/HomePropertiesCarousel.jsx";
-import HomeContractCarousel from "../../components/landLord/home/HomeContractsCarousel.jsx";
-import HomeTransferCarousel from "../../components/landLord/home/HomeTransferCarousel.jsx";
 import PropertyService from "../../services/propertyService";
+import SmartContractService from "../../services/smartContractService"; // Servicio para las transferencias
 import { getUserIdFromCache } from "../../utils/authUtils.js";
-import contractsJson from "../../data/contracts.json"; // Suponiendo que sigues usando datos estáticos para contratos
-import ContractService from "../../services/contractService.js";
 
 const Home = () => {
     const [propertiesData, setPropertiesData] = useState([]);
+    const [transfersData, setTransfersData] = useState([]);
 
+    // Cargar propiedades por Landlord
     useEffect(() => {
         const fetchProperties = async () => {
             const landlordId = getUserIdFromCache(); // Obtiene el ID del landlord desde el caché
@@ -23,48 +21,96 @@ const Home = () => {
         fetchProperties();
     }, []);
 
-    const [contractsData, setContractsData] = useState([]);
+    // Cargar transferencias filtradas por Landlord
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchTransfers = async () => {
+            try {
+                const landlordId = parseInt(getUserIdFromCache(), 10);
+                if (!landlordId) {
+                    console.error("No se encontró el ID del usuario en el caché");
+                    return;
+                }
 
-            const userId = getUserIdFromCache();
-            const data = await ContractService.getAllContractsById(userId);
-            setContractsData(data);
-        }
-        fetchData();
+                const contracts = await SmartContractService.getAllSmartContracts();
+                if (!contracts) {
+                    console.error("No se pudieron obtener los contratos inteligentes");
+                    return;
+                }
+
+                // Filtrar contratos por landlord.id y payed
+                const filteredTransfers = contracts
+                    .filter(contract => 
+                        contract.contract.landlord.id === landlordId && contract.payed
+                    )
+                    .map(contract => ({
+                        id: contract.id,
+                        date: new Date(contract.contract.startDate).toLocaleDateString(),
+                        paymentAmountETH: contract.paymentAmountETH.toFixed(5), // 5 cifras decimales
+                        propertyTitle: contract.contract.property?.title || "Sin título",
+                        propertyAddress: contract.contract.property?.address || "Sin dirección",
+                        contractAddress: contract.contractAddress
+                    }));
+
+                setTransfersData(filteredTransfers);
+            } catch (error) {
+                console.error("Error al cargar las transferencias:", error);
+            }
+        };
+
+        fetchTransfers();
     }, []);
 
-    const transfersData = [
-        {
-            id: 1,
-            date: "01/01/2021",
-            image: "https://cdn-icons-png.flaticon.com/512/1067/1067281.png"
-        },
-        {
-            id: 2,
-            date: "01/01/2021",
-            image: "https://cdn-icons-png.flaticon.com/512/1067/1067281.png"
-        },
-        {
-            id: 3,
-            date: "01/01/2021",
-            image: "https://cdn-icons-png.flaticon.com/512/1067/1067281.png"
-        },
-        {
-            id: 4,
-            date: "01/01/2021",
-            image: "https://cdn-icons-png.flaticon.com/512/1067/1067281.png"
-        }
-    ];
-
     return (
-        <div>
-            <h2 className="my-2">Mis Propiedades</h2>
+        <div className="container mx-auto p-4">
+            {/* Mis Propiedades */}
+            <h2 className="my-2 text-xl font-semibold">Mis Propiedades</h2>
             <HomePropertiesCarousel properties={propertiesData} />
-            <h2 className="my-2">Mis Contratos</h2>
-            <HomeContractCarousel contracts={contractsData} />
-            <h2 className="my-2">Mis Transferencias</h2>
-            <HomeTransferCarousel transfers={transfersData} />
+
+            {/* Mis Transferencias */}
+            <h2 className="my-2 text-xl font-semibold">Mis Transferencias</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {transfersData.length > 0 ? (
+                    transfersData.map(transfer => (
+                        <div
+                            key={transfer.id}
+                            className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-start"
+                        >
+                            {/* Íconos de criptomoneda e inmobiliaria */}
+                            <div className="flex items-center mb-4">
+                                <img
+                                    src="https://cdn-icons-png.flaticon.com/512/1067/1067281.png" // Ícono de criptomoneda
+                                    alt="Crypto"
+                                    className="h-12 w-12 mr-3"
+                                />
+                                <img
+                                    src="https://cdn-icons-png.flaticon.com/512/888/888064.png" // Ícono inmobiliario
+                                    alt="Real Estate"
+                                    className="h-12 w-12"
+                                />
+                            </div>
+
+                            {/* Información relevante */}
+                            <div className="text-sm text-gray-500 mb-2">
+                                Fecha: <span className="font-medium text-black">{transfer.date}</span>
+                            </div>
+                            <div className="text-sm text-gray-500 mb-2">
+                                Monto ETH: <span className="font-medium text-black">{transfer.paymentAmountETH} ETH</span>
+                            </div>
+                            <div className="text-sm text-gray-500 mb-2">
+                                Título Propiedad: <span className="font-medium text-black">{transfer.propertyTitle}</span>
+                            </div>
+                            <div className="text-sm text-gray-500 mb-2">
+                                Dirección Propiedad: <span className="font-medium text-black">{transfer.propertyAddress}</span>
+                            </div>
+                            <div className="text-sm text-gray-500">
+                                Dirección Contrato: <span className="font-medium text-black">{transfer.contractAddress}</span>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-gray-500">No se encontraron transferencias realizadas.</p>
+                )}
+            </div>
         </div>
     );
 };

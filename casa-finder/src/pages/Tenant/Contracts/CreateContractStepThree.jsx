@@ -1,15 +1,19 @@
 import React from "react";
-import PanToolIcon from '@mui/icons-material/PanTool';
+import PanToolIcon from "@mui/icons-material/PanTool";
 
-const CreateContractStepThree = ({
-}) => {
+const CreateContractStepThree = () => {
   return (
-    <div style={{justifyContent: "center", margin: 20}}>
-      <div style={{display: "flex", justifyContent: "center"}}>
-        <PanToolIcon style={{width: 400, height: 400}}/>
+    <div className="flex flex-col items-center justify-center min-h-screen space-y-6 text-center">
+      {/* Ícono central */}
+      <PanToolIcon style={{ width: 300, height: 300, color: "#000000" }} />
+      
+      {/* Mensaje principal */}
+      <div className="text-2xl font-bold">Por favor, espere, le notificaremos</div>
+      
+      {/* Mensaje secundario */}
+      <div className="text-lg">
+        Cuando el arrendador firme el contrato, se le notificará.
       </div>
-      <div style={{display: "flex", justifyContent: "center", margin: 20, fontWeight: "bold", fontSize: 50}}>Por favor, espere, le notificaremos</div>
-      <div style={{display: "flex", justifyContent: "center", fontSize: 30}}>Cuando el arrendador firme el contrato se le notificará</div>
     </div>
   );
 };

@@ -1,51 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import HomeContractCarousel from "../../../components/Tenant/Home/HomeContractsCarousel.jsx";
 import { Typography } from "@material-tailwind/react";
 import { getUserIdFromCache } from "../../../utils/authUtils.js";
 import ContractService from "../../../services/contractService.js";
 
+// Componente para una sección de contratos
+const ContractSection = ({ title, contracts }) => (
+  <>
+    <Typography variant="h6" className="text-black my-4">
+      {title}
+    </Typography>
+    <HomeContractCarousel contracts={contracts} />
+  </>
+);
+
 const Contracts = () => {
-
   const [contractsData, setContractsData] = useState([]);
-    useEffect(() => {
-        const fetchData = async () => {
+  const [loading, setLoading] = useState(true);
 
-            const userId = getUserIdFromCache();
-            const data = await ContractService.getAllContractsById(userId);
-            setContractsData(data);
-        }
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userId = getUserIdFromCache();
+        const data = await ContractService.getAllContractsByTenantId(userId);
+        setContractsData(data);
+      } catch (error) {
+        console.error("Error fetching contracts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
-  const pendientes = contractsData.filter(c => c.accepted == null);
-  const aceptados = contractsData.filter(c => c.accepted == true);
-  const rechazados = contractsData.filter(c => c.accepted == false);
+  // Filtrado optimizado con useMemo
+  const pendientes = useMemo(
+    () => contractsData.filter((c) => c.accepted == null),
+    [contractsData]
+  );
+  const aceptados = useMemo(
+    () => contractsData.filter((c) => c.accepted === true),
+    [contractsData]
+  );
+  const rechazados = useMemo(
+    () => contractsData.filter((c) => c.accepted === false),
+    [contractsData]
+  );
+
+  if (loading) {
+    return <Typography>Cargando contratos...</Typography>;
+  }
 
   return (
     <>
       <Typography variant="h2" className="text-black text-xl my-4">
         CONTRATOS
       </Typography>
-
-      <Typography variant="h6" className="text-black my-4">
-        Contratos pendientes
-      </Typography>
-      <HomeContractCarousel contracts={pendientes} />
-      
-      <Typography variant="h6" className="text-black my-4">
-        Contratos aceptados
-      </Typography>
-      <HomeContractCarousel contracts={aceptados} />
-
-      <Typography variant="h6" className="text-black my-4">
-        Contratos rechazados
-      </Typography>
-      <HomeContractCarousel contracts={rechazados} />
-      
+      <ContractSection title="Contratos pendientes" contracts={pendientes} />
+      <ContractSection title="Contratos aceptados" contracts={aceptados} />
+      <ContractSection title="Contratos rechazados" contracts={rechazados} />
     </>
   );
-
-
 };
 
 export default Contracts;

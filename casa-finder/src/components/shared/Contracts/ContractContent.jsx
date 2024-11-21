@@ -52,7 +52,7 @@ const ContractContent = ({contract}) => {
                     <span>Inquilino: {contract?.landlord?.name} {contract?.landlord?.lastName}⭐4</span>
                 }
             </div>
-            <div ref={divRef} className="h-96 bg-gray-300 overflow-y-auto px-16 py-8 my-4">
+            <div ref={divRef} className=" bg-gray-300 overflow-y-auto px-16 py-8 my-4">
                 <Typography variant="h2" className="text-black text-xl my-4 text-center">
                     CONTRATO DIGITAL {contract.status}
                 </Typography>

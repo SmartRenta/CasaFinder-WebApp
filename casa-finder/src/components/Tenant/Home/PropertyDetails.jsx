@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import PropertyService from "../../../services/propertyService"; 
+import PropertyService from "../../../services/propertyService";
+import { getUserRoleFromCache } from "../../../utils/authUtils";
 
 const PropertyDetails = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
+  const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,8 +17,15 @@ const PropertyDetails = () => {
       setProperty(propertyData);
     };
 
+    const fetchUserRole = () => {
+      const role = getUserRoleFromCache(); // Obtiene el rol del usuario desde el caché
+      setUserRole(role);
+    };
+
     fetchProperty();
+    fetchUserRole();
   }, [id]);
+
   if (!property) {
     return <div>Cargando propiedad...</div>;
   }
@@ -39,7 +48,7 @@ const PropertyDetails = () => {
             <p className="text-2xl font-semibold text-primary">
               {property.currency} {property.price}
             </p>
-            <p className="text-gray-700">Periodo: {property.timePeriod}</p>
+            
             <p className="text-gray-700">{property.floors} {property.floors === 1 ? 'Piso' : 'Pisos'}</p>
             <p className="text-gray-700">Tipo: {property.type}</p>
             <p className="text-gray-700">
@@ -124,11 +133,13 @@ const PropertyDetails = () => {
             </div>
 
             <div className="mt-6 flex justify-between">
-              <button className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark"
-                onClick={goToCreateContract}
-              >
-                Alquilar casa
-              </button>
+              {userRole === "TENANT" && (
+                <button className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark"
+                  onClick={goToCreateContract}
+                >
+                  Alquilar casa
+                </button>
+              )}
 
               <button
                 onClick={handleBack}

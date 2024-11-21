@@ -1,23 +1,44 @@
-import {FaArrowRight} from "react-icons/fa";
+import React from "react";
+import { FaArrowRight } from "react-icons/fa";
 import HomeContractCard from "./HomeContractsCards.jsx";
 
-const HomeContractCarousel = ({contracts}) => {
+const HomeContractCarousel = ({ contracts }) => {
+    const isScrollable = contracts.length > 5; // Determina si es necesario el scroll horizontal
+
     return (
-        <div className="flex space-x-6 overflow-x-auto pb-4">
-            <div className="flex space-x-6 overflow-x-auto pb-4 w-full">
-                {contracts.map((contract) => (
-                    <div key={contract.id} className="shrink-0 w-80">
-                        <HomeContractCard contract={contract}/>
+        <div className="relative w-full">
+            {/* Mostrar mensaje si no hay contratos */}
+            {contracts.length === 0 ? (
+                <p className="text-gray-500 text-center py-4">
+                    No hay contratos disponibles.
+                </p>
+            ) : (
+                <>
+                    {/* Carousel Wrapper */}
+                    <div
+                        className={`flex gap-4 ${
+                            isScrollable ? "overflow-x-auto scrollbar-hide pb-4" : "flex-wrap"
+                        }`}
+                    >
+                        {contracts.map((contract) => (
+                            <div key={contract.id} className="shrink-0 w-64">
+                                <HomeContractCard contract={contract} />
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-            <div className="shrink-0 w-24 flex flex-col justify-center items-center space-y-4 ml-auto">
-                <button className="bg-sky-200 text-black py-2 px-4 rounded-full flex items-center justify-center">
-                    <FaArrowRight className="text-white w-10 h-10"/>
-                </button>
-            </div>
+
+                    {/* Botón de navegación (si es scrollable) */}
+                    {isScrollable && (
+                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2">
+                            <button className="bg-sky-500 hover:bg-sky-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+                                <FaArrowRight className="w-6 h-6" />
+                            </button>
+                        </div>
+                    )}
+                </>
+            )}
         </div>
     );
-}
+};
 
 export default HomeContractCarousel;
